@@ -1,4 +1,4 @@
-# game-on-webroot
+# single-currency-site
 
 ## Environment Variables
 
