@@ -1,0 +1,15 @@
+{
+  "double_or_nothing_description": "Claim your bonus as usual...\nOr take a bold leap to <0>Double It!</0>",
+  "no_thanks": "No Thanks",
+  "double_or_nothing": "Double or Nothing",
+  "congratulations": "Congratulations",
+  "you_doubled_up": "You Doubled Up",
+  "cheers_to_your_courage": "Cheers to your courage",
+  "recovery_bonus": "Recovery Bonus",
+  "boost_your_balance": "Boost Your Balance",
+  "if_you_deposit_of_or_more": "If you deposit of <0>{{amount}}</0> or more",
+  "recovery_bonus_title": "RECOVERY \n BONUS",
+  "deposit_get": "Deposit {{amount}} \n Get {{cash_bonus}}",
+  "you_got_nothing": "You Got Nothing",
+  "better_luck_next_time": "Better Luck Next Time"
+}

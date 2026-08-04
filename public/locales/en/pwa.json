@@ -1,0 +1,14 @@
+{
+  "installTitle": "Install app",
+  "installApp": "Install app",
+  "addToHomeScreen": "Add to Home Screen",
+  "updateTitle": "New version ready",
+  "updateDescription": "Refresh to load the latest version.",
+  "refreshNow": "Refresh",
+  "later": "Later",
+  "dismissUpdate": "Dismiss update notice",
+  "iosIntro": "On iPhone or iPad, use the browser share menu to add this app to your home screen.",
+  "iosStepShare": "Tap the share button in the browser toolbar.",
+  "iosStepAdd": "Choose \"Add to Home Screen\".",
+  "iosStepConfirm": "Confirm the name and add it."
+}

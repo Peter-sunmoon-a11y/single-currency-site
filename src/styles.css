@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  exclude: rootscrollgutter
+}
+
+@theme {
+  --text-xs:        0.8125rem; /* 13px */
+  --color-base-400: oklch(88% 0 0); /* 注册 Tailwind utility（bg-base-400 等），运行时被 brand.css 的 :root 深色值覆盖 */
+  --font-sans:      var(--font-athiti), "Athiti", "Leelawadee UI", "Thonburi", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-weight-semibold: 500;
+  --font-weight-bold: 600;
+
+  /* 去除所有圆角（实验） */
+  /*--radius-none:   0px;*/
+  /*--radius-sm:     0px;*/
+  /*--radius:        0px;*/
+  /*--radius-md:     0px;*/
+  /*--radius-lg:     0px;*/
+  /*--radius-xl:     0px;*/
+  /*--radius-2xl:    0px;*/
+  /*--radius-3xl:    0px;*/
+}
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@import "./styles/brand.css";
+@import "./styles/base.css";
+@import "./styles/scrollbar.css";
+@import "./styles/animations.css";
+@import "./styles/components.css";

@@ -1,0 +1,14 @@
+{
+  "mystery_box": "Mystery Box",
+  "open_box": "Open Box",
+  "you_win": "You Win",
+  "lucky_number_title": "Lucky Number {{digit}}",
+  "lucky_number_description": "Match <0>{{digit}}</0> in a consecutive streak inside a slots Bet ID. Longer configured streaks unlock more rewards.",
+  "lucky_streak": "Lucky streak",
+  "reward": "Reward",
+  "lucky_number_expiration": "Triggered Lucky Number rewards must be claimed within {{days}} days.",
+  "lucky_number_general_terms": "Only slots orders can participate. Rewards are calculated in THB and credited to your selected account balance currency with no wagering requirement.",
+  "lucky_number_seven": "Lucky 7",
+  "the_cannon": "The Cannon",
+  "the_jester": "The Jester"
+}

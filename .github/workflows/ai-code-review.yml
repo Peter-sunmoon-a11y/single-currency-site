@@ -1,0 +1,254 @@
+# yamllint disable rule:line-length rule:truthy rule:trailing-spaces
+---
+name: AI Code Review
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    # ✅ 仅在 PR 到 uat 分支时触发
+    branches:
+      - uat
+      - uat-peter
+
+permissions:
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ============================================================
+      # 🧩 STEP 1. Checkout
+      # ============================================================
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      # ============================================================
+      # 🧩 STEP 2. Get Code Diff
+      # ============================================================
+      - name: Get code diff
+        id: diff
+        run: |
+          echo "📄 获取代码差异中..."
+          BASE_REF="${{ github.base_ref }}"
+
+          if [ "$ACT" = "true" ]; then
+            echo "🧩 act 模式：使用最近一次提交作为 diff。"
+            git diff HEAD~1 HEAD > diff.json || echo "No diff" > diff.json
+          else
+            echo "🔄 从远程拉取分支..."
+            git fetch origin "$BASE_REF" || true
+            git diff "origin/$BASE_REF" HEAD > diff.json || echo "No diff" > diff.json
+          fi
+
+          if [ ! -s diff.json ]; then
+            echo "⚠️ No diff found."
+            echo "diff_json=null" >> "$GITHUB_OUTPUT"
+          else
+            echo "✅ 差异文件已生成。"
+            echo "diff_json=ok" >> "$GITHUB_OUTPUT"
+          fi
+
+      # ============================================================
+      # 🧩 STEP 3. Gemini Review
+      # ============================================================
+      - name: Generate AI Review
+        id: review
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL || env.GEMINI_MODEL }}
+          FORCE_GEMINI: ${{ secrets.FORCE_GEMINI || env.FORCE_GEMINI }}
+        run: |
+          echo "🤖 调用 Gemini API 进行代码审查..."
+
+          if [ "$ACT" = "true" ] && [ "$FORCE_GEMINI" != "true" ]; then
+            echo "🧩 act 环境检测到：默认跳过 Gemini 调用。"
+            {
+              echo 'review_content<<EOF'
+              echo "✅ Local test passed (skipped Gemini API)"
+              echo 'EOF'
+            } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if ! [ -s diff.json ]; then
+            echo "⚠️ No code diff to review."
+            {
+              echo 'review_content<<EOF'
+              echo "⚠️ No changes detected."
+              echo 'EOF'
+            } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ -z "$GEMINI_API_KEY" ]; then
+            REVIEW_TEXT="⚠️ Gemini API key is not configured. Please set GEMINI_API_KEY (secret)."
+            {
+              echo 'review_content<<EOF'
+              echo "$REVIEW_TEXT"
+              echo 'EOF'
+            } >> "$GITHUB_OUTPUT"
+            echo "review_decision=unknown" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          MODEL_NAME="${GEMINI_MODEL:-gemini-2.5-flash-lite}"
+          API_URL="https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent"
+
+          JSON_PAYLOAD=$(jq -n --rawfile diff diff.json '
+          {
+            "contents": [
+              {
+                "parts": [
+                  {
+                    "text": (
+                      "You are a senior software reviewer. " +
+                      "Analyze the following code diff carefully and respond in BOTH English and Chinese. " +
+                      "Start your response with a clear decision: either ✅ **Recommendation: Merge** or ❌ **Recommendation: Reject**. " +
+                      "Then briefly explain **why** in both English and Chinese. " +
+                      "Do NOT include any sections like Possible Risks or Improvement Suggestions. " +
+                      "Keep it concise and focused only on the reasoning behind the decision.\n\n" +
+                      "Format example:\n\n" +
+                      "✅ **Recommendation: Merge**\n" +
+                      "✅ 建议：合并\n\n" +
+                      "### 🤖 AI Code Review Result\n\n" +
+                      "#### English\nReason for decision:\n\n" +
+                      "#### 中文\n决定理由：\n\n" +
+                      "Code diff to review:\n" +
+                      $diff
+                    )
+                  }
+                ]
+              }
+            ]
+          }')
+
+          echo "📦 JSON payload 构建成功。"
+
+          HTTP_CODE=$(echo "$JSON_PAYLOAD" | curl -sS -o gemini_response.json -w "%{http_code}" -H "Content-Type: application/json" -H "x-goog-api-key: ${GEMINI_API_KEY}" -d @- "$API_URL" || echo "curl_failed")
+
+          echo "🌐 Gemini HTTP status: ${HTTP_CODE}"
+
+          if [ "$HTTP_CODE" = "curl_failed" ]; then
+            REVIEW_TEXT="⚠️ Gemini request failed (curl error)."
+          elif [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
+            ERR_MSG=$(jq -r '.error.message // empty' gemini_response.json 2>/dev/null)
+            if [ -n "$ERR_MSG" ]; then
+              REVIEW_TEXT="⚠️ Gemini API error (HTTP ${HTTP_CODE}): ${ERR_MSG}"
+            else
+              REVIEW_TEXT="⚠️ Gemini API error (HTTP ${HTTP_CODE})."
+            fi
+          else
+            REVIEW_TEXT=$(jq -r '.candidates[0].content.parts[0].text // empty' gemini_response.json 2>/dev/null)
+            if [ -z "$REVIEW_TEXT" ] || [ "$REVIEW_TEXT" = "null" ]; then
+              FINISH_REASON=$(jq -r '.candidates[0].finishReason // empty' gemini_response.json 2>/dev/null)
+              if [ -n "$FINISH_REASON" ]; then
+                REVIEW_TEXT="⚠️ No valid AI response. finishReason=${FINISH_REASON}"
+              else
+                REVIEW_TEXT="⚠️ No valid AI response."
+              fi
+            fi
+          fi
+
+          if [ -f gemini_response.json ]; then
+            PREVIEW=$(head -c 1200 gemini_response.json | tr '\n' ' ' | tr '\r' ' ')
+            echo "🧾 Gemini response preview (first 1200 chars): ${PREVIEW}"
+          fi
+
+          # ✅ 正确输出多行内容，保持换行
+          {
+            echo 'review_content<<EOF'
+            echo "$REVIEW_TEXT"
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
+          # ✅ 同步输出决策标志，供后续步骤使用
+          DECISION="unknown"
+          if echo "$REVIEW_TEXT" | grep -q "Recommendation: Reject"; then
+            DECISION="reject"
+          elif echo "$REVIEW_TEXT" | grep -q "Recommendation: Merge"; then
+            DECISION="merge"
+          fi
+          echo "review_decision=$DECISION" >> "$GITHUB_OUTPUT"
+
+      # ============================================================
+      # 🧩 STEP 4. Output or Post comment
+      # ============================================================
+      - name: Output or Post comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+          script: |
+            // ✅ 恢复换行符，防止 GitHub 压成一行
+            const content = (process.env.REVIEW_CONTENT || '')
+              .replace(/\\n/g, '\n')
+              .replace(/\r/g, '');
+            const body = `### 🤖 AI Code Review Result\n\n${content}`;
+
+            if (process.env.ACT) {
+              core.info("🧩 act 环境检测到：仅打印输出。");
+              console.log("💬 审查结果如下：\n" + body);
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body
+              });
+              core.info("💬 已在 PR 中发布 AI 审查结果（含换行）。");
+            }
+        env:
+          REVIEW_CONTENT: ${{ steps.review.outputs.review_content }}
+
+      # ============================================================
+      # 🧩 STEP 5. Notify Lark (Reject Only + 支持 act)
+      # ============================================================
+      - name: Notify Lark
+        if: always()
+        run: |
+          echo "🚨 检测是否需要发送 Lark 通知..."
+          echo "🧩 当前 ACT=${ACT}"
+          PR_URL="https://github.com/${GITHUB_REPOSITORY}/pull/${{ github.event.pull_request.number }}"
+          PR_AUTHOR="${{ github.event.pull_request.user.login }}"
+
+          if [ "$ACT" = "true" ]; then
+            echo "🧪 act 模式：发送本地测试通知。"
+            MESSAGE="🧪 [ACT 模拟通知]\n✅ 本地测试通过，未实际调用飞书接口。\n\n👤 提交人: @$PR_AUTHOR\n🔗 Pull Request: $PR_URL"
+          elif [ "$REVIEW_DECISION" = "reject" ]; then
+            echo "❌ 检测到拒绝建议，准备发送通知..."
+
+            # ✅ 精简拒绝通知，仅包含 PR 链接与提交人
+            MESSAGE="❌ Recommendation: Reject\n"
+            MESSAGE+="👤 提交人: @$PR_AUTHOR\n"
+            MESSAGE+="🔗 Pull Request: $PR_URL"
+          else
+            echo "✅ 检测到合并建议，无需发送飞书通知。"
+            exit 0
+          fi
+
+          # ✅ 仅当 MESSAGE 存在时才发送
+          if [ -n "$MESSAGE" ]; then
+            MESSAGE_ESCAPED=$(echo "$MESSAGE" | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
+            JSON_PAYLOAD="{\"chat_id\": \"${LARK_CHAT_ID}\", \"message\": \"${MESSAGE_ESCAPED}\"}"
+
+            echo "📦 正在发送飞书通知..."
+            curl -X POST "${LARK_API_URL}" \
+              -H "Content-Type: application/json" \
+              -d "$JSON_PAYLOAD" \
+              -s -o response.txt -w "\nHTTP状态码: %{http_code}, 响应大小: %{size_download} bytes\n"
+            echo "📨 响应内容："
+            cat response.txt || echo "⚠️ 无响应"
+          fi
+        env:
+          ACT: ${{ env.ACT }}
+          LARK_API_URL: ${{ secrets.LARK_API_URL || env.LARK_API_URL }}
+          LARK_CHAT_ID: ${{ secrets.LARK_CHAT_ID || env.LARK_CHAT_ID }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          REVIEW_DECISION: ${{ steps.review.outputs.review_decision }}

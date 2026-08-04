@@ -1,0 +1,186 @@
+{
+  "achievements_card_description": "Collect special achievement rewards designed to celebrate every step of your progress!",
+  "achievement_short_descriptions": {
+    "achievement_verify_email": "Master the art of luck",
+    "achievement_verify_phone": "Unstoppable energy and power",
+    "achievement_add_desktop_app": "Always within reach",
+    "achievement_super_spreader": "Share the gaming experience",
+    "achievement_conquistador": "Face every obstacle",
+    "achievement_game_explorer": "Discover new gaming worlds",
+    "achievement_card_shark": "Dominate card games",
+    "achievement_slotmaster": "Master the slots",
+    "achievement_talkative": "Lead the way for others",
+    "achievement_bet_count": "Master precision gaming",
+    "achievement_deposit_count": "Achieve ultimate victory",
+    "achievement_wager_count": "Burn through challenges",
+    "achievement_single_bet": "Become legendary",
+    "achievement_single_deposit": "Navigate blockchain networks",
+    "achievement_single_wager": "Master financial strategies",
+    "achievement_single_payout": "Dominate the crypto market",
+    "achievement_crypto_bro": "Master cryptocurrency trading",
+    "achievement_crypto_baron": "Dominate the crypto market",
+    "achievement_chain_shifter": "Navigate blockchain networks",
+    "achievement_money_master": "Master financial strategies",
+    "achievement_sniper": "Master precision gaming",
+    "achievement_champion": "Achieve ultimate victory",
+    "achievement_name_of_fame": "Become legendary",
+    "achievement_guiding_star": "Lead the way for others",
+    "achievement_face_of_fortune": "Master the art of luck",
+    "achievement_dynamo": "Unstoppable energy and power",
+    "achievement_inferno": "Burn through challenges",
+    "achievement_the_challenger": "Face every obstacle"
+  },
+  "achievements_description": "Unlocked at VIP {{vip}}, these rewards celebrate your milestones with exciting surprises along the way!",
+  "achievements_progress_name": {
+    "achievement_verify_email": "Verify Email",
+    "achievement_verify_phone": "Verify Phone",
+    "achievement_add_desktop_app": "Add Desktop App",
+    "achievement_super_spreader": "Super Spreader",
+    "achievement_conquistador": "Conquistador",
+    "achievement_game_explorer": "Game Explorer"
+  },
+  "my_achievements": "My Achievements",
+  "achievements_progress": "In Progress",
+  "achievement": "Achievement",
+  "achievement_reward": "Achievement Reward",
+  "loading_achievements": "Loading achievements...",
+  "no_achievements_available": "No achievements available",
+  "check_back_later_for_new_achievements": "Check back later for new achievements",
+  "i_will_wait": "Okay, I’ll Wait",
+  "achievementsAvailableLevel": "Achievements are available to VIP level {{level}} and above. \n Come back when you are VIP level {{level}} and above.",
+  "achievement_details": "Achievement Details",
+  "achievement_verify_email": {
+    "name": "Verify Email",
+    "description": "This achievement is awarded to players who’ve verified their email, locking in their identity and unlocking secure access. It’s a mark of readiness and reliability — the first step of every serious player."
+  },
+  "achievement_verify_phone": {
+    "name": "Verify Phone",
+    "description": "This achievement is awarded to players who’ve verified their phone number to stay informed and connected. It signals trust, engagement, and commitment to the game’s pulse."
+  },
+  "achievement_add_desktop_app": {
+    "name": "Add to Homescreen",
+    "description": "This achievement is awarded to players who have added our Telegram mini app to their home screen. Always within reach, this action shows true dedication - because real players keep the game close."
+  },
+  "achievement_super_spreader": {
+    "name": "Super Spreader",
+    "description": "This achievement is awarded to players who have successfully referred <0>{{count}} new users</0> who completed their first purchase. A true community builder, they expand the circle through genuine sharing and bring fresh energy to the game. Their influence grows with every meaningful connection they make."
+  },
+  "achievement_conquistador": {
+    "name": "Conquistador",
+    "description": "This achievement is awarded to players who have accomplished a total of <0>{{count}} quests</0>. Driven by determination and a thirst for victory, they conquer every challenge that comes their way — a true champion of the journey."
+  },
+  "achievement_game_explorer": {
+    "name": "Game Explorer",
+    "description": "This achievement is awarded to players who have tried <0>{{count}} different games</0>. Curious and adventurous, they venture across the platform, always eager to discover new ways to play and win."
+  },
+  "achievement_card_shark": {
+    "name": "Card Shark",
+    "description": "This achievement is awarded to players who have wagered at least <0>{{amount}}</0> on card games, proving their resilience, strategy, and willingness to take risks. These high-stakes players have earned their place among the elite. The cards are in their hands, and the game is theirs to command "
+  },
+  "achievement_slotmaster": {
+    "name": "Slotmaster",
+    "description": "This achievement is awarded to players who have wagered at least <0>{{amount}}</0> on slot games, proving their persistence, thrill-seeking spirit, and love for the spin. These dedicated players embrace the reels with confidence — luck may lead, but mastery keeps them in the game."
+  },
+  "achievement_talkative": {
+    "name": "Talkative",
+    "description": "This achievement is awarded to players who have spoken up <0>{{count}} times</0> in the chat room. Every message counts—you're taking the first step in becoming a true part of the conversation."
+  },
+  "achievement_bet_count": {
+    "name": "Bet Count",
+    "description": "This achievement is awarded to players who have placed a total of <0>{{count}} bets</0>. A true believer in chance, their unwavering spirit keeps the game alive with every wager."
+  },
+  "achievement_deposit_count": {
+    "name": "Deposit Count",
+    "description": "This achievement is awarded to players who have made a total of <0>{{count}} deposits</0>. With a steady flow of credits and unwavering commitment, they’ve shown they’re not just players — they’re tycoons in the making."
+  },
+  "achievement_change_avatar": {
+    "name": "Face of Fortune",
+    "description": "This achievement is awarded to players who have customized their avatar for the first time. A Face of Fortune knows that identity is power — every choice of style, symbol, or expression is a mark of individuality. By shaping their look, they show that true players don’t just play the game — they leave their mark on it."
+  },
+  "achievement_set_username": {
+    "name": "Name of Fame",
+    "description": "This achievement is awarded to players who have set their username for the first time. A Name of Fame marks the beginning of true identity, transforming a newcomer into a recognized presence. Bold and unique, they prove that every legend starts with a name remembered."
+  },
+  "achievement_download_mobile_app": {
+    "name": "Download Mobile App",
+    "description": "This badge goes to players who’ve taken the game with them. Downloading the app shows you’re not here to pause — you’re here to play anytime, anywhere."
+  },
+  "achievement_wager_in_a_day_single_game": {
+    "name": "Max Wager in a Day Single Game",
+    "description": "This achievement is awarded to players who have wagered at least <0>{{amount}}</0> on a single game in a day. It recognizes those with unwavering focus, calculated strategy, and the courage to take bold risks. These elite players have mastered their game of choice — and they play to win."
+  },
+  "achievement_slots_win_count": {
+    "name": "Slots Win Count",
+    "description": "This achievement is awarded to players who’ve secured <0>{{count}} wins</0> on slot games. With every spin, they defy the odds and celebrate victory after victory. Luck may start the game — but consistency makes them a champion."
+  },
+  "achievement_slots_multiplier": {
+    "name": "Slots Multiplier",
+    "description": "This achievement is awarded to players who have secured a <0>win with a {{count}}x multiplier</0> or more in a single slot spin. It honors those who chase greatness, embrace the thrill of high risk, and land extraordinary rewards. These are not ordinary players — they command the reels and rise above the rest."
+  },
+  "achievement_champion": {
+    "name": "Champion",
+    "description": "This achievement is awarded to players who have secured <0>10 wins</0>. A Champion stands tall in the arena of chance, proving their resilience round after round. With every victory, they cement their place among the contenders who rise above luck to claim glory."
+  },
+  "achievement_slot_master": {
+    "name": "Slot Master",
+    "description": "This achievement is awarded to players who have wagered at least <0>{{amount}}</0> on slot games. A Slot Master spins with confidence and persistence, turning every reel into a chance for fortune. With steady hands and fearless play, they prove that true mastery is built one spin at a time."
+  },
+  "achievement_the_challenger": {
+    "name": "The Challenger",
+    "description": "This achievement is awarded to players who have placed at least <0>10 valid bets</0> across their play history. The Challenger rises to every opportunity, driven by determination and the thrill of competition. Bold and relentless, they prove that true contenders don’t shy away from the game — they step forward, ready to test their limits and claim their place among the fearless."
+  },
+  "achievement_dynamo": {
+    "name": "Dynamo",
+    "description": "This achievement is awarded to players who have completed <0>1 deposit</0> of at least <0>{{amount}}</0> in a single transaction. A Dynamo grows stronger with every recharge, proving their consistency and determination on the path to mastery."
+  },
+  "achievement_face_of_fortune": {
+    "name": "Face of Fortune",
+    "description": "This achievement is awarded to players who have customized their avatar for the first time. A Face of Fortune knows that identity is power — every choice of style, symbol, or expression is a mark of individuality. By shaping their look, they show that true players don’t just play the game — they leave their mark on it."
+  },
+  "achievement_name_of_fame": {
+    "name": "Name of Fame",
+    "description": "This achievement is awarded to players who have set their username for the first time. A Name of Fame marks the beginning of true identity, transforming a newcomer into a recognized presence. Bold and unique, they prove that every legend starts with a name remembered."
+  },
+  "achievement_guiding_star": {
+    "name": "Guiding Star",
+    "description": "This achievement is awarded to players who have added the game to their Home Screen or downloaded the app. A Guiding Star keeps the path to fortune clear, lighting the way back to play with a single tap."
+  },
+  "achievement_highroller": {
+    "name": "Highroller",
+    "description": "This achievement is awarded to players who have wagered a total of at least <0>{{amount}}</0> across their entire play history.  Highrollers wear the mark of commitment and prestige, proving their dedication to the game with every spin, bet, and round. Their crown isn’t just a symbol — it’s a testament to persistence, passion, and the pursuit of fortune."
+  },
+  "achievement_inferno": {
+    "name": "Inferno",
+    "description": "This achievement is awarded to players who have hit a <0>20x</0> multiplier on any slot. With flames roaring, an Inferno transforms a single wager into a firestorm of fortune."
+  },
+  "achievement_money_maverick": {
+    "name": "Money Maverick",
+    "description": "This achievement is awarded to players who have made a deposit of at least <0>{{amount}}</0> in a single transaction, using fiat or local payment gateways. A Money Maverick blazes their own trail with bold confidence, turning everyday cash into extraordinary opportunities. Fearless and adventurous, they prove that true mavericks don’t just follow the rules — they redefine them."
+  },
+  "achievement_money_master": {
+    "name": "Money Master",
+    "description": "This achievement is awarded to players who have completed a fiat withdrawal of at least <0>{{amount}}</0> in a single transaction. A Money Master stands tall at the crossroads of play and reward, converting their winnings into real-world value. With steady hands and sharp timing, they show that true mastery isn’t just in the game — it’s in bringing the rewards home."
+  },
+  "achievement_crypto_bro": {
+    "name": "Crypto Bro",
+    "description": "This achievement is awarded to players who have made a deposit of at least <0>{{amount}}</0> in a single transaction, with any cryptocurrency. A Crypto Maestro conducts their funds like a true artist, orchestrating digital assets with precision and flair. Confident on the blockchain stage, they are pioneers of play who prove that fortune favors the bold."
+  },
+  "achievement_crypto_baron": {
+    "name": "Crypto Baron",
+    "description": "This achievement is awarded to players who have completed a crypto withdrawal of at least <0>{{amount}}</0> in a single transaction, with any cryptocurrency. A Blockchain Baron rules the realm of digital assets, moving funds across the chain with confidence and command. With every successful withdrawal, they prove that fortune can be earned, secured, and carried home on the blockchain."
+  },
+  "achievement_chain_shifter": {
+    "name": "Chain Shifter",
+    "description": "This achievement is awarded to players who have successfully completed a <0>crypto swap transaction</0>. A Chain Shifter is someone who knows how to move between tokens with confidence, adapting to market tides with ease. Masters of momentum, they thrive on flexibility and transformation, always ready to shift gears and seize opportunity."
+  },
+  "achievement_first_swap_non_buck": {
+    "name": "First Swap Non Buck",
+    "description": "This achievement is awarded to players who have successfully completed a <0>crypto swap transaction</0>. A Chain Shifter is someone who knows how to move between tokens with confidence, adapting to market tides with ease. Masters of momentum, they thrive on flexibility and transformation, always ready to shift gears and seize opportunity."
+  },
+  "bonusAvailableForGame": "Bonus available for game",
+  "requirement": "Requirement",
+  "achievement_first_swap_buck": {
+    "name": "First Swap Buck",
+    "description": "This achievement is awarded to players who have successfully completed a <0>crypto swap transaction</0>. A Chain Shifter is someone who knows how to move between tokens with confidence, adapting to market tides with ease. Masters of momentum, they thrive on flexibility and transformation, always ready to shift gears and seize opportunity."
+  }
+}

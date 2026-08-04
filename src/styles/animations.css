@@ -1,0 +1,297 @@
+/* ── Marquee 无限滚动 ────────────────────────────────────── */
+.animate-marquee {
+  display: flex;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.animate-marquee > .marquee-content {
+  display: flex;
+  flex-shrink: 0;
+  animation: marquee-scroll linear infinite;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(var(--marquee-distance, -50%), 0, 0); }
+}
+
+.group:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+/* ── Plinko 抖动 ─────────────────────────────────────────── */
+@keyframes plinko-shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-2px); }
+  75%       { transform: translateX(2px); }
+}
+
+.animate-shake {
+  animation: plinko-shake 0.3s ease-in-out;
+}
+
+/* ── 滑入 ────────────────────────────────────────────────── */
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.3s ease-out;
+}
+
+/* ── 旋转暂停（Spin pause）────────────────────────────────── */
+@keyframes spin-pause {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(180deg); }
+  50%  { transform: rotate(180deg); }
+  75%  { transform: rotate(360deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-pause {
+  animation: spin-pause 2s ease-in-out infinite;
+}
+
+/* ── 摆动 ────────────────────────────────────────────────── */
+@keyframes swing {
+  0%, 100% { transform: rotate(0deg); }
+  25%       { transform: rotate(-12deg); }
+  75%       { transform: rotate(12deg); }
+}
+
+.animate-swing {
+  transform-origin: center center;
+  animation: swing 1.6s ease-in-out infinite;
+}
+
+/* ── 横屏旋转提示 ────────────────────────────────────────── */
+@keyframes landscape-rotate {
+  0%, 100% { transform: rotate(0deg); }
+  40%       { transform: rotate(-90deg); }
+  60%       { transform: rotate(-90deg); }
+}
+
+
+/* ── 充值按钮呼吸 ────────────────────────────────────────── */
+@keyframes deposit-bounce {
+  0%, 100% { color: currentColor; }
+  50%       { color: var(--color-warning); }
+}
+
+/* ── 奖杯弹跳 ───────────────────────────────────────────── */
+@keyframes trophy-bounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  30%       { transform: translateY(-3px) rotate(-8deg); }
+  60%       { transform: translateY(-1px) rotate(6deg); }
+}
+
+/* ── 闪电闪烁 ───────────────────────────────────────────── */
+@keyframes zap-flash {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* ── 加密货币图标浮动呼吸 ───────────────────────────────── */
+@keyframes crypto-float {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: .7; }
+  50%       { transform: scale(1.2) rotate(-5deg); opacity: 1; }
+}
+
+/* ── 礼盒抖动 ─────────────────────────────────────────────── */
+/* 总时长 3s：前 ~23% 抖动 (≈0.7s)，其余静止 */
+@keyframes gift-shake {
+  0%          { transform: rotate(0deg); }
+  3%          { transform: rotate(-8deg); }
+  7%          { transform: rotate(8deg); }
+  10%         { transform: rotate(-6deg); }
+  14%         { transform: rotate(6deg); }
+  17%         { transform: rotate(-3deg); }
+  20%         { transform: rotate(3deg); }
+  23%, 100%   { transform: rotate(0deg); }
+}
+
+.animate-gift-shake {
+  animation: gift-shake 3s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+/* ── 通知铃铛轻晃 ─────────────────────────────────────────── */
+@keyframes bell-shake {
+  0%, 100% { transform: rotate(0deg); }
+  8%       { transform: rotate(14deg); }
+  16%      { transform: rotate(-12deg); }
+  24%      { transform: rotate(10deg); }
+  32%      { transform: rotate(-8deg); }
+  40%      { transform: rotate(6deg); }
+  48%      { transform: rotate(0deg); }
+}
+
+.animate-bell-shake {
+  animation: bell-shake 2.8s ease-in-out infinite;
+  transform-origin: center top;
+}
+
+/* ── Joker Bonus 动画 ───────────────────────────────────── */
+@keyframes joker-hop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+}
+
+@keyframes joker-enter {
+  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  70% { transform: scale(1.12) rotate(8deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+@keyframes joker-pop {
+  0% { transform: translateY(28px) scale(.1); opacity: 0; }
+  65% { transform: translateY(-6px) scale(1.04); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes joker-wobble {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes joker-hat-squish {
+  0% { transform: scale(1, 1); }
+  100% { transform: scale(1.3, .4); }
+}
+
+@keyframes joker-hat-knock-up {
+  0% { transform: scale(1.3, .4); opacity: 1; }
+  35% { transform: scale(.8, .8) translateY(-15px); opacity: .75; }
+  70% { transform: scale(.5, .5) translateY(-30px) rotate(15deg); opacity: .35; }
+  100% { transform: scale(.2, .2) translateY(-50px) rotate(30deg); opacity: 0; }
+}
+
+@keyframes joker-pop-out {
+  0% { transform: translateY(20px) scale(.1); opacity: 0; }
+  30% { transform: translateY(-10px) scale(.6); opacity: 1; }
+  55% { transform: translateY(5px) scale(.85); }
+  75% { transform: translateY(-3px) scale(1); }
+  90% { transform: translateY(1px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes joker-happy-bounce {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-16px) rotate(-3deg); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(-12px) rotate(3deg); }
+}
+
+/* ── 上下间歇浮动 ─────────────────────────────────────────── */
+/* 总时长 3s：前 ~27% 上下浮动，其余静止 */
+@keyframes bob-pause {
+  0%        { transform: translateY(0); }
+  7%        { transform: translateY(-6px); }
+  14%       { transform: translateY(3px); }
+  20%       { transform: translateY(-4px); }
+  27%, 100% { transform: translateY(0); }
+}
+
+.animate-bob-pause {
+  animation: bob-pause 3s ease-in-out infinite;
+}
+
+/* ── 游戏启动进度条 ────────────────────────────────────────── */
+@keyframes progress-loop {
+  0%   { transform: scaleX(0);   opacity: 0; }
+  5%   { transform: scaleX(0);   opacity: 1; }
+  80%  { transform: scaleX(1);   opacity: 1; }
+  100% { transform: scaleX(1);   opacity: 0; }
+}
+
+/* ── 硬币忽大忽小 ─────────────────────────────────────────── */
+@keyframes coin-pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.05); }
+}
+
+.animate-coin-pulse {
+  animation: coin-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes rocket-fly {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-8deg) scale(1);
+  }
+  30% {
+    transform: translate3d(2px, -2px, 0) rotate(-14deg) scale(1.04);
+  }
+  55% {
+    transform: translate3d(5px, -4px, 0) rotate(-18deg) scale(1.08);
+  }
+  75% {
+    transform: translate3d(1px, -1px, 0) rotate(-10deg) scale(1.03);
+  }
+}
+
+.animate-rocket-fly {
+  animation: rocket-fly 1.4s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+
+/* ── 直播列表新数据推入 ────────────────────────────────────── */
+@keyframes live-push-down {
+  from { transform: translateY(-28px); }
+  to   { transform: translateY(0); }
+}
+
+.live-push-down {
+  animation: live-push-down 220ms ease-out;
+}
+
+/* ── 活动入口背景流动 ────────────────────────────────────── */
+@keyframes activity-bg-flow {
+  0% {
+    transform: translate3d(-28%, -14%, 0) rotate(-8deg) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate3d(18%, 16%, 0) rotate(10deg) scale(1.08);
+    opacity: 0.92;
+  }
+  100% {
+    transform: translate3d(-28%, -14%, 0) rotate(-8deg) scale(1);
+    opacity: 0.5;
+  }
+}
+
+.animate-activity-bg-flow {
+  animation: activity-bg-flow 3.8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes activity-bg-sweep {
+  0% {
+    transform: translate3d(-120%, 0, 0) skewX(-18deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.28;
+  }
+  50% {
+    transform: translate3d(18%, 0, 0) skewX(-18deg);
+    opacity: 0.42;
+  }
+  82% {
+    opacity: 0.18;
+  }
+  100% {
+    transform: translate3d(140%, 0, 0) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+.animate-activity-bg-sweep {
+  animation: activity-bg-sweep 2.8s linear infinite;
+  will-change: transform, opacity;
+}

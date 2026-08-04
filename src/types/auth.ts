@@ -1,0 +1,160 @@
+export interface User {
+  id: number;
+  top: number;
+  parent: number;
+  google_id?: string | null;
+  telegram_id: string | null;
+  handle_status: number;
+  team_id: number;
+  note: string | null;
+  first_name: string | null;
+  last_name: string | null;
+  middle_name: string | null;
+  username: string;
+  mobile: string;
+  email: string;
+  is_bind_email: number;
+  is_bind_mobile: number;
+  email_subscription_flag: number;
+  language_code: string;
+  is_premium: number;
+  chat_member: string;
+  ip: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+  device_id: string | null;
+  city: string;
+  state_province: string | null;
+  address: string | null;
+  zipcode: string | null;
+  avatar: string;
+  login_enable: number;
+  withdraw_enable: number;
+  blocked: number;
+  gender: string;
+  birthday: string;
+  ads_tag: string;
+  host: string;
+  created_at: number;
+  updated_at: number;
+  currency: string;
+  ref: string | null;
+  telegram_username: string | null;
+  on_board: number;
+  wallet: string;
+  device_type: number;
+  number: string;
+  currency_fiat: string;
+  nickname: string;
+  display_fiat_on: number;
+  branch: string;
+  is_agent: number;
+  agent1: number;
+  agent2: number;
+  agent3: number;
+  agent4: number;
+  agent5: number;
+  agent6: number;
+  agent7: number;
+  agent8: number;
+  ad_channel: string;
+  ad_param: string | null;
+  ad_id: string | null;
+  ad_uuid: string | null;
+  uuid: string | null;
+  pin_setted: boolean;
+  is_show_blocked_games: number;
+}
+
+export interface UserStatus {
+  id: number;
+  user_id: number;
+  vip: number;
+  xp: number | null;
+  group_rate: string;
+  team_id: number;
+  promotion_rule_id_active: number | null;
+  promotion_rule_id_passive: number | null;
+  promotion_rule_id_available: number | null;
+  tag: string | null;
+  direct_invitations: number;
+  indirect_invitations: number;
+  credit: number;
+  subscribe_channel: number;
+  last_visit: number;
+  last_device: string | null;
+  last_ip: string;
+  device_list: string | null;
+  ip_list: string | null;
+  multi_ip: number;
+  multi_device: number;
+  visit_times: number;
+  check_in_times: number;
+  withdraw_fee: string;
+  daily_game: string;
+  deposit_times: number;
+  deposit_amount: string;
+  deposit_bonus_times: number;
+  deposit_bonus_expire: number;
+  withdraw_amount: string;
+  withdraw_times: number;
+  promotion_times: number;
+  promotion_amount: string;
+  recents_game: number | string | null;
+  favorites_game: string | null;
+  bet_in: string;
+  bet_out: string;
+  bet_in_ori: string;
+  created_at: number;
+  updated_at: number;
+  promotion_rule_used: number | null;
+  group_invitations: number;
+  battery: number;
+  battery_expire: number;
+  cashback_base: string;
+  withdraw_able: number | null;
+  last_visit_deposit_page_time: number;
+  active_referrals: number;
+  finish_conquests_num: number;
+  bet_times: number;
+  bet_win_times: number;
+  game_explorer_num: number;
+  direct_invitations_deposit: string;
+  ban_inner_game_ids: string;
+  ban_publishers: string;
+  ban_providers: string;
+  ban_game_type_2: string;
+  ban_game_category_1: string;
+  ban_game_category_2: string;
+  referral_enable: number;
+  welcome_bonus_type: number;
+  bonus_wallet_name: string;
+}
+
+export interface LoginCredentials {
+  username: string;
+  password: string;
+  device_id?: string;
+  hcaptcha_token?: string;
+  email_subscription_flag?: boolean;
+  startapp?: string;
+}
+
+export interface LoginResponse {
+  code: number;
+  data: {
+    username: string;
+    token: string;
+  };
+  msg: string;
+  user: User;
+  status: UserStatus;
+}
+
+export interface ApiResponse<T> {
+  code: number;
+  data: T;
+  msg?: string;
+  [key: string]: any;
+}

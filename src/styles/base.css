@@ -1,0 +1,160 @@
+/* 屏蔽 showModal() 产生的原生 backdrop，由自定义 modal-backdrop 接管 */
+dialog::backdrop {
+  display: none;
+}
+
+/* 去除 input focus 白边 */
+.input:focus,
+.input:focus-within {
+  outline: none;
+  box-shadow: none;
+}
+
+/* 全局去除按钮阴影，文字加粗 */
+.btn {
+  --btn-shadow: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+button.btn {
+  font-weight: 700;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:not(.btn-active, :active, :focus-visible, :disabled, [disabled], .btn-disabled):hover {
+    --btn-bg: var(--btn-color, var(--color-base-200));
+    --btn-border: var(--btn-bg);
+    --btn-shadow: none;
+    translate: none;
+    transform: none;
+  }
+
+  .btn-ghost:not(.btn-active, :active, :focus-visible, :disabled, [disabled], .btn-disabled):hover {
+    outline-color: currentcolor;
+    --btn-shadow: none;
+    --btn-bg: #0000;
+    --btn-fg: var(--btn-color, currentColor);
+    --btn-border: #0000;
+    --btn-noise: none;
+    translate: none;
+    transform: none;
+  }
+
+  .btn-outline:not(.btn-active, :active, :focus-visible, :disabled, [disabled], .btn-disabled):hover {
+    --btn-shadow: none;
+    --btn-bg: #0000;
+    --btn-fg: var(--btn-color);
+    --btn-border: var(--btn-color);
+    --btn-noise: none;
+    translate: none;
+    transform: none;
+  }
+
+  .btn-soft:not(.btn-active, :active, :focus-visible, :disabled, [disabled], .btn-disabled):hover {
+    --btn-shadow: none;
+    --btn-fg: var(--btn-color, var(--color-base-content));
+    --btn-bg: color-mix(
+      in oklab,
+      var(--btn-color, var(--color-base-content)) 8%,
+      var(--color-base-100)
+    );
+    --btn-border: color-mix(
+      in oklab,
+      var(--btn-color, var(--color-base-content)) 10%,
+      var(--color-base-100)
+    );
+    --btn-noise: none;
+    translate: none;
+    transform: none;
+  }
+}
+
+/*
+ * 行高语言兼容
+ *
+ * 背景：
+ *   DaisyUI / Tailwind 默认对 p、h1–h6 等块级文本元素不设置 line-height，
+ *   导致各浏览器继承 body 的 line-height（通常 1.5），在纯英文/数字排版下
+ *   会产生多余的上下间距，使卡片、列表等组件视觉偏松散。
+ *   因此统一收紧为 1（即字号高度 = 行高），让间距完全由 gap / padding 控制。
+ *
+ * 泰语特殊处理（:root:lang(th)）：
+ *   泰文字符由基字符 + 上下两层附加符号叠放而成，line-height: 1 会导致符号被裁剪。
+ *   1.6 为临界安全值，各主流泰文字体实测可用。
+ */
+:root {
+  p, h1, h2, h3, h4, h5, h6, [data-sonner-toast][data-styled=true] [data-title] {
+    line-height: 1.2;
+  }
+}
+
+:root:lang(th) {
+  p, h1, h2, h3, h4, h5, h6, [data-sonner-toast][data-styled=true] [data-title] {
+    line-height: 1.5;
+  }
+}
+
+html,
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  overscroll-behavior-y: none;
+}
+
+html {
+  font-family: var(--font-family);
+}
+
+/* 锁定 app-shell 布局视口，避免 iOS PWA 键盘弹起时偏移 */
+html.app-shell,
+html.app-shell body {
+  height: 100%;
+  overflow: hidden;
+}
+
+@media all and (display-mode: standalone) {
+  html,
+  body {
+    min-height: 100lvh;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-base-300);
+  color: var(--color-base-content);
+  font-weight: 500;
+  font-style: normal;
+  /* 等宽数字：避免赔率/余额展示时数字跳动 */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+
+  * {
+    font-family: var(--font-family) !important;
+  }
+}
+
+html.game-fullscreen .app-header,
+html.game-fullscreen .app-dock {
+  display: none !important;
+}
+
+/* 隐藏 Webkit 搜索取消按钮 */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+/* 去除 Chrome/Safari 自动填充黄色背景 */
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--color-base-content);
+  box-shadow: 0 0 0 1000px var(--color-base-300) inset;
+  transition: background-color 9999s ease-in-out 0s;
+}

@@ -1,0 +1,49 @@
+{
+  "cookies": [
+    {
+      "name": "__cf_bm",
+      "value": "orWRDApjV1puuQm6ZCzBmXVb1auvHm0GZYwOdZB.6JQ-1782535279.7014325-1.0.1.1-QrRbSkJCWK8sAP9KoMb7gDB85nhG6EnTa0ZxSAxnoCYaae_.h1GfuOapR3y40muZhJOPY1jP6zSbbvM7on1PTBRhEWkOjkzX5S2I8GFej9OgOEjDxsMsoNFhrN3gSF2M",
+      "domain": ".hcaptcha.com",
+      "path": "/",
+      "expires": 1782537079.534611,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "http://127.0.0.1:3000",
+      "localStorage": [
+        {
+          "name": "settlementCurrency",
+          "value": "MXN"
+        },
+        {
+          "name": "displayCurrency",
+          "value": "MXN"
+        },
+        {
+          "name": "token",
+          "value": "jf7azDeTsDQjEGjswPXws3WaFMuUvNhe"
+        },
+        {
+          "name": "status",
+          "value": "{\"id\":164843,\"user_id\":6996458560,\"vip\":13,\"xp\":\"1159.94213148\",\"group_rate\":\"1.00000000\",\"team_id\":0,\"promotion_rule_id_active\":null,\"promotion_rule_id_passive\":null,\"promotion_rule_id_available\":null,\"tag\":\"Fiat,Crypto,Slots,Fishing,RegularDeposit,JuneTryDepo,MultiWalletCrypto,MultiIP,MultiDevice,MultiWalletFiat,MultiWalletFiat5,LiveCasino,FastGame\",\"direct_invitations\":14,\"indirect_invitations\":34,\"referral_enable\":1,\"credit\":100,\"subscribe_channel\":1,\"last_visit\":1782535285,\"last_device\":null,\"last_ip\":\"64.118.151.92\",\"device_list\":null,\"ip_list\":null,\"multi_ip\":28,\"multi_device\":22,\"visit_times\":599522,\"check_in_times\":0,\"withdraw_fee\":\"0E-8\",\"daily_game\":\"\",\"deposit_times\":9,\"deposit_amount\":\"106.68603288\",\"deposit_bonus_times\":0,\"deposit_bonus_expire\":1782863999,\"withdraw_amount\":\"20.71338599\",\"withdraw_times\":4,\"promotion_times\":382,\"promotion_amount\":\"70.01279745\",\"promotion_recounted\":1,\"recents_game\":\"925,dg-20,5751,ef988,6098,ef745,5963,5995,6070,ef28,ef85,737,6262,6037,5687,6035,32_Cards,HSD_1189,HSD_1096,zygj7oqga9nck,1105,uh4amsg355x7a,xgbi6bo8yon9w,HSD_1626,HSD_1243,quofrdenycyyn,tocki7xk7xwq1,191,150951,150532,150627,150729,150464,150986,918,914,535,150952,151009,ezjsgctugyauc,rh8iwwntk3mie,ooekf9x16xaxn,6078,5875,943,924,dg-1,1_237,6323,HSD_1400,59,758,85,maya3,204,225_659,150959,150002,150791,150714,150945,Elite_Aviator_Club,21009,883,821,932,turbostairs,761,25,7005jdb,21004,908,690,1051,1,6,1055,evolobby3,815betsoft,cq9_158,cq9_20,cq9_55,rcg_53,SV-LIVE-001,SV-LIVE-003,831,809,rcg_1,10070,912,9013jdb,913,3890,tvbet6,9015jdb,kg_5505,tvbet5,HSD_1124,6451,735\",\"favorites_game\":\"tada512,863\",\"bet_in\":\"1159.94213148\",\"bet_out\":\"1279.03993887\",\"created_at\":1751449011,\"updated_at\":1782535285,\"promotion_rule_used\":null,\"group_invitations\":48,\"battery\":4,\"battery_expire\":1765445017,\"cashback_base\":\"0E-8\",\"withdraw_able\":null,\"last_visit_deposit_page_time\":1782284361,\"active_referrals\":3,\"finish_conquests_num\":3,\"bet_times\":4128,\"bet_win_times\":1447,\"sport_win_times\":0,\"sport_bet_times\":0,\"sport_bet_in\":\"0E-8\",\"sport_bet_out\":\"0E-8\",\"sport_abs_win_times\":0,\"game_explorer_num\":36,\"direct_invitations_deposit\":\"27.61221200\",\"ban_inner_game_ids\":\"\",\"ban_publishers\":\"\",\"ban_providers\":\"\",\"ban_game_type_2\":\"\",\"ban_game_category_1\":\"\",\"ban_game_category_2\":\"\",\"version\":50489,\"bet_in_ori\":\"1233.71229428\",\"bet_in_slots\":\"58.00326308\",\"bet_in_live_casino\":\"70.40848647\",\"bet_in_fast_game\":\"25.96483535\",\"bet_in_fishing\":\"2.91730240\",\"bet_in_sports\":\"0E-8\",\"slots_master\":\"52.72402566\",\"bonus_wallet_name\":\"\"}"
+        },
+        {
+          "name": "user",
+          "value": "{\"id\":6996458560,\"top\":6760361154,\"parent\":3584486578,\"telegram_id\":null,\"handle_status\":3,\"team_id\":1,\"note\":null,\"first_name\":null,\"last_name\":null,\"middle_name\":null,\"username\":\"+86-18888888888\",\"mobile\":\"+48-696118850\",\"email\":\"380388796@qq.com\",\"is_bind_email\":1,\"is_set_username\":0,\"is_change_avatar\":1,\"is_change_nickname\":1,\"is_first_swap_non_buck\":1,\"is_first_swap_buck\":1,\"is_swap\":0,\"is_swap_buck\":0,\"is_bind_mobile\":1,\"email_subscription_flag\":1,\"language_code\":\"en\",\"is_premium\":0,\"chat_member\":\"\",\"ip\":\"138.199.21.205\",\"country\":\"JP\",\"latitude\":0,\"longitude\":0,\"device_id\":null,\"city\":\"\",\"state_province\":null,\"address\":null,\"zipcode\":null,\"avatar\":\"https://image.betfrom.com/upload/20251208/img_6936e468172eb_1765205096.png\",\"login_enable\":1,\"withdraw_enable\":1,\"blocked\":0,\"gender\":\"2\",\"birthday\":\"\",\"ads_tag\":\"qU6h6q\",\"host\":\"uat1.betfrom.com\",\"created_at\":1751449011,\"updated_at\":1782234258,\"currency\":\"MXN\",\"ref\":null,\"telegram_username\":null,\"on_board\":0,\"wallet\":\"\",\"device_type\":1,\"number\":\"175144901171831944\",\"currency_fiat\":\"MXN\",\"nickname\":\"tiffanytestNew\",\"display_fiat_on\":1,\"branch\":\"UAT_Branch1\",\"is_show_blocked_games\":0,\"agent_level\":0,\"is_agent\":0,\"agent1\":1,\"agent2\":6760361154,\"agent3\":4746413254,\"agent4\":4856740208,\"agent5\":0,\"agent6\":0,\"agent7\":0,\"agent8\":0,\"ad_channel\":\"\",\"ad_param\":null,\"ad_id\":null,\"ad_uuid\":null,\"uuid\":null,\"version\":0,\"google_id\":\"\",\"facebook_id\":\"\",\"fcm_token\":\"\",\"daily_check_in_disable\":0,\"pin_setted\":true}"
+        },
+        {
+          "name": "language",
+          "value": "en"
+        },
+        {
+          "name": "uuid",
+          "value": "d3aa9e10-a2e5-4fdf-898f-883feaa2a0c2"
+        }
+      ]
+    }
+  ]
+}

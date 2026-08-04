@@ -1,0 +1,261 @@
+{
+  "title": "First Challenge",
+  "title_line_1": "FIRST",
+  "title_line_2": "CHALLENGE",
+  "countdown_label": "Bonus Ends In",
+  "progress_label": "Progress",
+  "ready_to_claim_label": "Ready to Claim",
+  "history_link": "History",
+  "tabs": {
+    "in_progress": "In progress"
+  },
+  "actions": {
+    "claim": "Claim",
+    "open_task": "Open task",
+    "close": "Close"
+  },
+  "button": {
+    "collecting": "Collect",
+    "claim": "Claim All",
+    "claimed": "Claimed"
+  },
+  "entry": {
+    "title": "1st Challenge",
+    "go": "Go",
+    "info": "About First Challenge"
+  },
+  "details_modal": {
+    "hero_title": "1ST CHALLENGE",
+    "heading": "Bonus Details",
+    "close": "Close",
+    "intro": "Complete simple tasks to earn rewards as a new member. Tasks are unlocked in order — finish one to reveal the next. Claim your reward after each task is done.",
+    "claim_distribution": {
+      "title": "Claim Distribution",
+      "line1": "To your Account Balance",
+      "line2": "> Rewards are credited directly to your selected currency wallet with no wagering requirement."
+    },
+    "withdrawal": {
+      "title": "Withdrawal",
+      "body": "Once your total claimed First Challenge rewards reach the minimum withdrawal amount, you may withdraw. You can also continue completing tasks and withdraw a larger amount later — as long as it's within the event period."
+    },
+    "general_terms": {
+      "title": "General Terms"
+    },
+    "general_terms_items": [
+      "Only available to newly registered users after the feature launch.",
+      "Tasks must be claimed in order. You cannot skip ahead.",
+      "Each task can only be completed and claimed once.",
+      "Rewards are calculated in USDT and converted at the exchange rate at the time of claim.",
+      "Unclaimed rewards will expire when the event period ends. Please claim and withdraw before the deadline."
+    ]
+  },
+  "popup": {
+    "welcome": "WELCOME",
+    "go": "Go",
+    "skip_today": "Skip for today"
+  },
+  "claim_modal": {
+    "title": "Congratulations!",
+    "reward_label": "Claim Your Reward:",
+    "usdt_equivalent": "≈ {{amount}} USDT",
+    "credit_to": "Your Reward will be credited to the following account:",
+    "cancel": "Cancel",
+    "confirm": "Continue",
+    "confirming": "Confirming...",
+    "no_currency": "N/A"
+  },
+  "collect_errors": {
+    "pool_below_threshold": "Reward is not ready to claim yet.",
+    "currency_not_allowed": "Selected currency is not supported for this reward.",
+    "expired": "This First Challenge has expired.",
+    "generic": "Unable to claim this reward. Please try again."
+  },
+  "toast": {
+    "success_title": "Successful",
+    "claimed_suffix": "Claimed!",
+    "dismiss": "Dismiss"
+  },
+  "add_pwa_modal": {
+    "title": "Add to Home Screen",
+    "body": "Add this app to your home screen for the best experience.",
+    "got_it": "Got it"
+  },
+  "pwa_hint_modal": {
+    "title": "Open from Home Screen",
+    "body": "To claim this reward, please open the app from your home screen. Look for our icon on your phone's desktop and tap it to continue.",
+    "got_it": "Got it"
+  },
+  "history": {
+    "title": "History",
+    "empty": "No claims yet.",
+    "back": "Back",
+    "verified": "Verified"
+  },
+  "faq": {
+    "heading": "Frequently Asked Questions",
+    "q1": {
+      "question": "What is the First Challenge?",
+      "answer": "It's a {{duration}}-day event for new players to complete simple tasks and earn special rewards. Think of it as your warm-up round — complete tasks, climb progress, and unlock your first bonuses!"
+    },
+    "q2": {
+      "question": "How long does the First Challenge last?",
+      "answer": "You have {{duration}} days from the time you register your account. Once the countdown ends, any unclaimed rewards will expire, so don't miss your chance!"
+    },
+    "q3": {
+      "question": "How do I earn rewards?",
+      "answer": "Each completed task adds to your total progress bar. When your total bonus reaches {{target_amount}}, you can claim it and add it to your account balance."
+    },
+    "q4": {
+      "question": "Can I claim rewards before completing everything?",
+      "answer": "Yes! You can collect any unlocked rewards as soon as they become available — as long as your total bonus has reached {{target_amount}}. You don't need to finish every task first."
+    },
+    "q5": {
+      "question": "Can I join the First Challenge again later?",
+      "answer": "The First Challenge is a one-time event for new players only. It's designed as an introduction to our Conquests and Achievements, which are available to all players for long-term progression."
+    },
+    "q6": {
+      "question": "How do I check my progress?",
+      "answer": "You can view your current progress bar and task list on the event page. Tasks that are done will show a green checkmark, and new ones unlock automatically."
+    },
+    "q7": {
+      "question": "How are my rewards calculated and credited?",
+      "answer": "All rewards are calculated and credited in BUCK/USDT, then displayed in your preferred fiat currency for convenience. Please note that currency conversions are approximate and may vary slightly depending on the exchange rate at the time."
+    },
+    "q8": {
+      "question": "Are there any rules or restrictions I should know about?",
+      "answer": "Yes. The casino reserves the right to modify, suspend, or revoke eligibility for this event at any time without prior notice. Any abuse, multiple account usage, or fraudulent activity will result in immediate disqualification from the promotion."
+    }
+  },
+  "tasks": {
+    "registration_reward": {
+      "name": "Registration Reward",
+      "desc": "Sign up to earn your first reward.",
+      "requirement": "Registration Reward"
+    },
+    "enable_notifications": {
+      "name": "Enable Notifications",
+      "desc": "Allow push notifications to stay updated.",
+      "requirement": "Enable Notifications"
+    },
+    "add_to_home_screen": {
+      "name": "Add to Home Screen",
+      "desc": "Add this app to your home screen.",
+      "requirement": "Add to Home screen"
+    },
+    "verify_email": {
+      "name": "Verify Email",
+      "desc": "Verify your email address.",
+      "requirement": "Verify Email"
+    },
+    "verify_phone": {
+      "name": "Phone Number Verification",
+      "desc": "Ensure your phone number is valid and accessible by you.",
+      "requirement": "Phone Verification"
+    },
+    "make_deposit": {
+      "name": "Make a Deposit",
+      "desc": "Make your first deposit.",
+      "requirement": "Make a Deposit of {{amount}} or more"
+    },
+    "make_a_deposit": {
+      "name": "Make a Deposit",
+      "desc": "Make your first deposit.",
+      "requirement": "Make a Deposit of {{amount}} or more"
+    },
+    "win_multiplier_on_slot": {
+      "name": "Win Multiplier on Slot",
+      "desc": "Hit a multiplier win on any slot.",
+      "requirement": "Win {{multiplier}}x Multiplier on any slot"
+    },
+    "make_withdrawal": {
+      "name": "Make a Withdrawal",
+      "desc": "Complete one withdrawal.",
+      "requirement": "Make a Withdrawal"
+    },
+    "make_a_withdrawal": {
+      "name": "Make a Withdrawal",
+      "desc": "Complete one withdrawal.",
+      "requirement": "Make a Withdrawal"
+    },
+    "deposit_crypto": {
+      "name": "Deposit Crypto",
+      "desc": "Make a crypto deposit.",
+      "requirement": "Deposit {{amount}} in single crypto transaction"
+    },
+    "lifetime_deposit": {
+      "name": "Lifetime Deposit",
+      "desc": "Reach a lifetime deposit amount.",
+      "requirement": "Lifetime Deposit of {{amount}}."
+    },
+    "place_bets_games": {
+      "name": "Place Bets on Games",
+      "desc": "Place bets across different games.",
+      "requirement": "Place bets on {{game_count}} different games."
+    },
+    "place_bets_on_games": {
+      "name": "Place Bets on Games",
+      "desc": "Place bets across different games.",
+      "requirement": "Place bets on {{game_count}} different games."
+    },
+    "secure_wins": {
+      "name": "Secure Wins",
+      "desc": "Win a number of times.",
+      "requirement": "Secure {{win_count}} Wins"
+    },
+    "lifetime_wager": {
+      "name": "Lifetime Wager",
+      "desc": "Reach a lifetime wager amount.",
+      "requirement": "Lifetime Wager of {{amount}}."
+    },
+    "wager_on_slot": {
+      "name": "Wager on Slot",
+      "desc": "Wager on any slot.",
+      "requirement": "Wager {{amount}} on any slot game."
+    },
+    "wager_on_live_game": {
+      "name": "Wager on Live Game",
+      "desc": "Wager on any live game.",
+      "requirement": "Wager {{amount}} on any live game."
+    },
+    "place_valid_bets": {
+      "name": "Place Valid Bets",
+      "desc": "Place valid bets on any game.",
+      "requirement": "Place {{bet_count}} valid bets on any game."
+    },
+    "bring_active_referral": {
+      "name": "Bring Active Referral",
+      "desc": "Invite active friends.",
+      "requirement": "Bring {{referral_count}} Active Referral"
+    },
+    "swap_rewards": {
+      "name": "Swap Rewards",
+      "desc": "Swap rewards.",
+      "requirement": "Swap your Rewards"
+    },
+    "claim_free_spin": {
+      "name": "Claim Free Spin",
+      "desc": "Claim a free spin reward.",
+      "requirement": "Claim Free Spin"
+    },
+    "play_free_spins": {
+      "name": "Play Free Spins",
+      "desc": "Spin all your free spins.",
+      "requirement": "Play Free Spins"
+    },
+    "place_lottery_bets": {
+      "name": "Place Lottery Bets",
+      "desc": "Place valid lottery bets.",
+      "requirement": "Place {{bet_count}} lottery bets."
+    },
+    "wager_on_lottery": {
+      "name": "Wager on Lottery",
+      "desc": "Wager on lottery games.",
+      "requirement": "Wager {{amount}} on lottery games."
+    },
+    "win_lottery_bets": {
+      "name": "Win Lottery Bets",
+      "desc": "Win lottery bets.",
+      "requirement": "Win {{win_count}} lottery bets."
+    }
+  }
+}

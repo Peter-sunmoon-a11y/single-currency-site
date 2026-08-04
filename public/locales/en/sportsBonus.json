@@ -1,0 +1,65 @@
+{
+  "bonus": "Sports Bonus",
+  "intro": "Play with Sports Bonus just like real cash! Every wager brings you closer to unlocking their full value. Meet the play-through requirements and watch your Sports Bonus turn into withdraw-able rewards today!",
+  "sportsBonusFaq": {
+    "q1": {
+      "body": "The Sports Bonus Wallet is a special wallet for sports betting. When you purchase, you receive your deposit amount plus an extra bonus (e.g. deposit 100 USDT with a 50% bonus = 150 USDT in your Sports Bonus Wallet). All funds in this wallet can only be used for sports betting.",
+      "title": "What is the Sports Bonus Wallet?"
+    },
+    "q2": {
+      "body": "Go to the Sports Bonus page, select a bonus tier (e.g. +50%), enter your deposit amount (must meet the minimum amount shown on the page), and tap \"Buy Now\". Your deposit plus the bonus will be added to your Sports Bonus Wallet instantly.",
+      "title": "How do I purchase Sports Bonus?"
+    },
+    "q3": {
+      "body": "Yes. Please check the Sports Bonus page for the current minimum and maximum deposit limits.",
+      "title": "Is there a minimum or maximum deposit?"
+    },
+    "q4": {
+      "body": "No. Sports Bonus can only be used for sports betting. It cannot be used for Slots, Casino, Live Casino, or any other games.",
+      "title": "Can I use Sports Bonus for slots or casino games?"
+    },
+    "q5": {
+      "body": "Before you can withdraw, you need to complete a wagering requirement. The formula is: Total BONUS Obtained × Wagering Multiplier. For example, if you purchase 100 USDT for 50% SPORTS BONUS to have 150 SPORTS BONUS added into your wallet and the multiplier is 10x, you need to place 150 × 10 = 1500 {{currency}} equivalent in qualifying sports wagers.",
+      "title": "What is the wagering requirement?"
+    },
+    "q6": {
+      "body": "Three rules apply: \n Losing bets: If you bet 100 USDT and lose, 100 USDT counts toward wagering. \n Winning bets: Only count if the odds are ≥ {{minOdds}}. If you bet 100 USDT at odds of 1.7 and win, 100 will be counted as wagering. If the odds are below {{minOdds}} and you win, it does not count as wagering. \n Cashed out bets (early surrender): Only count if the cash out amount is greater than the original bet amount × {{minOdds}}. If the condition is met, the bet amount counts toward wagering. Otherwise, it does not count as wagering.",
+      "title": "Which bets count toward the wagering requirement?"
+    },
+    "q7": {
+      "body": "Yes, once you have completed the wagering requirement and your balance meets the minimum withdrawal amount. Your SPORTS BONUS balance can be converted to your main wallet in the currency of your choice.",
+      "title": "Can I withdraw my Sports Bonus balance?"
+    },
+    "q8": {
+      "body": "The maximum amount you can convert to cash is capped at a multiplier of your total SPORTS BONUS obtained. For example, if your SPORTS BONUS obtained is 150 and the max claim multiplier is 10x, the maximum you can convert to cash is 1500 USDT (converted to your chosen currency at the current exchange rate).",
+      "title": "What is the maximum amount I can convert to cash?"
+    },
+    "q9": {
+      "body": "No. You can only have one active Sports Bonus at a time. You need to complete your current one first — either by withdrawing after meeting the wagering requirement, forfeiting it (when balance ≤ 0.1 USDT equivalent), or waiting for it to expire. After that, you can purchase again.",
+      "title": "Can I purchase Sports Bonus again while I still have an active one?"
+    },
+    "q10": {
+      "body": "There is a cooldown period between purchases. The cooldown duration is shown on the Sports Bonus page.",
+      "title": "How often can I purchase Sports Bonus?"
+    },
+    "q11": {
+      "body": "The Sports Bonus Wallet has a validity period (e.g. 30 days). If you do not complete the wagering requirement within this period, the remaining SPORTS BONUS balance will expire and be removed.",
+      "title": "What happens if I don't complete the wagering requirement in time?"
+    },
+    "q12": {
+      "body": "A: Yes. If your Sports Bonus balance is ≤ 0.1 USDT, you can forfeit your Sports Bonus Wallet. However, if you have any unsettled sports bets placed with Sports Bonus, you cannot forfeit until all bets are settled. Please note that when you forfeit your SPORTS BONUS, the remaining balance will be removed and cannot be recovered. Some players forfeit their balance in order to purchase another SPORTS BONUS since there can be only 1 SPORTS BONUS active at any one time.",
+      "title": "Can I give up / forfeit my Sports Bonus Wallet?"
+    },
+    "q13": {
+      "body": "If you are using an internet provider from a restricted region like Singapore, United States, Israel etc. SPORTS BONUS will not be available in your region. If you believe this to be an error, please contact customer support.",
+      "title": "Why can't I see the Sports Bonus option?"
+    }
+  },
+  "sportsBonusStore": "Sports Bonus",
+  "regionRestrictedMessage": "Your current location is prohibited by our website. Please ensure your device's location services and network settings are aligned with a supported region, then reload the page.",
+  "switch_prompt_title": "Your Sports Bonus is ready \n Switch to use it",
+  "switch_prompt_more": "More",
+  "switch_prompt_switch": "Switch",
+  "sportsBonus": "Sports Bonus",
+  "sportsBonusGiveUp": "You cannot give up your Sports Bonus while your sports bonus bets are unsettled."
+}

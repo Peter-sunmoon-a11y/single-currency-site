@@ -1,0 +1,10 @@
+{
+  "goBack": "返回",
+  "tryAgain": "再试一次",
+  "retry": "重试",
+  "retryConnection": "重新连接",
+  "networkError": {
+    "title": "网络不可用",
+    "description": "请开启 VPN 后重试。当前页面无法连接到服务器。"
+  }
+}

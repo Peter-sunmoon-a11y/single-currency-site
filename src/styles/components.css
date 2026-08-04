@@ -1,0 +1,187 @@
+/* ── Sonner Toast ────────────────────────────────────────── */
+:root {
+  --z-toast: 100000;
+}
+
+[data-sonner-toaster] {
+  position: fixed !important;
+  z-index: var(--z-toast) !important;
+  font-family: var(--font-family) !important;
+}
+
+[data-sonner-toast] {
+  overflow: hidden !important;
+  position: relative !important;
+  z-index: var(--z-toast) !important;
+  font-family: var(--font-family) !important;
+  border: 1px solid var(--color-base-100);
+  border-left: none !important;
+  border-radius: 12px !important;
+  background: var(--color-neutral) !important;
+}
+
+[data-sonner-toast]::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 2px !important;
+  z-index: 1 !important;
+}
+
+[data-sonner-toast][data-type="success"]::before { background-color: var(--color-success) !important; }
+[data-sonner-toast][data-type="error"]::before   { background-color: var(--color-error) !important; }
+[data-sonner-toast][data-type="warning"]::before { background-color: var(--color-warning) !important; }
+[data-sonner-toast][data-type="info"]::before    { background-color: var(--color-info) !important; }
+[data-sonner-toast]:not([data-type="success"]):not([data-type="error"]):not([data-type="warning"]):not([data-type="info"])::before {
+  background-color: var(--color-primary) !important;
+}
+
+[data-sonner-toast][data-type="success"] [data-icon] { color: var(--color-success) !important; }
+[data-sonner-toast][data-type="error"] [data-icon]   { color: var(--color-error) !important; }
+
+[data-sonner-toast] [data-title]       { font-weight: 600 !important; font-size: 14px !important; }
+[data-sonner-toast] [data-description] { font-weight: 600 !important; opacity: 0.85; }
+[data-sonner-toast] button             { transition: all 0.2s ease !important; }
+[data-sonner-toast] button:hover       { transform: translateY(-1px); }
+[data-sonner-toast] [data-loader] {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent)) !important;
+  opacity: 0.8;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-sonner-toast] button:hover { transform: none !important; }
+}
+
+/* ── Modal Stack Fallback ───────────────────────────────── */
+dialog.modal[data-stackable-modal][open] {
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+dialog.modal[data-stackable-modal][open] .modal-box {
+  transform-origin: top center;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+dialog.modal[data-stackable-modal][open] .modal-backdrop {
+  opacity: 1;
+  transition: none;
+}
+
+/* 非顶层弹窗仅保留视觉层级，不可交互。 */
+dialog.modal[data-stackable-modal][open]:has(~ dialog.modal[data-stackable-modal][open]) {
+  pointer-events: none;
+}
+
+dialog.modal[data-stackable-modal][open]:has(~ dialog.modal[data-stackable-modal][open]) .modal-box {
+  transform: translateY(12px) scale(0.97);
+  opacity: 0.92;
+}
+
+dialog.modal[data-stackable-modal][open]:has(~ dialog.modal[data-stackable-modal][open] ~ dialog.modal[data-stackable-modal][open]) .modal-box {
+  transform: translateY(24px) scale(0.94);
+  opacity: 0.8;
+}
+
+/* 第四层以后直接隐藏，避免无限堆叠。 */
+dialog.modal[data-stackable-modal][open]:has(~ dialog.modal[data-stackable-modal][open] ~ dialog.modal[data-stackable-modal][open] ~ dialog.modal[data-stackable-modal][open]) {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* 只让第一层弹窗的 backdrop 提供背景色；后续 backdrop 保留点击区域但透明，避免遮罩切换闪烁和叠黑。 */
+dialog.modal[data-stackable-modal][open] ~ dialog.modal[data-stackable-modal][open] .modal-backdrop {
+  background-color: transparent;
+}
+
+/* ── PC 手机框架 ─────────────────────────────────────────── */
+.main-app-shell__frame {
+  width: 100%;
+  height: 100%;
+  box-shadow: none;
+}
+
+.main-app-shell__toast-inner {
+  width: 100%;
+  height: 100%;
+}
+
+.phone-frame {
+}
+
+.phone-frame::before {
+}
+
+.phone-frame * { scrollbar-width: none !important; }
+.phone-frame *::-webkit-scrollbar { display: none !important; }
+
+@media (min-width: 520px) {
+  .main-app-shell {
+    background: var(--color-base-400);
+  }
+
+  .main-app-shell__frame {
+    width: min(460px, calc(100vw - 32px));
+    height: 100dvh;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+
+  .main-app-shell__toast-inner {
+    width: min(430px, calc(100vw - 32px));
+    height: 100%;
+  }
+
+  [data-sonner-toaster][data-x-position="right"] {
+    width: min(430px, calc(100vw - 32px)) !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+  }
+
+  [data-sonner-toaster][data-x-position="right"] [data-sonner-toast] {
+    width: 100% !important;
+  }
+
+  [data-sonner-toaster][data-x-position="center"] {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
+
+/* ── Chatwoot ───────────────────────────────────────────── */
+.woot-widget-bubble,
+.woot--bubble-holder,
+#cw-bubble-holder {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  #cw-widget-holder:not(.woot--hide):not(.has-unread-view),
+  #cw-widget-holder.woot-widget--expanded {
+    position: fixed !important;
+    top: var(--safe-area-inset-top) !important;
+    right: 0 !important;
+    bottom: auto !important;
+    left: 0 !important;
+    height: calc(100dvh - var(--safe-area-inset-top)) !important;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  #cw-widget-holder:not(.woot--hide):not(.has-unread-view) .woot-widget-holder,
+  #cw-widget-holder:not(.woot--hide):not(.has-unread-view) iframe,
+  #cw-widget-holder.woot-widget--expanded .woot-widget-holder,
+  #cw-widget-holder.woot-widget--expanded iframe {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+  }
+
+  html.tg-fullscreen #cw-widget-holder {
+    height: calc(var(--tg-viewport-height, 100dvh) - var(--safe-area-inset-top)) !important;
+  }
+}

@@ -1,0 +1,65 @@
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  BRAND CONFIGURATION — Thailand Sports Betting               ║
+   ║  新站点只需修改这个区块，其余部分无需改动                         ║
+   ║  颜色格式：oklch(亮度% 饱和度 色相deg)                          ║
+   ║                                                              ║
+   ║  色系思路：                                                    ║
+   ║  · Primary   皇家金  — 泰国皇室色，权威感 + 强 CTA            ║
+   ║  · Secondary 深宝蓝  — 体育博彩信任感，比分/赔率展示           ║
+   ║  · Accent    翠绿    — 赢钱感 / LIVE 指示 / 充值按钮          ║
+   ║  · Base      深海军蓝 — 专业夜间博彩风格                      ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+:root,
+[data-theme] {
+
+  /* ── 品牌主色 ───────────────────────────────────────────── */
+  --color-primary:           oklch(74%   0.17   62);    /* 皇家金 — CTA、高亮、活跃态   */
+  --color-primary-content:   oklch(22%   0.05   62);    /* 金色按钮上的深色文字          */
+
+  --color-secondary:         oklch(58%   0.20   248);   /* 宝蓝 — 导航、标签、次要按钮  */
+  --color-secondary-content: oklch(96%   0.01   248);
+
+  --color-accent:            oklch(72%   0.23   145);   /* 翠绿 — LIVE / 赢 / 充值      */
+  --color-accent-content:    oklch(18%   0.06   145);
+
+  /* ── 深紫蓝背景面板（东南亚夜市风）──────────────────────── */
+  --color-base-100:          oklch(24%   0.06   272);   /* 卡片表面                      */
+  --color-base-200:          oklch(20%   0.065  272);   /* 输入框/内嵌区域               */
+  --color-base-300:          oklch(17%   0.07   272);   /* 页面背景                      */
+  --color-base-400:          oklch(13%   0.06   272);   /* 最深层/侧边栏                 */
+  --color-base-content:      oklch(93%   0      0);     /* 正文颜色                      */
+  --color-neutral:           oklch(13%   0.06   272);
+  --color-neutral-content:   oklch(93%   0      0 / 0.5);
+
+  /* ── 状态色 ─────────────────────────────────────────────── */
+  --color-info:              oklch(62%   0.19   248);   /* 蓝 — 与 secondary 同色相      */
+  --color-info-content:      oklch(96%   0.01   248);
+  --color-success:           oklch(72%   0.23   145);   /* 绿 — 与 accent 同色相         */
+  --color-success-content:   oklch(18%   0.06   145);
+  --color-warning:           oklch(80%   0.18   68);    /* 琥珀 — 与 primary 邻近色相    */
+  --color-warning-content:   oklch(22%   0.05   68);
+  --color-error:             oklch(62%   0.25   28);    /* 红                            */
+  --color-error-content:     oklch(96%   0.02   28);
+
+  /* ── 形状 & 排版 ─────────────────────────────────────────── */
+  /*--radius-selector: 0rem; !* 按钮、输入框圆角 *!*/
+  /*--radius-field:    0rem; !* 表单字段圆角     *!*/
+  /*--radius-box:      0rem; !* 卡片、弹窗圆角   *!*/
+  /*--size-selector:   0.25rem;*/
+  /*--size-field:      0.25rem;*/
+  /*--border:          1px;*/
+  --font-family:     var(--font-athiti), "Athiti", "Leelawadee UI", "Thonburi", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* ── 平台变量 — 勿动 ────────────────────────────────────── */
+  /* PWA / Telegram Mini App 安全区；tg-safe-area 与 tg-content-safe-area 叠加计算，
+     用 max() 防止 TMA 注入的 0px 覆盖系统 env() 值。                              */
+  --safe-area-inset-top:    max(calc(var(--tg-safe-area-inset-top,    0px) + var(--tg-content-safe-area-inset-top,    0px)), env(safe-area-inset-top,    0px));
+  --safe-area-inset-right:  max(calc(var(--tg-safe-area-inset-right,  0px) + var(--tg-content-safe-area-inset-right,  0px)), env(safe-area-inset-right,  0px));
+  --safe-area-inset-bottom: max(calc(var(--tg-safe-area-inset-bottom, 0px) + var(--tg-content-safe-area-inset-bottom, 0px)), env(safe-area-inset-bottom, 0px));
+  --safe-area-inset-left:   max(calc(var(--tg-safe-area-inset-left,   0px) + var(--tg-content-safe-area-inset-left,   0px)), env(safe-area-inset-left,   0px));
+}
+
+:root,
+html {
+  background-color: var(--color-base-300);
+}

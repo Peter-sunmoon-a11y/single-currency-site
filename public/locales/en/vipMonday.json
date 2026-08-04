@@ -1,0 +1,11 @@
+{
+  "vip_monday": "VIP Monday",
+  "members_day": "Members' Day",
+  "claim_on_monday": "Claim on Monday",
+  "wager_requirement_not_met": "Wager requirement not met",
+  "not_in_claim_time_range": "Not in claim time range",
+  "bonus_already_claimed": "Bonus already claimed",
+  "super_sunday": "Daily 1st \n Deposit Bonus",
+  "super_deposit_bonus": "Deposit {{amount}} \n Get {{bonus_rate}}% Bonus",
+  "cash_bonus_low": "{{value}}% CASH BONUS"
+}

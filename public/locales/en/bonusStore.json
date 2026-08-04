@@ -1,0 +1,21 @@
+{
+  "buyAmount": "Buy Amount",
+  "buyNow": "Buy Now",
+  "bonusExists": "Active bonus exists",
+  "notAllowed": "Repurchase not allowed yet",
+  "amountLow": "Amount too low",
+  "amountHigh": "Amount too high",
+  "failedCreate": "Failed to create record",
+  "buyBonus": "Buy Bonus",
+  "bonusObtained": "BONUS Obtained x {{value}}",
+  "bonusGameplay": "Play slots with Bonus and get more chips. Designed for fast-paced gameplay and faster withdrawals. \n Ideal for casual players who want a smooth bonus experience.",
+  "youPay": "You Pay",
+  "bonusReceived": "Bonus Received",
+  "extraBonusGet": "Get {{value}} extra bonus",
+  "minimumBuy": "Minimum Buy",
+  "periodComplete": "Period to Complete",
+  "wagerCompleted": "The wager is completed!",
+  "wageringProgress": "Wagering in progress",
+  "purchased": "You have successfully purchased \n <0>{{amount}}</0>. Good luck!",
+  "successful": "Successful"
+}

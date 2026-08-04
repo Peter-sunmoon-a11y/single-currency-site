@@ -1,0 +1,45 @@
+{
+  "goBack": "Go Back",
+  "tryAgain": "Try Again",
+  "retry": "Retry",
+  "retryConnection": "Retry Connection",
+  "networkError": {
+    "title": "Network unavailable",
+    "description": "Please turn on VPN and try again. The current page could not reach the server."
+  },
+  "emptyStateNoContent": {
+    "title": "Nothing Here Yet!",
+    "description": "Looks like there’s no content here right now. Check back later or try something else."
+  },
+  "failedToLoadPage": {
+    "title": "Something Went Wrong",
+    "description": "There was a system error while loading the page. Please reload the page, or contact support if the issue persists."
+  },
+  "otherActiveSession": {
+    "title": "Session Error!",
+    "description": "Access from this device is currently unavailable for security reasons. This may be due to another login or a system issue. Please try again or use a different device."
+  },
+  "noInternetConnection": {
+    "title": "Oops! You're Offline",
+    "description": "It looks like you're not connected to the internet. Check your Wi-Fi or mobile data and try again once you're back online."
+  },
+  "pageNotFound": {
+    "title": "Oops! This Page Is Missing",
+    "description": "Looks like this page doesn’t exist or got moved. Try checking the URL or head back home."
+  },
+  "tooManyRequest": {
+    "title": "Hang Tight! We're a Bit Busy",
+    "description": "Looks like our servers are handling a lot right now. Give it a moment and try again."
+  },
+  "underMaintenance": {
+    "title": "We’ll Be Right Back!",
+    "description": "We're making some updates to keep things running smoothly. Check back soon!"
+  },
+  "userRestriction": {
+    "title": "Deposit and withdrawals are unavailable in your region",
+    "description": "Due to licensing restrictions, {{host}} is unavailable in your region.\nIf you are using a VPN, please turn it off and try again.\nNeed help? Please contact customer support.",
+    "noSportsAccessTitle": "You are not allowed to access sports.",
+    "noSportsAccessDescription": "This account is restricted from sports. Please go back to the casino lobby."
+  },
+  "goCasino": "Go to Casino"
+}

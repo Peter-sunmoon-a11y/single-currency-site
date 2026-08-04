@@ -1,0 +1,15 @@
+{
+  "promo_expired": "This promo code has expired.",
+  "promo_claimed": "You have already claimed this promo code.",
+  "claim_successful": "Claim successful.",
+  "promo_invalid": "Invalid promo code. Please check and try again.",
+  "promo_format_error": "Please enter a code consisting of numbers and letters, with a minimum length of {{length}} characters.",
+  "redeem_promotional": "Redeem your promo code to unlock exclusive rewards, discounts, or extra benefits! \n Follow us on our social media channels to get promo codes every day.",
+  "promo_unavailable": "This promo code is currently unavailable.",
+  "promo_claim_limit": "This promo code has reached its claim limit.",
+  "similar_event": "You already have a similar promotion in progress.",
+  "not_started_yet": "This promotion has not started yet.",
+  "not_eligible": "Not eligible to claim.",
+  "cannot_claim": "You currently have a Bonus Wallet balance and cannot claim a Freespin promotion.",
+  "invalid_parameter": "Invalid parameter."
+}
