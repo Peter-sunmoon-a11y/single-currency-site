@@ -13,33 +13,33 @@
 [data-theme] {
 
   /* ── 品牌主色 ───────────────────────────────────────────── */
-  --color-primary:           oklch(74%   0.17   62);    /* 皇家金 — CTA、高亮、活跃态   */
-  --color-primary-content:   oklch(22%   0.05   62);    /* 金色按钮上的深色文字          */
+  --color-primary:           oklch(54%   0.205  29);    /* 皇家金 — CTA、高亮、活跃态   */
+  --color-primary-content:   oklch(99%   0.004  38);    /* 金色按钮上的深色文字          */
 
-  --color-secondary:         oklch(58%   0.20   248);   /* 宝蓝 — 导航、标签、次要按钮  */
-  --color-secondary-content: oklch(96%   0.01   248);
+  --color-secondary:         oklch(39%   0.095  153);   /* 宝蓝 — 导航、标签、次要按钮  */
+  --color-secondary-content: oklch(98%   0.006  153);
 
-  --color-accent:            oklch(72%   0.23   145);   /* 翠绿 — LIVE / 赢 / 充值      */
-  --color-accent-content:    oklch(18%   0.06   145);
+  --color-accent:            oklch(75%   0.145  82);   /* 翠绿 — LIVE / 赢 / 充值      */
+  --color-accent-content:    oklch(27%   0.055  76);
 
   /* ── 深紫蓝背景面板（东南亚夜市风）──────────────────────── */
-  --color-base-100:          oklch(24%   0.06   272);   /* 卡片表面                      */
-  --color-base-200:          oklch(20%   0.065  272);   /* 输入框/内嵌区域               */
-  --color-base-300:          oklch(17%   0.07   272);   /* 页面背景                      */
-  --color-base-400:          oklch(13%   0.06   272);   /* 最深层/侧边栏                 */
-  --color-base-content:      oklch(93%   0      0);     /* 正文颜色                      */
-  --color-neutral:           oklch(13%   0.06   272);
-  --color-neutral-content:   oklch(93%   0      0 / 0.5);
+  --color-base-100:          oklch(99.5% 0.005 88);   /* 卡片表面                      */
+  --color-base-200:          oklch(94.8% 0.008 88);   /* 输入框/内嵌区域               */
+  --color-base-300:          oklch(96.8% 0.014 86);   /* 页面背景                      */
+  --color-base-400:          oklch(92.5% 0.026 82);   /* 最深层/侧边栏                 */
+  --color-base-content:      oklch(24%   0.035 58);     /* 正文颜色                      */
+  --color-neutral:           oklch(27%   0.03  62);
+  --color-neutral-content:   oklch(97%   0.008 82);
 
   /* ── 状态色 ─────────────────────────────────────────────── */
-  --color-info:              oklch(62%   0.19   248);   /* 蓝 — 与 secondary 同色相      */
-  --color-info-content:      oklch(96%   0.01   248);
-  --color-success:           oklch(72%   0.23   145);   /* 绿 — 与 accent 同色相         */
-  --color-success-content:   oklch(18%   0.06   145);
-  --color-warning:           oklch(80%   0.18   68);    /* 琥珀 — 与 primary 邻近色相    */
-  --color-warning-content:   oklch(22%   0.05   68);
-  --color-error:             oklch(62%   0.25   28);    /* 红                            */
-  --color-error-content:     oklch(96%   0.02   28);
+  --color-info:              oklch(55%   0.145 238);   /* 蓝 — 与 secondary 同色相      */
+  --color-info-content:      oklch(99%   0.003 238);
+  --color-success:           oklch(49%   0.13  153);   /* 绿 — 与 accent 同色相         */
+  --color-success-content:   oklch(99%   0.004 153);
+  --color-warning:           oklch(73%   0.155 75);    /* 琥珀 — 与 primary 邻近色相    */
+  --color-warning-content:   oklch(27%   0.055 72);
+  --color-error:             oklch(54%   0.205 29);    /* 红                            */
+  --color-error-content:     oklch(99%   0.004 29);
 
   /* ── 形状 & 排版 ─────────────────────────────────────────── */
   /*--radius-selector: 0rem; !* 按钮、输入框圆角 *!*/

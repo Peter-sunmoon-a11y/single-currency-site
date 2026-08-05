@@ -86,7 +86,7 @@ const profileNavGroups: NavGroup[] = [
   {
     titleKey: "profile:account",
     items: [
-      { key: "security", to: "/security", icon: ShieldCheck, translationKey: "common.security", namespace: "common" },
+      { key: "security", to: "/security", icon: ShieldCheck, translationKey: "common.security", namespace: "common" }
       // { key: "legal", to: "/legal", icon: Scale, translationKey: "legal", namespace: "profile" }
     ]
   }
@@ -149,10 +149,9 @@ function ProfilePage() {
           </div>
           <div>
             <p className="text-lg text-base-content font-bold">{user?.nickname}</p>
-            <div className="flex items-center">
-              <p className="text-xs font-bold text-base-content/50">{t("profile:gameId")}: {user?.id}<Copy
-                text={String(user?.id ?? "")} /></p>
-            </div>
+            <p
+              className="flex items-center gap-1 text-xs font-bold text-base-content/50">{t("profile:gameId")}: {user?.id}<Copy
+              text={String(user?.id ?? "")} copyCls={"btn-ghost"} /></p>
           </div>
         </div>
 
@@ -177,7 +176,7 @@ function ProfilePage() {
           <p className="text-base font-bold">
             {formatWithConversion((status?.bet_in_ori || 0), "USDT", {
               showSymbol: true,
-              showCode: false,
+              showCode: false
             }).formatted}
           </p>
         </div>

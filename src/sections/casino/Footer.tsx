@@ -86,7 +86,7 @@ export const Footer = () => {
               >
                 <div className="w-[80px] h-[31px] flex items-center justify-center">
                   <img
-                    src={getImgCompressParams(provider.logo, "auto", 60)}
+                    src={getImgCompressParams(provider.day_logo, "auto", 60)}
                     alt={provider.name}
                     loading="lazy"
                     className="max-w-full max-h-full w-auto h-auto"
