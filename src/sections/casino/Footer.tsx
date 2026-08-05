@@ -10,6 +10,38 @@ import { getImgCompressParams } from "@/utils/helper.ts";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 
+type CertificationIcon = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  colorClassName?: string;
+};
+
+function CertificationBadge({ icon }: { icon: CertificationIcon }) {
+  return (
+    <span
+      role="img"
+      aria-label={icon.alt}
+      title={icon.alt}
+      className={`inline-block shrink-0 align-middle ${icon.colorClassName ?? "text-base-content"}`}
+      style={{
+        width: icon.width,
+        height: icon.height,
+        backgroundColor: "currentColor",
+        maskImage: `url(${icon.src})`,
+        maskRepeat: "no-repeat",
+        maskPosition: "center",
+        maskSize: "contain",
+        WebkitMaskImage: `url(${icon.src})`,
+        WebkitMaskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
+        WebkitMaskSize: "contain",
+      }}
+    />
+  );
+}
+
 const certificationIcons = [
   { src: "/images/partners/certifications/18.svg", alt: "18+", width: 36, height: 30 },
   { src: "/images/partners/certifications/gamble-aware.svg", alt: "Gamble Aware", width: 56, height: 30 },
@@ -17,7 +49,7 @@ const certificationIcons = [
   { src: "/images/partners/certifications/itech-lab.svg", alt: "iTech Lab", width: 38, height: 30 },
   { src: "/images/partners/certifications/responsible-gaming.svg", alt: "Responsible Gaming", width: 90, height: 30 },
   { src: "/images/partners/certifications/gaming-laboratories.svg", alt: "Gaming Laboratories", width: 30, height: 30 },
-];
+] satisfies readonly CertificationIcon[];
 
 function SectionDivider({ label }: { label: string }) {
   return (
@@ -102,7 +134,7 @@ export const Footer = () => {
           <SectionDivider label={t("casino:responsibleGambling", "Responsible Gambling")} />
           <div className="flex flex-wrap items-center justify-center gap-x-3">
             {certificationIcons.map((icon) => (
-              <img key={icon.src} src={icon.src} alt={icon.alt} title={icon.alt} className="h-8" />
+              <CertificationBadge key={icon.src} icon={icon} />
             ))}
           </div>
         </div>
