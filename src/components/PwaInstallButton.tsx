@@ -61,8 +61,8 @@ export function PwaInstallButton() {
   }, []);
 
   const canShow = useMemo(() => ready && !installed && (deferredPrompt || ios), [deferredPrompt, installed, ios, ready]);
-  console.info(canShow);
-  // if (!canShow) return null;
+
+  if (!canShow) return null;
 
   const handleInstall = async () => {
     if (deferredPrompt) {

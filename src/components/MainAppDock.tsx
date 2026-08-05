@@ -117,9 +117,11 @@ const DockInner = ({ items = MAIN_NAV_ITEMS }: DockProps) => {
         {items.map((item) => {
           const normalizedPathname = normalizeDockPathname(location.pathname);
           const normalizedItemHref = item.href.includes("?") ? item.href.split("?")[0] : item.href;
+          const itemHasQuery = item.href.includes("?");
           // 处理查询参数的active状态判断
-          const isActive = item.href.includes("?")
-            ? location.pathname + location.search === item.href ||
+          const isActive = itemHasQuery
+            ? normalizedPathname === normalizedItemHref ||
+              location.pathname + location.search === item.href ||
               `${normalizedPathname}${location.search}` === item.href ||
               location.href.includes(item.href)
             : normalizedPathname === normalizedItemHref;

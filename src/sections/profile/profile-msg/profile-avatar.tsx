@@ -7,6 +7,7 @@ import { updateUser } from "@/services/auth/user";
 import { ErrorMessageBox } from "@/components/modal/UserFinanceModal/c/ErrorMessageBox.tsx";
 import { ConfirmBox } from "@/components/modal/UserFinanceModal/c/ConfirmBox.tsx";
 import { AvatarModal } from "./AvatarModal.tsx";
+import { UserRound } from "lucide-react";
 
 export function ProfileAvatar() {
   const { t } = useTranslation("profile");
@@ -61,9 +62,19 @@ export function ProfileAvatar() {
       </h3>
       <div className="flex w-full flex-col items-center gap-4">
         {/* 头像编辑 */}
-        <div className="relative border-2 border-primary rounded-full cursor-pointer" onClick={() =>
-          setStatus((v) => ({ ...v, showAvatar: true }))}>
-          <img src={user?.avatar || '/images/avatars/Avatar-0.png'} className="h-20 w-20 rounded-full" alt={""} />
+        <div
+          className="relative border-2 border-primary rounded-full cursor-pointer overflow-hidden bg-primary/15"
+          onClick={() => setStatus((v) => ({ ...v, showAvatar: true }))}
+        >
+          {user?.avatar ? (
+            <img src={user.avatar} className="h-20 w-20 rounded-full" alt="" />
+          ) : (
+            <UserRound
+              size={36}
+              aria-hidden="true"
+              className="absolute inset-0 m-auto text-primary pointer-events-none"
+            />
+          )}
         </div>
 
         {/* 昵称编辑 */}
