@@ -56,7 +56,7 @@ export const ALL_BONUS_TYPES = [
   { key: "lucky_number", label: "bonus:item.lucky_number_seven" }, // Lucky Number X
   { key: "daily_first_deposit_branch", label: "bonus:daily_first_deposit_title" }, // 每日首存奖励
   { key: "tiered_first_deposit", label: "bonus:tiered_first_deposit" }, // 阶梯奖励
-  { key: "first_challenge", label: "bonus:first_challenge.title" }, // 首充挑战奖励
+  { key: "first_challenge", label: "firstChallenge.title" }, // 首充挑战奖励
   { key: "members_day", label: "bonus:members_day" }, // 会员日奖励
   { key: "lucky_spin", label: "bonus:lucky_spin" }
 ] as const;

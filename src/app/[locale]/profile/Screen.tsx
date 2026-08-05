@@ -151,7 +151,7 @@ function ProfilePage() {
             <p className="text-lg text-base-content font-bold">{user?.nickname}</p>
             <p
               className="flex items-center gap-1 text-xs font-bold text-base-content/50">{t("profile:gameId")}: {user?.id}<Copy
-              text={String(user?.id ?? "")} copyCls={"btn-ghost"} /></p>
+              text={String(user?.id ?? "")} /></p>
           </div>
         </div>
 

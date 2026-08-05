@@ -142,7 +142,7 @@ export const ClaimPromoCode = () => {
                   onChange={(e) => {
                     setState(prev => ({ ...prev, promoCode: e.target.value?.trim() }));
                   }}
-                  className="text-sm relative font-bold h-10 px-3 w-full bg-transparent outline-none border-0 text-base-content placeholder:text-base-content/50"
+                  className="text-sm relative font-bold h-10 px-3 w-full bg-transparent outline-none border-0 text-primary-content placeholder:text-primary-content/50"
                   placeholder={t("finance:enter")}
                 />
               </div>
