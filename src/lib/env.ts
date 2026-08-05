@@ -45,7 +45,7 @@ export const siteConfig = {
 
   nickname: process.env.NEXT_PUBLIC_SITE_NAME ?? "",
 
-  supportName: process.env.NEXT_PUBLIC_SITE_NAME ?? "YiYou",
+  supportName: process.env.NEXT_PUBLIC_SITE_NAME ?? "",
 
   supportEmail: process.env.NEXT_PUBLIC_WEBSITE_SUPPORT_EMAIL ?? "support@yiyou.game",
 
