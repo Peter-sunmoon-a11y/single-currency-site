@@ -37,7 +37,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: requestedLocale } = await params;
   const locale = isSupportedLocale(requestedLocale) ? requestedLocale : defaultLocale;
-  const messages = await getMessages(locale);
+  const messages = await getMessages(locale, ["seo"]);
   const seo = messages.seo as SeoMessages | undefined;
   const localizedSiteTitle = interpolate(seo?.site?.title ?? "", { name: siteName });
   const localizedSiteDescription = interpolate(seo?.site?.description ?? "", { name: siteName });

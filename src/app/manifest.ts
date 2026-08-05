@@ -10,7 +10,7 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
   const requested = acceptLanguage.split(",")[0]?.split(";")[0]?.trim() ?? "";
   const locale = isSupportedLocale(requested) ? requested : defaultLocale;
 
-  const messages = await getMessages(locale);
+  const messages = await getMessages(locale, ["seo"]);
   const seo = messages.seo as { site?: { description?: string } } | undefined;
   const description = seo?.site?.description?.replace("{{name}}", siteConfig.name) ?? siteConfig.name;
 

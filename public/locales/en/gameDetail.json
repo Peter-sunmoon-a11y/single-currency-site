@@ -2,9 +2,6 @@
   "play": "Play",
   "betId": "Bet ID",
   "bet": "Bet",
-  "profit": "Profit",
-  "x": "X",
-  "noRecordsFound": "No Records Found",
   "rtp": "RTP",
   "maxWin": "Max Win",
   "gameInformation": "Game Information",
@@ -23,6 +20,5 @@
   "share_text_1": "I just hit a {{multiplier}}x BIG WIN! 🔥",
   "game": "Game",
   "launchInFullScreen": "Launch in Full Screen",
-  "directPlay": "Open Game Detail Page",
   "bountyWin": "Win {{amount}}"
 }
