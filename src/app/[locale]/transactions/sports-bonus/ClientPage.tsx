@@ -1,6 +1,7 @@
 "use client";
 
 import { MainRouteContent } from "@/components/next/RouteContent";
+import { TransactionsPageShell } from "@/sections/profile/transactions";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
@@ -10,7 +11,16 @@ const Screen = dynamic(
       const Component = module.default;
       const beforeLoad = module.beforeLoad;
       return function DynamicScreen() {
-        return <MainRouteContent component={Component} beforeLoad={beforeLoad} />;
+        return (
+          <MainRouteContent
+            component={() => (
+              <TransactionsPageShell>
+                <Component />
+              </TransactionsPageShell>
+            )}
+            beforeLoad={beforeLoad}
+          />
+        );
       };
     }),
   {

@@ -108,7 +108,7 @@ function _Row({
           </span>
         </div>
         <div className="flex flex-col items-end gap-2">
-          <span className={cn("inline-flex items-center text-xs italic leading-none py-1 px-1", status.cls)}>
+          <span className={cn("inline-flex items-center text-xs italic leading-none py-1 px-1.5 rounded-sm", status.cls)}>
             {t(status.trans, String(item.status))}
           </span>
           {amountNode}

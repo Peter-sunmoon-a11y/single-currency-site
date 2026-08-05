@@ -32,7 +32,7 @@ export function RolloverFilters({
   ];
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex gap-1">
       <FormBox label={t("transaction:filters.type", "Type")}>
         <SelectDropdown
           options={typeOptions}

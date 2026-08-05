@@ -21,6 +21,7 @@ export const useAppNavigate = () => {
 
       // 只有 search 是函数形式时才需要 currentSearchParams（合并当前 query）
       const needsCurrentParams = typeof options !== "string" && typeof options.search === "function";
+      const scroll = typeof options !== "string" ? options.scroll : undefined;
 
       const href = buildHref(options, needsCurrentParams ? currentSearchParams : undefined, locale);
 
@@ -30,10 +31,10 @@ export const useAppNavigate = () => {
       }
 
       if (typeof options !== "string" && options.replace) {
-        router.replace(href);
+        router.replace(href, { scroll });
         return;
       }
-      router.push(href);
+      router.push(href, { scroll });
     },
     [router, currentSearchParams, locale],
   );

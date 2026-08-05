@@ -26,6 +26,10 @@ export default function BetHistoryLayoutClient({ children }: Props) {
 
   return (
     <div className="p-4 flex flex-col gap-4">
+      <h3 className="text-base text-primary font-bold border-l-4 pl-2 border-l-primary">
+        {t("profile:betHistory.title", "Bet History")}
+      </h3>
+
       <div role="tablist" className="tabs tabs-box w-full">
         <Link
           href={localizeHref("/bet-history/casino")}

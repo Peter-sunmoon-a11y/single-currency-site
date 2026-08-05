@@ -81,9 +81,11 @@ export function PeriodFilter({ value, onChange }: PeriodFilterProps) {
   const { t } = useTranslation();
 
   const options = [
-    { id: "1d",  value: "Past 24 Hours", label: t("transaction:filters.period1d", "1D") },
-    { id: "7d",  value: "Past 7 Days",   label: t("transaction:filters.period7d", "7D") },
-    { id: "30d", value: "Past 30 Days",  label: t("transaction:filters.period30d", "30D") },
+    { id: "1d", value: "Past 24 Hours", label: t("transaction:filters.period1d", "1D") },
+    { id: "7d", value: "Past 7 Days", label: t("transaction:filters.period7d", "7D") },
+    { id: "30d", value: "Past 30 Days", label: t("transaction:filters.period30d", "30D") },
+    { id: "60d", value: "Past 60 Days", label: t("transaction:filters.past60Days", "60D") },
+    { id: "90d", value: "Past 90 Days", label: t("transaction:filters.past90Days", "90D") },
   ];
 
   return (

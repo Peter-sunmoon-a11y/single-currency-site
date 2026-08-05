@@ -11,6 +11,7 @@ export type HrefOptions = {
   replace?: boolean;
   back?: boolean;
   state?: unknown;
+  scroll?: boolean;
 };
 
 export function searchParamsToObject(searchParams: URLSearchParams | ReadonlyURLSearchParamsLike) {

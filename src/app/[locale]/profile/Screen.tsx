@@ -6,14 +6,14 @@ import { useDisplayCurrencyFormatter } from "@/contexts/DisplayCurrencyContext.t
 import { requireAuth } from "@/lib/auth-guards";
 import { buildHref } from "@/lib/navigation";
 import { useTranslation } from "@/lib/i18n/react-i18next";
+import Iconify from "@/components/iconify";
 import {
-  ArrowLeftRight,
   RefreshCw,
   Sparkles,
   History,
   ShieldCheck,
   // Scale,
-  Pizza
+  Pizza,
 } from "lucide-react";
 import { IconDeposit, IconWithdraw, IconSwap } from "@/app/[locale]/finance/icons";
 import { InnerShareLink } from "@/sections/bonus/buddy-ball/share.tsx";
@@ -26,6 +26,7 @@ type NavItem = {
   to: string;
   search?: Record<string, string>;
   icon: React.ComponentType<{ className?: string }>;
+  iconSrc?: string;
   translationKey: string;
   namespace: string;
 };
@@ -33,6 +34,7 @@ type NavItem = {
 type NavGroup = {
   titleKey: string;
   items: NavItem[];
+  gridClassName?: string;
 };
 
 const profileNavGroups: NavGroup[] = [
@@ -64,13 +66,65 @@ const profileNavGroups: NavGroup[] = [
   },
   {
     titleKey: "profile:records",
+    gridClassName: "grid-cols-3",
     items: [
       {
-        key: "transactions",
-        to: "/transactions",
-        icon: ArrowLeftRight,
-        translationKey: "transactions",
-        namespace: "profile"
+        key: "deposit",
+        to: "/transactions/deposit",
+        icon: IconDeposit,
+        translationKey: "transactionTypes.deposit",
+        namespace: "transaction"
+      },
+      {
+        key: "withdraw",
+        to: "/transactions/withdraw",
+        icon: IconWithdraw,
+        translationKey: "transactionTypes.withdrawal",
+        namespace: "transaction"
+      },
+      {
+        key: "swap",
+        to: "/transactions/swap",
+        icon: IconSwap,
+        translationKey: "swap",
+        namespace: "finance"
+      },
+      {
+        key: "bonus",
+        to: "/transactions/bonus",
+        icon: (props) => <Iconify icon="custom:bonus" {...props} />,
+        translationKey: "transactionTypes.bonus",
+        namespace: "transaction"
+      },
+      {
+        key: "slot-bonus",
+        to: "/transactions/slot-bonus",
+        icon: Sparkles,
+        iconSrc: "/images/bonus_store/bonus-store-icon.png",
+        translationKey: "slotBonus",
+        namespace: "bonus"
+      },
+      {
+        key: "sports-bonus",
+        to: "/transactions/sports-bonus",
+        icon: Sparkles,
+        iconSrc: "/images/bonus_sports/sports-bonus-icon.png",
+        translationKey: "sportsBonusStore",
+        namespace: "sportsBonus"
+      },
+      {
+        key: "referral",
+        to: "/transactions/referral",
+        icon: (props) => <Iconify icon="custom:referral" {...props} />,
+        translationKey: "transactionTypes.referral",
+        namespace: "transaction"
+      },
+      {
+        key: "commission",
+        to: "/transactions/commission",
+        icon: (props) => <Iconify icon="custom:commission-calculator" {...props} />,
+        translationKey: "transactionTypes.commission",
+        namespace: "transaction"
       },
       {
         key: "bet-history",
@@ -101,7 +155,16 @@ const NavIconItem = ({ item }: { item: NavItem }) => {
       className="flex flex-col items-center gap-2"
     >
       <div className="w-12 h-12 rounded-lg bg-base-300 flex items-center justify-center">
-        <Icon className="w-6 h-6 text-base-content/70" />
+        {item.iconSrc ? (
+          <img
+            src={item.iconSrc}
+            alt=""
+            className="w-8 h-8 object-contain"
+            loading="lazy"
+          />
+        ) : (
+          <Icon className="w-6 h-6 text-base-content/70" />
+        )}
       </div>
       <span className="text-sm font-semibold text-base-content/70 text-center truncate max-w-full">
         {t(`${item.namespace}:${item.translationKey}`)}
@@ -117,7 +180,7 @@ const NavGroupSection = ({ group }: { group: NavGroup }) => {
       <h3 className="text-xs font-semibold text-base-content/40 uppercase tracking-wide px-1">
         {t(group.titleKey)}
       </h3>
-      <div className="grid grid-cols-4 gap-2 bg-base-200 rounded-lg p-4">
+      <div className={`grid ${group.gridClassName ?? "grid-cols-3"} gap-2 bg-base-200 rounded-lg p-4`}>
         {group.items.map((item) => (
           <NavIconItem key={item.key} item={item} />
         ))}
