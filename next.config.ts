@@ -87,6 +87,19 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: "/vendor/mqtt",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, stale-while-revalidate=604800",
+          },
+          {
+            key: "Content-Type",
+            value: "application/javascript; charset=utf-8",
+          },
+        ],
+      },
+      {
         source: "/sw.js",
         headers: [
           {

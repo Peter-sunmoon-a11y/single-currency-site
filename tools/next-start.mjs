@@ -28,6 +28,8 @@ const run = (command, args, options = {}) =>
     });
   });
 
+await run(process.execPath, ["tools/sync-mqtt-vendor.mjs"]);
+
 const killPort = () => run(process.execPath, ["tools/kill-port.mjs", port]);
 
 await killPort();

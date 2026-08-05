@@ -83,7 +83,7 @@ export const BannerVisual = ({
       )}
 
       <div className="relative z-20 flex h-full max-w-[60%] flex-col gap-2">
-        <div className="font-extrabold leading-tight text-base-content text-shadow-lg">{title}</div>
+        <div className="font-bold text-base-content">{title}</div>
         <div className="mt-auto">
           {cta}
         </div>
