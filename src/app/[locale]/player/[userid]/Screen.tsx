@@ -327,7 +327,7 @@ function RouteComponent() {
           title={`${t("common:common.achievements")}`}
           icon={<Medal className="h-4 w-4" />}
           actionLabel="Details"
-          onAction={() => void navigate({ to: "/public/$userid/achievements", params: { userid: requestedUserId } })}
+          onAction={() => void navigate({ to: "/player/$userid/achievements", params: { userid: requestedUserId } })}
         >
           <AchievementStrip achievements={achievements} />
         </PublicSectionCard>
@@ -336,7 +336,7 @@ function RouteComponent() {
           title="Stats"
           icon={<ChartNoAxesColumn className="h-4 w-4" />}
           actionLabel="Details"
-          onAction={() => void navigate({ to: "/public/$userid/stats", params: { userid: requestedUserId } })}
+          onAction={() => void navigate({ to: "/player/$userid/stats", params: { userid: requestedUserId } })}
         >
           <PublicStats
             totalWins={toNumber(status?.bet_win_times).toLocaleString()}

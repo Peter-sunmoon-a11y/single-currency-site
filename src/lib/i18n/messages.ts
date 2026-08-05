@@ -22,7 +22,10 @@ const listLocaleNamespaces = async (locale: string) => {
     .sort();
 };
 
-const loadLocaleNamespace = async (locale: string, namespace: string) => {
+const loadLocaleNamespace = async (
+  locale: string,
+  namespace: string
+): Promise<Record<string, unknown>> => {
   const cacheKey = `${locale}:${namespace}`;
   if (shouldCache) {
     const cached = bundleCache.get(cacheKey);
@@ -34,6 +37,10 @@ const loadLocaleNamespace = async (locale: string, namespace: string) => {
     try {
       return await readJsonFile(filePath);
     } catch (error) {
+      if (locale !== defaultLocale) {
+        return loadLocaleNamespace(defaultLocale, namespace);
+      }
+
       throw new Error(`Failed to load locale namespace "${namespace}" for "${locale}"`, { cause: error });
     }
   })();
@@ -44,8 +51,14 @@ const loadLocaleNamespace = async (locale: string, namespace: string) => {
   return promise;
 };
 
-const loadLocaleMessages = async (locale: string, namespaces?: string[]) => {
-  const effectiveNamespaces = namespaces?.length ? namespaces : await listLocaleNamespaces(locale);
+const loadLocaleMessages = async (
+  locale: string,
+  namespaces?: string[]
+): Promise<IntlMessages> => {
+  const effectiveNamespaces =
+    namespaces?.length
+      ? namespaces
+      : await listLocaleNamespaces(locale).catch(async () => listLocaleNamespaces(defaultLocale));
   const entries = await Promise.all(
     effectiveNamespaces.map(async (namespace) => [namespace, await loadLocaleNamespace(locale, namespace)] as const)
   );
