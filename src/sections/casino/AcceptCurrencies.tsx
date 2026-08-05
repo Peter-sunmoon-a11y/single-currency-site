@@ -16,7 +16,7 @@ export const AcceptCurrencies = () => {
   const { paymentIcons } = usePaymentIcons();
   const router = useRouter();
   const paymentData = user ? paymentGatewayByUser : paymentIcons;
-  const fiatIcons = getThemeAwareFiatIcons(paymentData, false);
+  const fiatIcons = getThemeAwareFiatIcons(paymentData, true);
   const cryptoIcons = user ? paymentGatewayByUser?.crypto_icons : paymentIcons?.crypto_icons;
 
   return (
