@@ -9,6 +9,7 @@ import { useTranslation } from "@/lib/i18n/react-i18next";
 import Iconify from "@/components/iconify";
 import {
   RefreshCw,
+  type LucideProps,
   Sparkles,
   History,
   ShieldCheck,
@@ -25,7 +26,7 @@ type NavItem = {
   key: string;
   to: string;
   search?: Record<string, string>;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<LucideProps>;
   iconSrc?: string;
   translationKey: string;
   namespace: string;
@@ -35,6 +36,12 @@ type NavGroup = {
   titleKey: string;
   items: NavItem[];
   gridClassName?: string;
+};
+
+const makeIconifyIcon = (icon: string): React.ComponentType<LucideProps> => {
+  const IconComponent: React.FC<LucideProps> = (props) => <Iconify icon={icon} {...props} />;
+  IconComponent.displayName = `Iconify(${icon})`;
+  return IconComponent;
 };
 
 const profileNavGroups: NavGroup[] = [
@@ -65,7 +72,7 @@ const profileNavGroups: NavGroup[] = [
     ]
   },
   {
-    titleKey: "profile:records",
+    titleKey: "profile:transactions",
     gridClassName: "grid-cols-3",
     items: [
       {
@@ -92,7 +99,7 @@ const profileNavGroups: NavGroup[] = [
       {
         key: "bonus",
         to: "/transactions/bonus",
-        icon: (props) => <Iconify icon="custom:bonus" {...props} />,
+        icon: makeIconifyIcon("custom:bonus"),
         translationKey: "transactionTypes.bonus",
         namespace: "transaction"
       },
@@ -115,14 +122,14 @@ const profileNavGroups: NavGroup[] = [
       {
         key: "referral",
         to: "/transactions/referral",
-        icon: (props) => <Iconify icon="custom:referral" {...props} />,
+        icon: makeIconifyIcon("custom:referral"),
         translationKey: "transactionTypes.referral",
         namespace: "transaction"
       },
       {
         key: "commission",
         to: "/transactions/commission",
-        icon: (props) => <Iconify icon="custom:commission-calculator" {...props} />,
+        icon: makeIconifyIcon("custom:commission-calculator"),
         translationKey: "transactionTypes.commission",
         namespace: "transaction"
       },
