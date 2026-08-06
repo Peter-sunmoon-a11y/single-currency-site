@@ -60,7 +60,6 @@ export const BannerVisual = ({
 
   const safePicture = resolveBannerPicture(picture);
   const src = safePicture ? getImgCompressParams(safePicture, 209, 65, 209, network) : "";
-  console.info(src);
   return (
     <div
       className={`rounded-lg relative min-w-0 overflow-hidden h-full p-4 ${className}`}
