@@ -10,6 +10,7 @@ import type { BetHistoryFiltersState } from "./types";
 import { bonus_currencies } from "@/sections/explore";
 import { Paginate } from "@/sections/tournament/components/Paginate.tsx";
 import { CASINO_EXCLUDED_ASSETS } from "@/sections/profile/bet-history/utils.ts";
+import { useTranslation } from "@/lib/i18n/react-i18next.tsx";
 
 const DEFAULT_FILTERS: BetHistoryFiltersState = {
   game: "all",
@@ -34,6 +35,8 @@ const extractBalanceCurrencies = (balanceData: unknown): string[] => {
 };
 
 export function CasinoBetHistorySection() {
+  const { t } = useTranslation();
+
   const { data: balanceData } = useUserBalance();
   const [filters, setFilters] = useState<BetHistoryFiltersState>(DEFAULT_FILTERS);
   const [desiredPage, setDesiredPage] = useState(1);
@@ -117,7 +120,9 @@ export function CasinoBetHistorySection() {
   };
 
   return (
-    <>
+    <div className="p-4 flex flex-col gap-4">
+      <h3 className={"text-base text-primary font-bold border-l-4 pl-2 border-l-primary"}>{t("common.casino")}</h3>
+
       <BetHistoryFilters
         filters={filters}
         onChange={handleFiltersChange}
@@ -143,11 +148,13 @@ export function CasinoBetHistorySection() {
         onJumpPage={handlePageChange}
         onPaginate={handlePageChange}
       />
-    </>
+    </div>
   );
 }
 
 export function SportsBetHistorySection() {
+  const { t } = useTranslation()
+
   const { data: balanceData } = useUserBalance();
   const [filters, setFilters] = useState<BetHistoryFiltersState>(DEFAULT_FILTERS);
   const [desiredPage, setDesiredPage] = useState(1);
@@ -233,7 +240,8 @@ export function SportsBetHistorySection() {
   };
 
   return (
-    <>
+    <div className="p-4 flex flex-col gap-4">
+      <h3 className={"text-base text-primary font-bold border-l-4 pl-2 border-l-primary"}>{t("common.sports")}</h3>
       <BetHistoryFilters
         filters={filters}
         onChange={handleFiltersChange}
@@ -257,6 +265,6 @@ export function SportsBetHistorySection() {
         onJumpPage={handlePageChange}
         onPaginate={handlePageChange}
       />
-    </>
+    </div>
   );
 }

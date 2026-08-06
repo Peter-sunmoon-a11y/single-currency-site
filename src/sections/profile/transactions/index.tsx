@@ -1,12 +1,19 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/lib/i18n/react-i18next";
 
 export const TransactionsPageShell = ({ children }: { children: ReactNode }) => {
   const { t } = useTranslation(["transaction", "finance", "bonus", "sportsBonus"]);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const el = document.getElementById("main-scroll");
+    if (!el) return;
+    el.scrollTo({ top: 0, behavior: "auto" });
+  }, [pathname]);
 
   const segments = pathname.split("/").filter(Boolean);
   const transactionsIndex = segments.findIndex((segment) => segment === "transactions");

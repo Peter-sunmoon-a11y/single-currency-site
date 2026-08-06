@@ -1,7 +1,6 @@
 "use client";
 
 import { MainRouteContent } from "@/components/next/RouteContent";
-import BetHistoryLayoutClient from "../layout-client";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
@@ -10,11 +9,8 @@ const Screen = dynamic(
     import("./Screen").then((module) => {
       const Component = module.default;
       const beforeLoad = module.beforeLoad;
-      function WrappedComponent() {
-        return <BetHistoryLayoutClient><Component /></BetHistoryLayoutClient>;
-      }
       return function DynamicScreen() {
-        return <MainRouteContent component={WrappedComponent} beforeLoad={beforeLoad} />;
+        return <MainRouteContent component={Component} beforeLoad={beforeLoad} />;
       };
     }),
   {

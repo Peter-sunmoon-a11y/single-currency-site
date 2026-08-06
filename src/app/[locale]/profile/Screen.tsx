@@ -12,7 +12,6 @@ import {
   RefreshCw,
   type LucideProps,
   Sparkles,
-  History,
   ShieldCheck,
   // Scale,
   Pizza,
@@ -134,15 +133,28 @@ const profileNavGroups: NavGroup[] = [
         translationKey: "transactionTypes.commission",
         namespace: "transaction"
       },
-      {
-        key: "bet-history",
-        to: "/bet-history",
-        icon: History,
-        translationKey: "betHistory.title",
-        namespace: "profile"
-      },
       { key: "rollover", to: "/rollover", icon: RefreshCw, translationKey: "rollover", namespace: "profile" },
       { key: "free-spin", to: "/free-spin", icon: Sparkles, translationKey: "freeSpins", namespace: "profile" }
+    ]
+  },
+  {
+    titleKey: "profile:betHistory.title",
+    gridClassName: "grid-cols-3",
+    items: [
+      {
+        key: "bet-history-casino",
+        to: "/bet-history/casino",
+        icon: makeIconifyIcon("custom:casino"),
+        translationKey: "common.casino",
+        namespace: "common"
+      },
+      {
+        key: "bet-history-sports",
+        to: "/bet-history/sports",
+        icon: makeIconifyIcon("custom:sports"),
+        translationKey: "common.sports",
+        namespace: "common"
+      }
     ]
   },
   {
