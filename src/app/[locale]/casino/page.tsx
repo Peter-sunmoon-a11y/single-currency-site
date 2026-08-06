@@ -10,19 +10,8 @@ export const revalidate = 30;
 export const generateMetadata = (props: { params: Promise<{ locale: string }> }) => generateLocalizedMetadata(props, "/casino");
 
 const PUBLIC_QUERY_KEYS = {
-  languages: ["public", "languages"] as const,
   baseConfig: ["public", "baseConfig"] as const,
-  aggregationConfig: ["public", "aggregationConfig"] as const,
-  greatestGameOrder: ["public", "greatestGameOrder"] as const,
-  supportedGameCurrencies: ["public", "supportedGameCurrencies"] as const,
-  supportedSettlementCurrencies: ["public", "supportedSettlementCurrencies"] as const,
-  currencyExchangeRate: ["public", "currencyExchangeRate"] as const,
   casinoHomeGameList: ["public", "casinoHomeGameList"] as const,
-  gameProviders: ["public", "gameProviders"] as const,
-  chatwootInboxId: ["public", "chatwootInboxId"] as const,
-  latestWins: ["public", "latestWins"] as const,
-  greatestBets: ["public", "greatestBets"] as const,
-  depositBonusConfig: ["public", "depositBonusConfig"] as const,
 };
 
 const AGGREGATION_FIELDS = [
@@ -85,28 +74,12 @@ const setApiResponse = (queryClient: QueryClient, key: readonly unknown[], respo
   queryClient.setQueryData(key, response);
 };
 
-const setApiData = (queryClient: QueryClient, key: readonly unknown[], response?: ApiResponse<any>) => {
-  if (!response || response.code !== 0) return;
-  queryClient.setQueryData(key, response.data);
-};
-
-const primeAggregationCaches = (queryClient: QueryClient, payload: AggregationPayload | null, aggregationLang: string) => {
+const primeCasinoAboveFoldCaches = (queryClient: QueryClient, payload: AggregationPayload | null) => {
   if (!payload) return;
 
-  setApiData(queryClient, PUBLIC_QUERY_KEYS.languages, payload.language_list);
   setApiResponse(queryClient, PUBLIC_QUERY_KEYS.baseConfig, payload.base_url);
   setApiResponse(queryClient, ["baseConfig"], payload.base_url);
   setApiResponse(queryClient, PUBLIC_QUERY_KEYS.casinoHomeGameList, payload.game_home_cache);
-  setApiResponse(queryClient, PUBLIC_QUERY_KEYS.gameProviders, payload.get_providers_v1);
-  setApiResponse(queryClient, PUBLIC_QUERY_KEYS.chatwootInboxId, payload.inbox_id);
-  setApiResponse(queryClient, PUBLIC_QUERY_KEYS.depositBonusConfig, payload.deposit_bonus_config);
-  setApiResponse(queryClient, PUBLIC_QUERY_KEYS.supportedGameCurrencies, payload.game_currency);
-  setApiResponse(queryClient, PUBLIC_QUERY_KEYS.supportedSettlementCurrencies, payload.currency);
-  setApiResponse(queryClient, PUBLIC_QUERY_KEYS.greatestGameOrder, payload.big_win_list);
-  setApiResponse(queryClient, PUBLIC_QUERY_KEYS.greatestBets, payload.big_win_list);
-  setApiResponse(queryClient, [...PUBLIC_QUERY_KEYS.latestWins, aggregationLang], payload.newest_v3);
-  setApiResponse(queryClient, ["paymentIcons"], payload.get_payment_icons);
-  setApiResponse(queryClient, ["countryCodeByIp"], payload.country_code);
 };
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
@@ -116,8 +89,9 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
 
   try {
     const aggregationResponse = await getAggregationConfig(locale);
-    queryClient.setQueryData([...PUBLIC_QUERY_KEYS.aggregationConfig, locale], aggregationResponse);
-    primeAggregationCaches(queryClient, getAggregationPayload(aggregationResponse), locale);
+    // Keep SSR focused on above-the-fold dependencies. The full aggregation
+    // payload is still bootstrapped client-side by AppBootstrapEffects.
+    primeCasinoAboveFoldCaches(queryClient, getAggregationPayload(aggregationResponse));
   } catch {
     // Keep SSR resilient; client-side queries still fetch if server bootstrap fails.
   }
