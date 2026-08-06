@@ -330,7 +330,7 @@ export function getImgCompressParams(
       break;
   }
 
-  const _url = url?.replace(/(1stgame\.imgix\.net|images?\.1st\.game)/g, "cdn-a.imgix.net");
+  const _url = url?.replace(/(1stgame\.imgix\.net|images?\.1st\.game|image\.betfrom\.com)/g, "cdn-a.imgix.net");
   return hasAnySearchParams(_url) ? `${_url}&${params}` : `${_url}?${params}`;
 }
 
@@ -350,7 +350,9 @@ export function getNetworkType(): "4g" | "3g" | "slow-2g" | "2g" {
   return "4g";
 }
 
-function hasAnySearchParams(url: string) {
+function hasAnySearchParams(url: string | undefined) {
+  if (!url) return false;
+
   try {
     const parse_url = new URL(url);
     return parse_url.search.length > 0;

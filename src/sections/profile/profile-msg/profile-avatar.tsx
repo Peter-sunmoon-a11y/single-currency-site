@@ -63,14 +63,14 @@ export function ProfileAvatar() {
       <div className="flex w-full flex-col items-center gap-4">
         {/* 头像编辑 */}
         <div
-          className="relative border-2 border-primary rounded-full cursor-pointer overflow-hidden bg-primary/15"
+          className="w-15 h-15 relative rounded-full cursor-pointer overflow-hidden bg-primary/15"
           onClick={() => setStatus((v) => ({ ...v, showAvatar: true }))}
         >
           {user?.avatar ? (
-            <img src={user.avatar} className="h-20 w-20 rounded-full" alt="" />
+            <img src={user.avatar} className="" alt="" />
           ) : (
             <UserRound
-              size={36}
+              size={30}
               aria-hidden="true"
               className="absolute inset-0 m-auto text-primary pointer-events-none"
             />
