@@ -8,6 +8,7 @@ import { useTranslation } from "@/lib/i18n/react-i18next";
 import { toast } from "sonner";
 import { useGamingGuide } from "@/hooks/api/usePublic.ts";
 import { useAppNavigate } from "@/hooks/useAppNavigate";
+import { trackCustomEvent } from "@/utils/helper.ts";
 
 // 支持两种格式:
 //   "provider:inner_game_id"
@@ -77,6 +78,16 @@ const GamePlay = () => {
     const game_currency = search?.trim() || path_currency || user.currency_fiat || "USDT";
     const origin = window.location.origin;
 
+    const launchParams = {
+      lang: i18n.language ?? "en",
+      home_url: `${origin}/casino`,
+      close_url: `${origin}/casino`,
+      deposit_url: `${origin}/finance/deposit`,
+      inner_game_id,
+      game_provider,
+      game_currency
+    };
+
     launchGame(
       {
         inner_game_id,
@@ -91,6 +102,11 @@ const GamePlay = () => {
         onSuccess: (response) => {
           if (response.code === 0 && response.data) {
             setGameData({ launchData: response.data, launchType: response.launch_type });
+            trackCustomEvent("user_play_game_freespins", "userPlayGameFreeSpins", {
+              ...launchParams,
+              user_id: user?.id,
+              launchType: response.launch_type
+            });
           } else {
             toast.error(response.code === 30009 ? t("toast:cannotBetby") : t("toast:failedToLaunchGame"));
           }
