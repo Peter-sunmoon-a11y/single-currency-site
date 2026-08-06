@@ -9,7 +9,7 @@ export type RolloverDetailViewModel = {
   infoRows: Array<{ label: string; value: string }>;
 };
 
-const DATE_FORMAT = "DD/MM/YYYY HH:mm:ss";
+const DATE_FORMAT = "DD MMM [']YY · HH:mm";
 
 export const useRolloverDetailMapper = () => {
   const { formatWithoutConversion } = useDisplayCurrencyFormatter();
@@ -176,4 +176,3 @@ const getWagerMultiplier = (record: EnrichedRolloverRecord): string | null => {
   
   return "1x";
 };
-

@@ -46,11 +46,6 @@ const MemberBonusGuard = ({
   const { data: levelUpClaimData } = useClaimBonus("level_up");
   const { data: vipNextLevelData } = useVipNextLevelData();
   const mondayVipBonusEnabled = switchData?.bonus_switch?.monday_vip_bonus !== 0;
-
-  if (!mondayVipBonusEnabled) {
-    return null;
-  }
-
   const currentVip = status?.vip || "--";
   const badgeUrl = `/images/vip/levels/${currentVip}.png`;
   const claimable = levelUpClaimData?.data?.data?.value || 0;
@@ -67,6 +62,10 @@ const MemberBonusGuard = ({
     return Decimal.max(0, Decimal(nextVipFullXp).sub(userXp)).toDP(0, Decimal.ROUND_UP).toNumber();
   }, [nextVipFullXp, numericCurrentVip, userXp]);
   const nextVipLevel = xpToNextVip === null ? null : numericCurrentVip + 1;
+
+  if (!mondayVipBonusEnabled) {
+    return null;
+  }
 
   return children({
     currentVip,

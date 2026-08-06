@@ -239,7 +239,7 @@ export function Index() {
               />
               <InnerItemWrap
                 label={t("transaction:tableHeaders.time")}
-                value={item.created_at ? dayjs(item.created_at * 1000).format("YYYY/MM/DD HH:mm:ss") : "—"}
+                value={item.created_at ? dayjs(item.created_at * 1000).format("DD MMM [']YY · HH:mm") : "—"}
               />
               <InnerItemWrap
                 label={t("transaction:tableHeaders.status")}
