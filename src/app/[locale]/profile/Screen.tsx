@@ -1,10 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useLocale } from "next-intl";
 import { useAuth } from "@/contexts/AuthContext.tsx";
 import { useDisplayCurrencyFormatter } from "@/contexts/DisplayCurrencyContext.tsx";
 import { requireAuth } from "@/lib/auth-guards";
-import { buildHref } from "@/lib/navigation";
+import { buildHref, localizeHref } from "@/lib/navigation";
 import { useTranslation } from "@/lib/i18n/react-i18next";
 import Iconify from "@/components/iconify";
 import {
@@ -155,10 +156,11 @@ const profileNavGroups: NavGroup[] = [
 
 const NavIconItem = ({ item }: { item: NavItem }) => {
   const { t } = useTranslation();
+  const locale = useLocale();
   const Icon = item.icon;
   return (
     <Link
-      href={item.to}
+      href={localizeHref(item.to, locale)}
       className="flex flex-col items-center gap-2"
     >
       <div className="w-12 h-12 rounded-lg bg-base-300 flex items-center justify-center">
