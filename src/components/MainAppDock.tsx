@@ -111,7 +111,7 @@ const DockInner = ({ items = MAIN_NAV_ITEMS }: DockProps) => {
       style={{ overscrollBehavior: "contain", touchAction: "pan-x" }}
     >
       <div
-        className="grid h-16 font-bold text-base-content/50"
+        className="grid h-[var(--app-dock-height)] font-bold text-base-content/50"
         style={{ gridTemplateColumns: `repeat(${Math.max(items.length, 1)}, minmax(0, 1fr))` }}
       >
         {items.map((item) => {

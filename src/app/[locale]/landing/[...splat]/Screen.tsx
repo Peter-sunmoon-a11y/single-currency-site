@@ -1,4 +1,4 @@
-import { isTelegramWebApp, openExternalUrl as openTelegramExternalUrl } from "@/utils/telegramWebApp";
+import { replaceOrOpenTelegramAwareUrl } from "@/utils/telegramPlatform";
 
 export const beforeLoad = ({ params, search }: { params: Record<string, string>; search: Record<string, string> }) => {
     let targetUrl: string | undefined;
@@ -32,12 +32,7 @@ export const beforeLoad = ({ params, search }: { params: Record<string, string>;
       // ignore URL parsing errors and fall back to replace
     }
 
-    // TMA 环境下用外部浏览器打开，避免内部跳转导致无法返回
-    if (isTelegramWebApp()) {
-      openTelegramExternalUrl(targetUrl);
-      return;
-    }
-    window.location.replace(targetUrl);
+    replaceOrOpenTelegramAwareUrl(targetUrl);
   };
 
 const ScreenComponent = () => null;

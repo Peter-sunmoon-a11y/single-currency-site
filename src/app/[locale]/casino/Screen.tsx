@@ -1,4 +1,3 @@
-import { localizeHref } from "@/lib/navigation";
 import { LazySection } from "@/components/ui/LazySection";
 import { CasinoActivitiesSkeleton, CasinoSectionSkeleton } from "@/sections/casino/CasinoSkeletons";
 import { PromotionalSkeleton } from "@/sections/casino/PromotionalSkeleton";
@@ -6,9 +5,7 @@ import { RecentBigWinsSkeleton } from "@/sections/casino/RecentBigWinsSkeleton";
 import HeroBanner from "@/sections/casino/hero-banner";
 import { useBoundStore } from "@/store";
 import { scheduleIdle } from "@/utils/helper";
-import { isTelegramWebApp } from "@/utils/telegramWebApp";
 import dynamic from "next/dynamic";
-import { useRouter, useSearchParams } from "next/navigation";
 import { memo, useEffect, useState, type ReactNode } from "react";
 
 const Footer = dynamic(() => import("@/sections/casino/Footer.tsx").then((m) => m.Footer), {
@@ -77,29 +74,8 @@ function DeferredSection({
 }
 
 const RouteComponent = memo(function RouteComponent() {
-  const openModal = useBoundStore((state) => state.openModal);
   const isAuthenticated = useBoundStore((state) => !!state.user);
   const [shouldMountPromoGuard, setShouldMountPromoGuard] = useState(false);
-
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    if (isTelegramWebApp()) return;
-    if (!isAuthenticated) {
-      // 转换为字符串进行比较，以兼容 boolean 和 string 类型
-      const shouldOpenLogin = searchParams.get("openLogin") === "true";
-      const shouldOpenSignUp = searchParams.get("openSignUp") === "true";
-
-      if (shouldOpenLogin) {
-        openModal("OPEN_AUTH_MODAL", { initialTab: "sign-in" });
-        router.replace(localizeHref("/casino"));
-      } else if (shouldOpenSignUp) {
-        openModal("OPEN_AUTH_MODAL", { initialTab: "sign-up" });
-        router.replace(localizeHref("/casino"));
-      }
-    }
-  }, [searchParams, isAuthenticated, openModal, router]);
 
   useEffect(() => {
     if (!isAuthenticated) {

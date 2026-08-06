@@ -133,8 +133,8 @@ export function GameIframe(
           onClick={handleBack}
           className="fixed z-[9999] btn btn-sm btn-circle btn-primary btn-soft h-7 w-7"
           style={{
-            top: "calc(var(--safe-area-inset-top) + 1rem)",
-            left: "calc(var(--safe-area-inset-left) + 1rem)"
+            top: "calc(var(--safe-area-inset-top) + var(--app-game-back-offset))",
+            left: "calc(var(--safe-area-inset-left) + var(--app-game-back-offset))"
           }}
         >
           <ChevronLeft className="w-4 h-4" />
@@ -142,7 +142,7 @@ export function GameIframe(
 
         {(iframeLoading || !gameGuide) && <GameLoadingScreen gameGuide={gameGuide} />}
 
-        <div className="h-[100dvh] w-full">{iframe}</div>
+        <div className="h-[var(--app-viewport-height,100dvh)] w-full">{iframe}</div>
 
         {shouldShowJokerOverlay && <JokerBonusGameOverlay active page="game_play" />}
       </div>

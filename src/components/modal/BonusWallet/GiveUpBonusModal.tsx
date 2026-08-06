@@ -107,8 +107,6 @@ export const GiveUpBonusModal = (
       void navigate({
         to: "/casino",
         search: {
-          openLogin: undefined,
-          openSignUp: undefined,
           redirect: undefined,
           startapp: undefined,
           openFinance: undefined

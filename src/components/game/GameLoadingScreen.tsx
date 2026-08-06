@@ -16,7 +16,7 @@ export function GameLoadingScreen({
   sample = true,
   gameGuide,
   fixed = false,
-  topOffset = "calc(var(--safe-area-inset-top) + 3rem)",
+  topOffset = "calc(var(--safe-area-inset-top) + var(--app-header-height))",
 }: GameLoadingScreenProps) {
   const { t } = useTranslation("common");
   const portalContainer = usePortalContainer();

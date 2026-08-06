@@ -62,8 +62,6 @@ function RouteComponent() {
           void navigate({
             to: "/casino",
             search: {
-              openLogin: "true",
-              openSignUp: undefined,
               redirect: undefined,
               startapp: undefined,
               openFinance: undefined
@@ -169,8 +167,6 @@ function RouteComponent() {
             <button className={"text-sm btn btn-soft btn-primary btn-sm"} onClick={() => navigate({
               to: "/casino",
               search: {
-                openLogin: String(true),
-                openSignUp: undefined,
                 redirect: undefined,
                 startapp: undefined,
                 openFinance: undefined

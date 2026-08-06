@@ -131,8 +131,6 @@ export const InnerSportsPlayToClaim = () => {
           void navigate({
             to: "/sports",
             search: {
-              openLogin: undefined,
-              openSignUp: undefined,
               redirect: undefined,
               startapp: undefined,
               openFinance: undefined

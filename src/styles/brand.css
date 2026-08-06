@@ -50,6 +50,13 @@
   /*--border:          1px;*/
   --font-family:     var(--font-athiti), "Athiti", "Leelawadee UI", "Thonburi", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
+  /* ── App Shell 尺寸变量 ─────────────────────────────────── */
+  --app-header-height:      3rem;
+  --app-dock-height:        4rem;
+  --app-sidebar-top-offset: 4rem;
+  --app-sidebar-bottom-gap: 5rem;
+  --app-game-back-offset:   1rem;
+
   /* ── 平台变量 — 勿动 ────────────────────────────────────── */
   /* PWA / Telegram Mini App 安全区；tg-safe-area 与 tg-content-safe-area 叠加计算，
      用 max() 防止 TMA 注入的 0px 覆盖系统 env() 值。                              */

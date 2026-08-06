@@ -52,7 +52,6 @@ export const requireAuth = ({ context, location }: { context: AuthGuardContext; 
         to: "/",
         search: {
           redirect: isLogoutIntent ? undefined : redirectPath,
-          openLogin: isLogoutIntent ? undefined : ("true" as any), // 使用 as any 避免类型错误，实际会被序列化为字符串
           startapp: undefined,
         },
       }),

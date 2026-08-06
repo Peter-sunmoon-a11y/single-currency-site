@@ -32,9 +32,9 @@ function parseGameId(gameId: string): { inner_game_id: string; game_provider: st
 const CASINO_NAV = { to: "/casino" as const, search: {} as any };
 
 const PLAYER_CONTAINER =
-  "overflow-hidden min-h-[calc(var(--app-viewport-height,100dvh)-3rem-var(--safe-area-inset-top)-var(--safe-area-inset-bottom))]";
+  "overflow-hidden min-h-[calc(var(--app-viewport-height,100dvh)-var(--app-header-height)-var(--safe-area-inset-top)-var(--safe-area-inset-bottom))]";
 const PLAYER_INNER =
-  "w-full h-[calc(var(--app-viewport-height,100dvh)-3rem-var(--safe-area-inset-top)-var(--safe-area-inset-bottom))]";
+  "w-full h-[calc(var(--app-viewport-height,100dvh)-var(--app-header-height)-var(--safe-area-inset-top)-var(--safe-area-inset-bottom))]";
 
 const GamePlay = () => {
 

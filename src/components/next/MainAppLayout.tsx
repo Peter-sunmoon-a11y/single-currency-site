@@ -119,8 +119,8 @@ export function MainAppLayout({ children }: { children: React.ReactNode }) {
             "flex-1 w-full hide-scrollbar",
             "min-h-0",
             "overflow-y-auto overflow-x-hidden",
-            "pt-[calc(3rem+var(--safe-area-inset-top))]",
-            shouldShowDock ? "pb-[calc(4rem+var(--safe-area-inset-bottom))]" : ""
+            "pt-[calc(var(--app-header-height)+var(--safe-area-inset-top))]",
+            shouldShowDock ? "pb-[calc(var(--app-dock-height)+var(--safe-area-inset-bottom))]" : ""
           )}
           style={{ overscrollBehavior: "contain", WebkitOverflowScrolling: "touch", touchAction: "pan-y" }}
         >

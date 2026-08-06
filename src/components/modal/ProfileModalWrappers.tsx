@@ -1,7 +1,6 @@
 import { lazy, Suspense, type ReactNode } from "react";
 import { useBoundStore } from "@/store";
 
-const WelcomeSignUpModal = lazy(() => import("./UserFinanceModal/c/WelcomeSignUpModal.tsx"));
 const ChangePasswordModal = lazy(() => import("@/sections/profile/security/ChangePasswordModal.tsx"));
 const EmailVerificationModal = lazy(() => import("@/sections/profile/security/EmailVerificationModal.tsx"));
 const SetWithdrawalPINModal = lazy(() => import("@/sections/profile/security/SetWithdrawalPINModal.tsx"));
@@ -13,13 +12,6 @@ const ExploreSearchDialog = lazy(() => import("@/sections/explore/ExploreSearchD
 const ModalSuspense = ({ children }: { children: ReactNode }) => (
   <Suspense fallback={null}>{children}</Suspense>
 );
-
-export const WelcomeSignUpModalWrapper = () => {
-  const open = useBoundStore((state) => "OPEN_WELCOME_SIGN_UP_MODAL" in state.modals);
-  const closeModal = useBoundStore((state) => state.closeModal);
-  if (!open) return null;
-  return <ModalSuspense><WelcomeSignUpModal open={open} onClose={() => closeModal("OPEN_WELCOME_SIGN_UP_MODAL")} /></ModalSuspense>;
-};
 
 export const ChangePasswordModalWrapper = () => {
   const open = useBoundStore((state) => "OPEN_CHANGE_PASSWORD_MODAL" in state.modals);

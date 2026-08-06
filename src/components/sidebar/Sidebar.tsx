@@ -258,8 +258,8 @@ function MobileDrawer() {
         <Drawer.Content
           className="fixed left-0 w-[80%] bg-transparent z-[999] outline-none"
           style={{
-            top: "calc(var(--safe-area-inset-top) + 4rem)",
-            bottom: "calc(var(--safe-area-inset-bottom) + 5rem)"
+            top: "calc(var(--safe-area-inset-top) + var(--app-sidebar-top-offset))",
+            bottom: "calc(var(--safe-area-inset-bottom) + var(--app-sidebar-bottom-gap))"
           }}
         >
           <div

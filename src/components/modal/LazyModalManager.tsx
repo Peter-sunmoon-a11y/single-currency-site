@@ -68,7 +68,6 @@ import {
   PhoneVerificationModalWrapper,
   RolloverDetailsDialogWrapper,
   SetWithdrawalPINModalWrapper,
-  WelcomeSignUpModalWrapper,
 } from "./ProfileModalWrappers.tsx";
 
 const LazyModalManager = () => {
@@ -130,7 +129,6 @@ const LazyModalManager = () => {
       <CryptoSettlementModalWrapper />
       <DepositMinAmountModalWrapper />
       <CurrencySelectorModalWrapper />
-      <WelcomeSignUpModalWrapper />
       <ChangePasswordModalWrapper />
       <EmailVerificationModalWrapper />
       <SetWithdrawalPINModalWrapper />
