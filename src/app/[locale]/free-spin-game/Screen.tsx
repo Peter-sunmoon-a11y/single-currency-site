@@ -107,7 +107,7 @@ function RouteComponent() {
             ))}
           </div>
         ) : allGames.length === 0 ? (
-          <div className=" min-h-50 text-sm font-bold text-warning flex flex-col items-center justify-center gap-2">
+          <div className=" min-h-50 text-sm font-bold text-base-content/60 flex flex-col items-center justify-center gap-2">
             <GlobeLock className="w-8 h-8" />
             {t("bonus:no_games_available")}
           </div>
