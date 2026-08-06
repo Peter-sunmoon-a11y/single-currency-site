@@ -1,6 +1,6 @@
 import { getSocialLogoUrl, siteConfig } from "@/lib/env";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { isIOS, isMobile } from "@/utils/browser";
+import { isIOS } from "@/utils/browser";
 import { toast } from "sonner";
 import { useReferralLink } from "@/hooks/useReferralLink";
 import qr from "qr.js";
@@ -12,91 +12,12 @@ import { Trans, useTranslation } from "@/lib/i18n/react-i18next";
 import { useMqttTopicMessagesReadonly, useMqttService } from "@/contexts/mqtt";
 import { useBoundStore } from "@/store";
 import { uploadShareImage } from "@/services/auth/referral";
-import { isTelegramWebApp, openExternalUrl as openExternalUrlInTMA } from "@/utils/telegramWebApp";
-
-const isStandalonePwa = () => {
-  const isIosStandalone = typeof (navigator as any)?.standalone === "boolean" && (navigator as any).standalone;
-  const isDisplayModeStandalone = typeof window !== "undefined" && window.matchMedia?.("(display-mode: standalone)")?.matches;
-  return Boolean(isIosStandalone || isDisplayModeStandalone);
-};
-
-export const getExternalLinkTarget = () => {
-  return isStandalonePwa() ? "_self" : "_blank";
-};
-
-const DEEP_LINK_FALLBACK_DELAY = 1200;
-
-export const openDeepLinkWithFallback = (deepLink: string, fallbackUrl: string, fallbackTarget: "_self" | "_blank" = "_blank") => {
-  if (!deepLink || !fallbackUrl) return;
-
-  // TMA 环境下直接用外部浏览器打开 fallback URL，避免内部跳转导致无法返回
-  if (isTelegramWebApp()) {
-    openExternalUrlInTMA(fallbackUrl);
-    return;
-  }
-
-  let shouldFallback = true;
-  let fallbackTab: Window | null = null;
-  const shouldPreOpenFallbackTab = fallbackTarget === "_blank" && !(isMobile() && isIOS());
-
-  if (shouldPreOpenFallbackTab) {
-    fallbackTab = window.open("", "_blank");
-  }
-
-  const markAsOpened = () => {
-    if (document.hidden) {
-      shouldFallback = false;
-    }
-  };
-
-  const markPageHidden = () => {
-    shouldFallback = false;
-  };
-
-  const markWindowBlur = () => {
-    shouldFallback = false;
-  };
-
-  document.addEventListener("visibilitychange", markAsOpened, true);
-  window.addEventListener("pagehide", markPageHidden, true);
-  window.addEventListener("blur", markWindowBlur, true);
-
-  window.location.assign(deepLink);
-
-  window.setTimeout(() => {
-    document.removeEventListener("visibilitychange", markAsOpened, true);
-    window.removeEventListener("pagehide", markPageHidden, true);
-    window.removeEventListener("blur", markWindowBlur, true);
-
-    if (!shouldFallback) {
-      fallbackTab?.close();
-      return;
-    }
-
-    if (fallbackTarget === "_blank") {
-      if (fallbackTab) {
-        fallbackTab.location.assign(fallbackUrl);
-      } else {
-        const openedTab = window.open(fallbackUrl, "_blank", "noopener,noreferrer");
-        if (!openedTab) {
-          window.location.assign(fallbackUrl);
-        }
-      }
-      return;
-    }
-
-    window.location.assign(fallbackUrl);
-  }, DEEP_LINK_FALLBACK_DELAY);
-};
-
-export const openExternalUrl = (url: string) => {
-  if (!url) return;
-  if (getExternalLinkTarget() === "_self") {
-    window.location.assign(url);
-    return;
-  }
-  window.open(url, "_blank", "noopener,noreferrer");
-};
+import { shareTo } from "@/features/social/lib/socialShare";
+import type { SocialNavigationResult } from "@/features/social/lib/socialNavigation";
+import { useTelegramContext } from "@/hooks/useTelegramContext";
+import {
+  openExternalUrl as openExternalUrlInTMA,
+} from "@/utils/telegramWebApp";
 
 const loadImage = (src: string, crossOrigin?: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
@@ -324,6 +245,7 @@ const drawShareText = (ctx: CanvasRenderingContext2D, shareLang: string, bgX: nu
 export const ReferralShareModalBigWin = ({ open, closeModal }: { open: boolean, closeModal: () => void }) => {
   const { t } = useTranslation(["referral", "common", "conquest"]);
   const { referralLink } = useReferralLink();
+  const isTelegram = useTelegramContext();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [uploadedShareUrl, setUploadedShareUrl] = useState<string | null>(null);
   const [winTypeLabel, setWinTypeLabel] = useState("Big Win");
@@ -500,7 +422,7 @@ export const ReferralShareModalBigWin = ({ open, closeModal }: { open: boolean, 
         const newWindow = window.open(url, "_blank");
         if (!newWindow) toast.error(t("gameDetail:download_failed"));
         setTimeout(() => URL.revokeObjectURL(url), 1000);
-      } else if (isTelegramWebApp()) {
+      } else if (isTelegram) {
         if (uploadedShareUrl) {
           openExternalUrlInTMA(uploadedShareUrl);
         }
@@ -518,56 +440,84 @@ export const ReferralShareModalBigWin = ({ open, closeModal }: { open: boolean, 
       if ((error as Error).name === "AbortError") return;
       toast.error(t("gameDetail:download_failed"));
     }
-  }, [t, latest?.multiplier, uploadedShareUrl]);
+  }, [isTelegram, t, latest?.multiplier, uploadedShareUrl]);
 
-  const handleSocialShare = useCallback((platform: string, shareText: string, shareUrl: string) => {
+  const notifyShareIssue = useCallback((result?: SocialNavigationResult) => {
+    if (!result) {
+      toast.error(t("referral:shareLinkUnavailable", "Share link isn't ready yet. Please try again."));
+      return;
+    }
+
+    if (result.status === "blocked") {
+      toast.error(
+        t(
+          "referral:sharePopupBlocked",
+          "Unable to open the share target. Please allow pop-ups or open it in your browser."
+        )
+      );
+      return;
+    }
+
+    if (result.status === "failed" && result.reason === "telegram-open-failed") {
+      toast.error(
+        t(
+          "referral:shareTelegramFailed",
+          "Unable to open this share target from Telegram right now."
+        )
+      );
+      return;
+    }
+
+    if (result.status === "failed" && result.reason === "clipboard-failed") {
+      toast.error(
+        t(
+          "referral:copyFailed",
+          "Unable to copy the link right now. Please try again."
+        )
+      );
+      return;
+    }
+
+    toast.error(t("common:error", "Something went wrong. Please try again."));
+  }, [t]);
+
+  const handleSocialShare = useCallback(async (platform: string, shareText: string, shareUrl: string) => {
     try {
       if (DOWNLOAD_PLATFORMS.has(platform)) {
         downloadImage();
-        // toast.success(t('gameDetail:image_downloaded'));
         return;
       }
 
       const effectiveShareUrl = uploadedShareUrl || shareUrl;
       const effectiveShareText = shareText + " " + shareUrl;
-      const effectiveShareBoth = uploadedShareUrl
-        ? `${shareText} ${uploadedShareUrl}`
-        : shareText;
 
-      const encodedUrl = encodeURIComponent(effectiveShareUrl);
-      const encodedText = encodeURIComponent(effectiveShareText);
-      const encodedBoth = encodeURIComponent(effectiveShareBoth + " " + shareUrl);
-
-      let url = "";
-      switch (platform) {
-        case "facebook":
-          url = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
-          break;
-        case "whatsapp":
-          if (isMobile() && isIOS()) {
-            const whatsappMobileLink = `whatsapp://send?text=${encodedBoth}`;
-            const whatsappWebLink = `https://api.whatsapp.com/send?text=${encodedBoth}`;
-            openDeepLinkWithFallback(whatsappMobileLink, whatsappWebLink, getExternalLinkTarget());
-            return;
-          } else {
-            url = isMobile()
-              ? `whatsapp://send?text=${encodedBoth}`
-              : `https://web.whatsapp.com/send?text=${encodedBoth}`;
-          }
-          break;
-        case "telegram":
-          url = `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`;
-          break;
-        case "x":
-          url = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`;
-          break;
+      if (platform !== "facebook" && platform !== "whatsapp" && platform !== "telegram" && platform !== "x" && platform !== "instagram") {
+        return;
       }
 
-      if (url) openExternalUrl(url);
+      const result = await shareTo(platform, {
+        url: effectiveShareUrl,
+        text: effectiveShareText,
+      });
+
+      if (!result.handled) {
+        notifyShareIssue();
+        return;
+      }
+
+      if (result.copied) {
+        toast.success(t("referral:linkCopiedOpenInstagram", "Link copied! Open Instagram to share."));
+        return;
+      }
+
+      if (result.result?.status !== "opened") {
+        notifyShareIssue(result.result);
+      }
     } catch (error) {
       console.error("Share error:", error);
+      toast.error(t("common:error", "Something went wrong. Please try again."));
     }
-  }, [downloadImage, t, uploadedShareUrl]);
+  }, [downloadImage, notifyShareIssue, t, uploadedShareUrl]);
 
   const onClose = useCallback(() => {
     setIsOpen(false);

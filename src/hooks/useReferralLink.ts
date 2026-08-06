@@ -1,7 +1,7 @@
 import { useDefaultAdTag } from "@/hooks/api/useAuth.ts";
 import { useBaseConfig } from "@/hooks/api/usePublic.ts";
 import { useCountryCodeByIp } from "@/sections/profile/security/helper.ts";
-import { isTelegramWebApp } from "@/utils/telegramWebApp";
+import { resolveTelegramAwareBaseUrl } from "@/utils/telegramPlatform";
 import { useMemo } from "react";
 
 // const host_map = new Map<string, string>();
@@ -25,7 +25,7 @@ export const useReferralLink = (custom_referral_code?: string) => {
   const referralLink = useMemo(() => {
     if (baseConfLoading || adTagDataLoading) return "🏃......";
     const referral_code = custom_referral_code || adTagData?.data?.code;
-    const baseUrl = isTelegramWebApp() ? baseConf?.data?.tg : baseConf?.data?.h5;
+    const baseUrl = resolveTelegramAwareBaseUrl(baseConf?.data);
     if (!referral_code || !baseUrl) return "- -";
     return `${baseUrl}?startapp=${referral_code}`;
   }, [baseConf, adTagData, custom_referral_code, country_code]);

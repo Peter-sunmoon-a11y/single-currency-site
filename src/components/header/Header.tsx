@@ -1,6 +1,8 @@
 import { useTranslation } from "@/lib/i18n/react-i18next";
 import { useBonusClaimCount } from "@/hooks/api/useAuth.ts";
 import { useAppNavigate } from "@/hooks/useAppNavigate";
+import { useAuthAction } from "@/hooks/useAuthAction";
+import { useTelegramContext } from "@/hooks/useTelegramContext";
 import { localizeHref } from "@/lib/navigation";
 import { ChevronLeft, Gamepad2, Gift, UserRound } from "lucide-react";
 import dynamic from "next/dynamic";
@@ -12,8 +14,11 @@ import { isSupportedLocale } from "@/lib/i18n/config";
 import { useBoundStore } from "@/store";
 import { cn } from "@/utils/cn";
 import { getImgCompressParams, useRumSdkUserLog } from "@/utils/helper.ts";
-import { isTelegramWebApp } from "@/utils/telegramWebApp";
-import { useEffect } from "react";
+import {
+  setTelegramBackButtonVisible,
+  subscribeTelegramBackButtonClick,
+} from "@/utils/telegramWebApp";
+import { useCallback, useEffect } from "react";
 import Logo from "../Logo";
 import { WalletFinance } from "./WalletFinance";
 import GoogleAuth from "@/components/socialLogin/GoogleAuth.tsx";
@@ -61,13 +66,13 @@ function ProfileEntry({ locale }: { profileInitial?: string; locale: string }) {
 
 function GuestEntryActions() {
   const { t } = useTranslation();
-  const openModal = useBoundStore((state) => state.openModal);
+  const { openAuth } = useAuthAction();
 
   return (
     <>
       <GoogleAuth enabled />
       <button className="btn btn-primary h-9"
-              onClick={() => openModal("OPEN_AUTH_MODAL", { initialTab: "signin" })}>
+              onClick={() => openAuth("signin")}>
         {t("login:signIn")}
       </button>
     </>
@@ -116,7 +121,7 @@ function AuthSection({ isAuthPage }: { isAuthPage: boolean }) {
   const locale = useLocale();
   const pathname = usePathname();
 
-  const isTelegram = isTelegramWebApp();
+  const isTelegram = useTelegramContext();
   const profileInitial = user?.nickname?.trim()?.slice(0, 4) || user?.username?.trim()?.slice(0, 4);
   const isInGame = isDirectPlayPath(pathname) || Boolean(headerBackAction);
 
@@ -154,12 +159,40 @@ export default function Header() {
   };
   const isCasino = location.pathname === "/casino";
   const isAuthPage = AUTH_PAGES.some((p) => location.pathname.includes(p));
+  const isTelegram = useTelegramContext();
 
-  // TODO: 添加全局日志信息
+  const handleBack = useCallback(() => {
+    const { headerBackAction } = useBoundStore.getState();
+    if (headerBackAction) {
+      headerBackAction();
+    } else {
+      router.back();
+    }
+  }, [router]);
+
   const { rumSetConfig } = useRumSdkUserLog();
   useEffect(() => {
     rumSetConfig();
   }, [rumSetConfig]);
+
+  useEffect(() => {
+    if (!isTelegram) return;
+
+    const shouldShowBackButton = !isCasino;
+    setTelegramBackButtonVisible(shouldShowBackButton);
+
+    if (!shouldShowBackButton) {
+      return () => {
+        setTelegramBackButtonVisible(false);
+      };
+    }
+
+    const unsubscribe = subscribeTelegramBackButtonClick(handleBack);
+    return () => {
+      unsubscribe();
+      setTelegramBackButtonVisible(false);
+    };
+  }, [handleBack, isCasino, isTelegram]);
 
   return (
     <div
@@ -178,14 +211,8 @@ export default function Header() {
             )}
             onClick={(e) => {
               e.preventDefault();
-              const { headerBackAction } = useBoundStore.getState();
-              if (headerBackAction) {
-                headerBackAction();
-              } else {
-                router.back();
-              }
+              handleBack();
             }}
-            onTouchStart={() => console.log("Touch start")}
             type="button"
             style={{ zIndex: 50 }}
           >

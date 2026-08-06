@@ -1,3 +1,5 @@
+import { buildTelegramShareUrl } from "@/utils/telegramWebApp";
+
 export type SharePlatform =
   | "telegram"
   | "whatsapp"
@@ -32,6 +34,7 @@ export type ShareChannelTarget = {
   platform: SharePlatform;
   url?: string;
   fallbackUrl?: string;
+  deepLinkUrl?: string;
   copyText?: string;
 };
 
@@ -143,12 +146,13 @@ export function buildShareTarget(
 
   switch (platform) {
     case "telegram": {
-      const params = new URLSearchParams({ url: canonicalUrl });
-      if (text) params.set("text", text);
       return {
         kind: "share-target",
         platform,
-        url: `https://t.me/share/url?${params}`,
+        url: buildTelegramShareUrl({
+          url: canonicalUrl,
+          text,
+        }),
       };
     }
 
@@ -158,6 +162,7 @@ export function buildShareTarget(
         kind: "share-target",
         platform,
         url: `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`,
+        deepLinkUrl: `whatsapp://send?text=${encodeURIComponent(message)}`,
       };
     }
 

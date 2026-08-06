@@ -8,14 +8,15 @@ import { useTranslation } from "@/lib/i18n/react-i18next";
 import { isSupportedLocale } from "@/lib/i18n/config";
 import { fetchBetbyAuthToken, getBetByConfig } from "@/services/sports/betby";
 import type { BetbyAuthResponse, BTRendererInstance } from "@/types/betby";
-import { ensureTelegramSdkMounted, subscribeTelegramViewportChanges } from "@/utils/telegramWebApp";
 import { SportsBonusGuard } from "@/sections/sports/SportsBonusGuard.tsx";
 import { PUBLIC_QUERY_KEYS } from "@/hooks/api/usePublic.ts";
 import { queryClient } from "@/integrations/tanstack-query/root-provider.tsx";
+import { useAuthAction } from "@/hooks/useAuthAction";
 import { useAppNavigate } from "@/hooks/useAppNavigate";
 import { TextBaseContent } from "@/components/standard/TextBaseContent.tsx";
 import type { ApiResponse } from "@/types/auth";
 import { siteConfig } from "@/lib/env";
+import { useRootCssPixelVar } from "@/hooks/useRootCssPixelVar";
 
 const DEFAULT_BETBY_SDK_URL = "https://1stgame.sptpub.com/bt-renderer.min.js";
 const BETBY_SDK_URL = betbyConfig.sdkUrl || DEFAULT_BETBY_SDK_URL;
@@ -52,7 +53,7 @@ function SportsPageContent() {
     href: locationSearchParams.toString() ? `${pathname}?${locationSearchParams.toString()}` : pathname,
     hash: typeof window === "undefined" ? "" : window.location.hash
   };
-  const openModal = useBoundStore((state) => state.openModal);
+  const { openAuth } = useAuthAction();
   const searchParamsSearchParams = useSearchParams();
   const searchParams = searchParamsToObject(searchParamsSearchParams);
   const btPathParam = searchParams["bt-path"];
@@ -85,36 +86,7 @@ function SportsPageContent() {
   const headerHeight = 48;
   const betbyNavigationHeight = 48;
   const betbyStickyTop = 0;
-  // 动态获取 safe-area-inset-top（Telegram Mini App 顶部安全区域）
-  const [safeAreaInsetTop, setSafeAreaInsetTop] = useState(0);
-
-  useEffect(() => {
-    const updateSafeAreaInset = () => {
-      if (typeof document !== "undefined") {
-        const value = getComputedStyle(document.documentElement).getPropertyValue("--safe-area-inset-top");
-        const parsed = parseInt(value, 10);
-        setSafeAreaInsetTop(isNaN(parsed) ? 0 : parsed);
-      }
-    };
-
-    updateSafeAreaInset();
-
-    let disposed = false;
-    let unsubscribeViewport: VoidFunction | undefined;
-
-    void ensureTelegramSdkMounted().then((mounted) => {
-      if (!mounted || disposed) return;
-      unsubscribeViewport = subscribeTelegramViewportChanges(updateSafeAreaInset);
-    });
-
-    window.addEventListener("resize", updateSafeAreaInset);
-
-    return () => {
-      disposed = true;
-      unsubscribeViewport?.();
-      window.removeEventListener("resize", updateSafeAreaInset);
-    };
-  }, []);
+  const safeAreaInsetTop = useRootCssPixelVar("--safe-area-inset-top");
 
   // bet slip 需要考虑：safe area + header + betby 导航栏
   const betbyBetSlipOffsetTop = safeAreaInsetTop + headerHeight + betbyNavigationHeight;
@@ -371,12 +343,12 @@ function SportsPageContent() {
   }, [refreshToken]);
 
   const handleBetbyLogin = useCallback(() => {
-    openModal("OPEN_AUTH_MODAL", { initialTab: "signin" });
-  }, [openModal]);
+    openAuth("signin");
+  }, [openAuth]);
 
   const handleBetbyRegister = useCallback(() => {
-    openModal("OPEN_AUTH_MODAL", { initialTab: "signup" });
-  }, [openModal]);
+    openAuth("signup");
+  }, [openAuth]);
 
   // 初始化时获取参数
   useEffect(() => {

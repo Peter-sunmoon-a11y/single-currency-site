@@ -1,10 +1,10 @@
 import {
-  isIOS, isPWA,
+  isIOS, isMobile, isPWA,
 } from "@/utils/browser";
 import {
-  isTelegramWebApp,
   openExternalUrl as openTelegramExternalUrl,
 } from "@/utils/telegramWebApp";
+import { isTelegramPlatform } from "@/utils/telegramPlatform";
 import type { SocialTarget } from "./socialTargets";
 
 export type SocialNavigationResult =
@@ -30,6 +30,73 @@ const isValidUrl = (value: string): boolean => {
   } catch {
     return false;
   }
+};
+
+const getExternalLinkTarget = () => (isIOS() && isPWA() ? "_self" : "_blank");
+
+const openDeepLinkWithFallback = (
+  deepLinkUrl: string,
+  fallbackUrl: string,
+  fallbackTarget: "_self" | "_blank" = "_blank"
+) => {
+  if (!deepLinkUrl || !fallbackUrl) {
+    return false;
+  }
+
+  let shouldFallback = true;
+  let fallbackTab: Window | null = null;
+  const shouldPreOpenFallbackTab = fallbackTarget === "_blank" && !(isMobile() && isIOS());
+
+  if (shouldPreOpenFallbackTab) {
+    fallbackTab = window.open("", "_blank");
+  }
+
+  const markAsOpened = () => {
+    if (document.hidden) {
+      shouldFallback = false;
+    }
+  };
+
+  const markPageHidden = () => {
+    shouldFallback = false;
+  };
+
+  const markWindowBlur = () => {
+    shouldFallback = false;
+  };
+
+  document.addEventListener("visibilitychange", markAsOpened, true);
+  window.addEventListener("pagehide", markPageHidden, true);
+  window.addEventListener("blur", markWindowBlur, true);
+
+  window.location.assign(deepLinkUrl);
+
+  window.setTimeout(() => {
+    document.removeEventListener("visibilitychange", markAsOpened, true);
+    window.removeEventListener("pagehide", markPageHidden, true);
+    window.removeEventListener("blur", markWindowBlur, true);
+
+    if (!shouldFallback) {
+      fallbackTab?.close();
+      return;
+    }
+
+    if (fallbackTarget === "_blank") {
+      if (fallbackTab) {
+        fallbackTab.location.assign(fallbackUrl);
+      } else {
+        const openedTab = window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+        if (!openedTab) {
+          window.location.assign(fallbackUrl);
+        }
+      }
+      return;
+    }
+
+    window.location.assign(fallbackUrl);
+  }, 1200);
+
+  return true;
 };
 
 const resolveTargetUrl = (target: SocialTarget): string | undefined => {
@@ -142,10 +209,25 @@ export async function openSocialTarget(
     return { status: "unsupported", reason: "invalid-url" };
   }
 
-  if (isTelegramWebApp()) {
+  if (isTelegramPlatform()) {
     return openTelegramExternalUrl(url)
       ? { status: "opened", mechanism: "telegram" }
       : { status: "failed", reason: "telegram-open-failed" };
+  }
+
+  if (
+    target.kind === "share-target" &&
+    target.platform === "whatsapp" &&
+    target.deepLinkUrl &&
+    isMobile() &&
+    isIOS()
+  ) {
+    openDeepLinkWithFallback(
+      target.deepLinkUrl,
+      url,
+      getExternalLinkTarget()
+    );
+    return { status: "opened", mechanism: "top-context" };
   }
 
   if (isIOS() && isPWA()) {

@@ -6,6 +6,7 @@ import { CurrencyStateSync } from "@/contexts/CurrencyStateSync";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { MqttServiceProvider } from "@/contexts/mqtt";
 import { AppBootstrapEffects } from "@/components/next/AppBootstrapEffects";
+import { TelegramBootstrap } from "@/components/providers/TelegramBootstrap";
 import { Provider as QueryProvider } from "@/integrations/tanstack-query/root-provider";
 import type { DehydratedState } from "@tanstack/react-query";
 
@@ -29,6 +30,7 @@ export function LegacyProviders({ children, dehydratedState }: { children: React
       {/* 邀请注册推荐码落地：延后挂载即可，不占用首屏关键渲染路径。 */}
       <AdAttributionTracker />
       <AuthProvider>
+        <TelegramBootstrap />
         {/* 同步登录态币种到本地 store；依赖 AuthProvider 和 React Query。 */}
         <CurrencyStateSync />
         {/* 站点级 WebPush 启动副作用：需依赖 AuthProvider，同时懒加载以避免拖累首屏关键 bundle。 */}
