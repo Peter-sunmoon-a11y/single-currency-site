@@ -19,7 +19,7 @@ import { toast } from "sonner";
 // 游戏面板容器：从 header 底部向下铺满屏幕（fixed 定位，覆盖主内容区）
 // 用于 gaming-guard 加载态、isDirectPlay 模式、非全屏游戏运行态
 export const GAME_PANEL_CLS = "fixed inset-x-0 bottom-0 z-[1000] bg-base-200";
-export const GAME_PANEL_STYLE = { top: "calc(var(--safe-area-inset-top) + 3rem)" };
+export const GAME_PANEL_STYLE = { top: "calc(var(--safe-area-inset-top) + var(--app-header-height))" };
 
 export const CurrencySettlementProhibited = () => {
   const { t } = useTranslation();

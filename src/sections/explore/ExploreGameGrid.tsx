@@ -93,7 +93,7 @@ export function ExploreGameGrid({
         )}
         components={{
           Footer: () => (
-            <div className="flex flex-col items-center py-5 gap-2 pb-[calc(5rem+var(--safe-area-inset-bottom))]">
+            <div className="flex flex-col items-center py-5 gap-2 pb-[calc(var(--app-sidebar-bottom-gap)+var(--safe-area-inset-bottom))]">
               {isLoadingMore && (
                 <span className="loading loading-bars loading-sm text-primary" />
               )}
