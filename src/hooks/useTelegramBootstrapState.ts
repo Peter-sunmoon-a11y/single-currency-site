@@ -177,29 +177,8 @@ export function useTelegramBootstrapState() {
       return;
     }
     if (isTmaLoginPending || isLoginAttemptInFlightRef.current) return;
-    if (readSessionFlag(TG_LOGIN_FAILED_SESSION_KEY)) {
-      // 上一次已经失败过，就不要在同一次会话里无限重试。
-      setShowLoginFailedNotice(true);
-      updateTelegramBootDebugState({
-        phase: "blocked",
-        reason: "previous-login-failed",
-        loginStatus: "failed",
-        attempts: readSessionNumber(TG_LOGIN_ATTEMPTS_SESSION_KEY),
-      });
-      return;
-    }
 
     const initData = getTelegramInitData();
-    if (!initData) {
-      // 先等 Telegram runtime 把 initData 准备好，再进入登录。
-      updateTelegramBootDebugState({
-        phase: "waiting-init-data",
-        reason: "missing-init-data",
-        hasInitData: false,
-        initDataLength: 0,
-      });
-      return;
-    }
 
     isLoginAttemptInFlightRef.current = true;
     const attempts = readSessionNumber(TG_LOGIN_ATTEMPTS_SESSION_KEY) + 1;
@@ -208,7 +187,7 @@ export function useTelegramBootstrapState() {
       phase: "logging-in",
       loginStatus: "pending",
       attempts,
-      hasInitData: true,
+      hasInitData: Boolean(initData),
       initDataLength: initData.length,
     });
 
