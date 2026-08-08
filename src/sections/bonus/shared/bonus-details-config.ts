@@ -53,12 +53,13 @@ export const ALL_BONUS_TYPES = [
   { key: "mini_bonus", label: "bonus:item.mini_bonus" },
   { key: "mega_bonus", label: "bonus:item.mega_bonus" },
   // { key: "vip_bonus_lucky_number_seven", label: "bonus:item.lucky_number_seven" }, // Lucky Number 7
-  { key: "lucky_number", label: "bonus:item.lucky_number_seven" }, // Lucky Number X
+  { key: "lucky_number", label: "bonus:item.lucky_number" }, // Lucky Number X
   { key: "daily_first_deposit_branch", label: "bonus:daily_first_deposit_title" }, // 每日首存奖励
   { key: "tiered_first_deposit", label: "bonus:tiered_first_deposit" }, // 阶梯奖励
   { key: "first_challenge", label: "firstChallenge.title" }, // 首充挑战奖励
   { key: "members_day", label: "bonus:members_day" }, // 会员日奖励
-  { key: "lucky_spin", label: "bonus:lucky_spin" }
+  { key: "lucky_spin", label: "bonus:lucky_spin" },
+  { key: "red_packet_claim", label: "bonus:airdrop" }
 ] as const;
 
 export type BonusDetailsSummaryMap = Map<string, { sum: number; currency: string }>;

@@ -101,7 +101,7 @@ export const SECONDARY_MENUS: Record<string, TabConfig[]> = {
     { value: "megaways", label: "explore:megaways", icon: "custom:megaways" },
     { value: "table-games", label: "explore:tableGames", icon: "custom:table-game" },
     { value: "video-poker", label: "explore:videoPoker", icon: "custom:video-poker" },
-    { value: "arcade", label: "explore:arcade", icon: "custom:arcade" },
+    { value: "arcade", label: "explore:arcade", icon: "custom:game" },
     { value: "other-slots", label: "explore:others", icon: "custom:more" },
   ],
   liveCasino: [

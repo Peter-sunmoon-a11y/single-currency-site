@@ -16,7 +16,7 @@ export const FreeSpins = () => {
 
   return (
     <BonusListHeader
-      icon={<Iconify icon="custom:free-spin" className="shrink-0 w-5 h-5 text-primary" />}
+      icon={<Iconify icon="custom:game" className="shrink-0 w-5 h-5 text-primary" />}
       title={t("luckySpin:freeSpins")}
       childrenClassName="grid grid-cols-1 gap-2"
     >

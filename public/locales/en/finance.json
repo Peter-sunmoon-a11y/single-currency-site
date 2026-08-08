@@ -232,5 +232,6 @@
   "hideZeroBalances": "Hide Zero Balances",
   "securityCheck_encrypting": "Encrypting your data...",
   "securityCheck_identity": "Identity verified",
-  "securityCheck_processing": "Processing order..."
+  "securityCheck_processing": "Processing order...",
+  "processing": "Processing"
 }

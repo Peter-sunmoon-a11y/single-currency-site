@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { PromotionalSkeleton } from "./PromotionalSkeleton";
 import { NewBadge } from "@/components/ui/NewBadge";
+import { useAppNavigate } from "@/hooks/useAppNavigate.ts";
 
 type GridItem = {
   icon: string;
@@ -17,6 +18,7 @@ type GridItem = {
 export const Promotional = () => {
   const { t } = useTranslation();
   const router = useRouter();
+  const navigate = useAppNavigate();
   const { data: baseConfig, isLoading } = useBaseConfig();
   const showBetby = baseConfig?.data?.is_show_betby !== 0;
   const pushWithSearch = (pathname: string, search: Record<string, string>) => {
@@ -27,42 +29,47 @@ export const Promotional = () => {
     {
       icon: "custom:slots",
       label: t("explore:slots"),
-      onClick: () => pushWithSearch("/explore", { type: "slots", category: "all" }),
+      onClick: () => pushWithSearch("/explore", { type: "slots", category: "all" })
     },
     {
       icon: "custom:live",
       label: t("explore:liveCasino"),
-      onClick: () => pushWithSearch("/explore", { type: "liveCasino", category: "all" }),
+      onClick: () => pushWithSearch("/explore", { type: "liveCasino", category: "all" })
     },
     {
       icon: "custom:fast",
       label: t("explore:fast"),
-      onClick: () => pushWithSearch("/explore", { type: "fast", category: "all" }),
+      onClick: () => pushWithSearch("/explore", { type: "fast", category: "all" })
     },
     {
       icon: "custom:fishing",
       label: t("explore:fishing"),
-      onClick: () => pushWithSearch("/explore", { type: "fishing" }),
+      onClick: () => pushWithSearch("/explore", { type: "fishing" })
     },
     {
       icon: "custom:lottery",
       label: t("explore:lottery"),
-      onClick: () => pushWithSearch("/explore", { type: "lottery" }),
+      onClick: () => pushWithSearch("/explore", { type: "lottery" })
     },
     ...(showBetby
       ? [
-          {
-            icon: "custom:basketball",
-            label: t("common:common.sports"),
-            onClick: () => pushWithSearch("/sports", { "bt-path": "/" }),
-          },
-          {
-            icon: "custom:prediction",
-            label: t("explore:prediction"),
-            onClick: () => pushWithSearch("/sports", { "bt-path": "/predictions" }),
-          },
-        ]
+        {
+          icon: "custom:basketball",
+          label: t("common:common.sports"),
+          onClick: () => pushWithSearch("/sports", { "bt-path": "/" })
+        },
+        {
+          icon: "custom:prediction",
+          label: t("explore:prediction"),
+          onClick: () => pushWithSearch("/sports", { "bt-path": "/predictions" })
+        }
+      ]
       : []),
+    {
+      icon: "custom:gamepad",
+      label: t("explore:originalsBrand"),
+      onClick: () => navigate("/originals")
+    }
   ];
 
   if (isLoading) {
@@ -80,7 +87,8 @@ export const Promotional = () => {
 
 const GridCard = ({ icon, label, onClick, isNew, className }: GridItem & { className?: string }) => {
   return (
-    <div onClick={onClick} className={clsx("rounded-lg cursor-pointer relative flex items-center gap-2 px-4 h-10 bg-base-200", className)}>
+    <div onClick={onClick}
+         className={clsx("rounded-lg cursor-pointer relative flex items-center gap-2 px-4 h-10 bg-base-200", className)}>
       <Iconify icon={icon} size={18} className="text-base-content shrink-0" />
       <span className="font-bold text-sm text-base-content uppercase truncate">{label}</span>
       {isNew && <NewBadge />}

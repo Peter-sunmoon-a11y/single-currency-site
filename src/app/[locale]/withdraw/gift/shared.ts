@@ -33,6 +33,7 @@ export type GiftDetail = {
   notice: string;
   status: GiftStatus;
   type: GiftType;
+  request_json: Record<string, any>;
   networks: GiftNetworkOption[];
   channels: GiftChannelOption[];
 };
@@ -169,6 +170,7 @@ export const normalizeGiftDetail = (payload: Record<string, any>): GiftDetail =>
   const data = payload?.data ?? payload ?? {};
 
   return {
+    request_json: data?.request_json,
     amount: String(data.amount ?? data.withdraw_amount ?? 0),
     currency: String(data.currency ?? data.display_currency ?? ""),
     notice: String(data.notice ?? data.remark ?? ""),
@@ -184,6 +186,12 @@ export const buildInfoDefaults = (fields: Record<string, any>, source: Record<st
 
   Object.entries(fields).forEach(([key, field]) => {
     if (key === "amount" || !field || typeof field !== "object") return;
+
+    const sourceValue = source && Object.prototype.hasOwnProperty.call(source, key) ? source[key] : undefined;
+    if (sourceValue !== undefined && sourceValue !== null && sourceValue !== "") {
+      next[key] = String(sourceValue);
+      return;
+    }
 
     if (field.bind || field.hide) {
       next[key] = String(handleBindOrHideFormItemDefaultValue(field, source) ?? "");

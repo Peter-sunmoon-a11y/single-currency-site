@@ -38,6 +38,7 @@ import {
   Flame,
   FolderOpen,
   Gamepad2,
+  Gamepad,
   Gem,
   Gift,
   Globe,
@@ -119,7 +120,7 @@ export const LUCIDE_ICON_MAP: Record<string, ComponentType<LucideProps>> = {
 
   // custom: prefixed aliases
   "custom:account-verified": BadgeCheck,
-  "custom:arcade": Gamepad2,
+  "custom:gamepad": Gamepad,
   "custom:baccarat": Spade,
   "custom:back": ArrowLeft,
   "custom:bet-history": ClipboardList,
@@ -145,7 +146,6 @@ export const LUCIDE_ICON_MAP: Record<string, ComponentType<LucideProps>> = {
   "custom:facebook": Share2,
   "custom:favorites": Heart,
   "custom:feature-buy": ShoppingCart,
-  "custom:free-spin": Gamepad2,
   "custom:game-shows": Tv,
   "custom:game": Gamepad2,
   "custom:global": Globe,

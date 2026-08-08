@@ -50,10 +50,11 @@ export const InputBox = ({ type, ignore, detect, label, className, ...props }: R
 };
 
 // 服务于必填项
-export const InnerFieldItem = ({ name, field, onChange }: {
+export const InnerFieldItem = ({ name, field, onChange, disabled = false }: {
   name: string,
   field: Record<string, any>,
-  onChange: (v: Record<string, any>) => void
+  onChange: (v: Record<string, any>) => void,
+  disabled?: boolean
 }) => {
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -226,7 +227,9 @@ export const InnerFieldItem = ({ name, field, onChange }: {
         label={<RequireItem label={t(`finance:${field.label}`)} required={field?.required} />}
         value={account.value}
         detect={account}
+        disabled={disabled}
         onChange={(e) => {
+          if (disabled) return;
           // TODO: 当姓名有值的时候禁止用户修改姓名
           if (name === "name" && field?.default !== "" && field?.required) return;
 
@@ -239,7 +242,7 @@ export const InnerFieldItem = ({ name, field, onChange }: {
           debouncedChange({ value: base.value, [`${name}_error`]: base.error });
         }}
         // TODO: 当姓名有值的时候禁止用户修改姓名
-        readOnly={name === "name" && field?.default !== "" && field?.required}
+        readOnly={disabled || (name === "name" && field?.default !== "" && field?.required)}
         placeholder={`${t("finance:enter")} ${t(`finance:${field.label}`)}`}
       />
       {/* 有长度范围的手机号 */}
@@ -352,10 +355,11 @@ export const InnerUnnecessary = ({ name, field, onChange }: {
   );
 };
 
-export const InnerOptions = ({ name, field, onChange }: {
+export const InnerOptions = ({ name, field, onChange, disabled = false }: {
   name: string,
   field: Record<string, any>,
-  onChange: (v: Record<string, any>) => void
+  onChange: (v: Record<string, any>) => void,
+  disabled?: boolean
 }) => {
   const { t } = useTranslation();
 
@@ -402,7 +406,9 @@ export const InnerOptions = ({ name, field, onChange }: {
       title={t(`finance:${field.label}`)}
       options={memoOptions}
       value={status.value}
+      disabled={disabled}
       onChange={(value) => {
+        if (disabled) return;
         onChange({ value: value, [`${name}_error`]: false });
         setStatus((old) => ({ ...old, value: value as string }));
       }}

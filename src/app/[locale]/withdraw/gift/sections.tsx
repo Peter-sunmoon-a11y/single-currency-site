@@ -181,43 +181,48 @@ export const GiftCryptoFields = ({
   </>
 );
 
-export const GiftFiatFieldList = (
-  {
-    selectedChannel,
-    onChannelChange,
-    channelOptions,
-    channelUnavailable,
-    visibleFiatFields,
-    fiatFieldErrors,
-    onFieldChange,
-    t
-  }: {
-    selectedChannel: string;
-    onChannelChange: (value: string) => void;
-    channelOptions: SelectOption[];
-    channelUnavailable: boolean;
-    visibleFiatFields: [string, Record<string, any>][];
-    fiatFieldErrors: Record<string, string>;
-    onFieldChange: (key: string, value: string | Record<string, any>) => void;
-    t: (key: string, options?: Record<string, any>) => string;
-  }) => (
+export const GiftFiatFieldList = ({
+  selectedChannel,
+  onChannelChange,
+  channelOptions,
+  channelUnavailable,
+  visibleFiatFields,
+  fiatFieldErrors,
+  onFieldChange,
+  isProcessing,
+  t
+}: {
+  selectedChannel: string;
+  onChannelChange: (value: string) => void;
+  channelOptions: SelectOption[];
+  channelUnavailable: boolean;
+  visibleFiatFields: [string, Record<string, any>][];
+  fiatFieldErrors: Record<string, string>;
+  onFieldChange: (key: string, value: string | Record<string, any>) => void;
+  isProcessing: boolean;
+  t: (key: string, options?: Record<string, any>) => string;
+}) => (
   <>
-    <FormBox label={t("finance:withdrawalMethod")}>
-      <SelectDropdown
-        title={t("finance:withdrawalMethod")}
-        value={selectedChannel}
-        options={channelOptions}
-        onChange={(value) => onChannelChange(String(value))}
-      />
-    </FormBox>
+    {isProcessing ? null : (
+      <>
+        <FormBox label={t("finance:withdrawalMethod")}>
+          <SelectDropdown
+            title={t("finance:withdrawalMethod")}
+            value={selectedChannel}
+            options={channelOptions}
+            onChange={(value) => onChannelChange(String(value))}
+          />
+        </FormBox>
 
-    {channelUnavailable ? (
-      <div className="rounded-lg bg-error/10 p-2 text-sm text-error">
-        {t("finance:giftWithdrawChannelUnavailable")}
-      </div>
-    ) : null}
+        {channelUnavailable ? (
+          <div className="rounded-lg bg-error/10 p-2 text-sm text-error">
+            {t("finance:giftWithdrawChannelUnavailable")}
+          </div>
+        ) : null}
+      </>
+    )}
 
-    {visibleFiatFields.map(([key, field]) => {
+    {isProcessing ? null : visibleFiatFields.map(([key, field]) => {
       const fieldKey = `${selectedChannel}_${key}`;
 
       if (Array.isArray(field.select)) {
@@ -255,7 +260,7 @@ export const GiftSummaryAction = (
     loading,
     disabled,
     onClick,
-    confirmText,
+    isProcessing,
     t
   }: {
     amount: string;
@@ -266,7 +271,7 @@ export const GiftSummaryAction = (
     loading: boolean;
     disabled: boolean;
     onClick: () => void;
-    confirmText: string;
+    isProcessing: boolean;
     t: (key: string) => string;
   }) => {
   const totalWithdrawAmount = Decimal(amount || 0);
@@ -302,7 +307,10 @@ export const GiftSummaryAction = (
       </div>
 
       <ConfirmBox disabled={disabled} loading={loading} onClick={onClick}>
-        {confirmText}
+        <span className="inline-flex items-center justify-center gap-2">
+          <span>{isProcessing ? t("finance:processing") : t("finance:giftWithdrawConfirm")}</span>
+          {isProcessing ? <span className="loading loading-bars loading-xs text-primary" /> : null}
+        </span>
       </ConfirmBox>
     </div>
   );

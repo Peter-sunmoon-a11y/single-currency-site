@@ -13,11 +13,11 @@ type FiatGiftForm = {
 };
 
 export function useGiftWithdraw({
-  claimKey,
-  detail,
-  onSubmitted,
-  t
-}: {
+                                  claimKey,
+                                  detail,
+                                  onSubmitted,
+                                  t
+                                }: {
   claimKey: string;
   detail: GiftDetail | null;
   onSubmitted: () => Promise<unknown>;
@@ -44,7 +44,7 @@ export function useGiftWithdraw({
 
     setSelectedChannel((current) => current || firstChannel.value);
   }, [detail]);
-  console.info(detail);
+
   const activeChannel = useMemo(
     () => detail?.channels.find((item) => item.value === selectedChannel) ?? detail?.channels[0] ?? null,
     [detail?.channels, selectedChannel]
@@ -182,6 +182,7 @@ export function useGiftWithdraw({
   });
 
   return {
+    isProcessing: status === "processing",
     selectedNetwork,
     setSelectedNetwork,
     walletAddress,

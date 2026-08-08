@@ -385,7 +385,7 @@
     "free_bonus": "Free Bonus",
     "mini_bonus": "Mini Bonus",
     "mega_bonus": "Mega Bonus",
-    "lucky_number_seven": "Lucky Number 7",
+    "lucky_number": "Lucky Number",
     "joker_bonus": "Jester Bonus"
   },
   "achievements_description": "Unlocked at VIP {{vip}}, these rewards celebrate your milestones with exciting surprises along the way!",
@@ -797,5 +797,6 @@
       "not_claimable": "This tier is not yet claimable",
       "already_claimed": "This reward has already been claimed"
     }
-  }
+  },
+  "airdrop": "Airdrop"
 }

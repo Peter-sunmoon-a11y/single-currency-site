@@ -46,6 +46,7 @@ function GiftWithdrawPage() {
   }, [detailQuery.data]);
 
   const {
+    isProcessing,
     selectedNetwork,
     setSelectedNetwork,
     walletAddress,
@@ -99,7 +100,7 @@ function GiftWithdrawPage() {
     ? "finance:giftWithdrawDescriptionFiat"
     : "finance:giftWithdrawDescriptionCrypto";
   const isCancelled = detail.status === "cancelled";
-  console.info(activeChannel);
+
   return (
     <section className="flex flex-col gap-4 p-4">
       <GiftHero
@@ -140,6 +141,7 @@ function GiftWithdrawPage() {
                 visibleFiatFields={visibleFiatFields as [string, Record<string, any>][]}
                 fiatFieldErrors={fiatFieldErrors}
                 onFieldChange={updateFiatField}
+                isProcessing={isProcessing}
                 t={t}
               />
             )}
@@ -150,13 +152,13 @@ function GiftWithdrawPage() {
               sticky={viewportHeight >= 700}
               loading={submitMutation.isPending}
               disabled={submitDisabled || submitMutation.isPending}
+              isProcessing={isProcessing}
               feeRate={detail.type === "crypto" ? selectedNetworkConfig?.feeRate ?? "0" : activeChannel?.feeRate ?? "0"}
               feeFix={detail.type === "crypto" ? selectedNetworkConfig?.feeFix ?? "0" : activeChannel?.feeFix ?? "0"}
               onClick={() => {
                 if (submitDisabled) return;
                 setConfirmOpen(true);
               }}
-              confirmText={t("finance:giftWithdrawConfirm")}
               t={t}
             />
           </>

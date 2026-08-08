@@ -77,7 +77,7 @@ function RouteComponent() {
     );
   };
 
-  if (earliestPendingRecord && !earliestPendingRecord?.can_enable) {
+  if (!earliestPendingRecord || (earliestPendingRecord && !earliestPendingRecord?.can_enable)) {
     return <NothingFound />;
   }
 
@@ -101,7 +101,7 @@ function RouteComponent() {
       {/* 内容区 */}
       <div>
         {isPending ? (
-          <div className="grid grid-cols-4 gap-1">
+          <div className="grid grid-cols-3 gap-1">
             {Array.from({ length: 20 }).map((_, i) => (
               <div key={i} className="w-full aspect-[3/4] rounded-lg bg-base-200 animate-pulse" />
             ))}
@@ -119,7 +119,7 @@ function RouteComponent() {
               if (hasNextPage && !isFetchingNextPage) void fetchNextPage();
             }}
             overscan={900}
-            listClassName="grid grid-cols-4 gap-1"
+            listClassName="grid grid-cols-3 gap-1"
             itemClassName="w-full"
             itemContent={(_, item) => {
               const isSelected = selectedGame?.id === item.id;
