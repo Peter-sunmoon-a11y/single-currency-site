@@ -3,16 +3,21 @@ import {
   useBonusSwitch,
   useClaimBonus,
   useGetMondayVipBonus,
+  useUserAchievements,
   useLuckyNumberRewards,
   useMembersDayStatus
 } from "@/hooks/api/useAuth";
 import { useBaseConfig, useIsLeagueEnabled, useLuckyNumberConfig, useMembersDayConfig } from "@/hooks/api/usePublic";
 import { useHasMysteryBox } from "@/query/bouns";
 import { useFirstChallengeEligibility, useFirstChallengeTasks } from "@/query/firstChallenge";
+import { useAppNavigate } from "@/hooks/useAppNavigate";
 import { useBoundStore } from "@/store";
 import { Decimal } from "decimal.js";
+import { useMemo } from "react";
 import { CLAIMABLE_BONUS_ANCHOR_IDS } from "@/sections/bonus/shared/claimable-bonus-config";
+import { ACHIEVEMENT_CONFIG } from "@/sections/bonus/achievements/bonus-achievements-list";
 import { getRakebackClaimableSummary } from "@/sections/bonus/shared/rakeback-claimable";
+import { cn } from "@/utils/cn";
 
 const toNumber = (value: unknown) => {
   const parsed = Number(value);
@@ -22,19 +27,32 @@ const toNumber = (value: unknown) => {
 const toArray = <T, >(value: T[] | null | undefined): T[] => (Array.isArray(value) ? value : []);
 
 function ClaimableBonusShortcut({
-                                  imageSrc,
-                                  // title,
-                                  targetId
-                                }: {
+  imageSrc,
+  targetId,
+  title,
+  onClick
+}: {
   title?: string;
   imageSrc: string;
-  targetId: string;
+  targetId?: string;
+  onClick?: () => void;
 }) {
   return (
     <button
       type="button"
-      className="group relative flex flex-col items-center gap-2 overflow-hidden rounded-lg bg-base-100 px-2 py-2 text-center transition-colors hover:bg-base-300/60 active:scale-[0.98]"
+      aria-label={title ? `${title} claimable` : "claimable"}
+      className={cn(
+        "group relative flex flex-col items-center gap-2 overflow-hidden rounded-lg px-2 py-2 text-center transition-colors active:scale-[0.98]",
+        "bg-base-100 hover:bg-base-300/60"
+      )}
       onClick={() => {
+        if (onClick) {
+          onClick();
+          return;
+        }
+
+        if (!targetId) return;
+
         document.getElementById(targetId)?.scrollIntoView({
           behavior: "smooth",
           block: "start"
@@ -43,7 +61,7 @@ function ClaimableBonusShortcut({
     >
       <span
         aria-hidden="true"
-        className="absolute right-0.5 top-0.5 h-2 w-2 bg-success rounded-full"
+        className="pointer-events-none absolute right-0.5 top-0.5 h-2 w-2 rounded-full bg-success"
       />
       <img
         src={imageSrc}
@@ -61,6 +79,7 @@ function ClaimableBonusShortcut({
 
 export const ClaimableBonus = () => {
   const { t } = useTranslation(["bonus", "mysteryBox", "vipMonday", "tournament"]);
+  const navigate = useAppNavigate();
   const { switchData } = useBonusSwitch();
   const { data: levelUpClaimData, isLoading: isLevelUpLoading } = useClaimBonus("level_up");
   const { data: rakebackClaimData, isLoading: isRakebackLoading } = useClaimBonus("rakeback");
@@ -75,10 +94,62 @@ export const ClaimableBonus = () => {
   const { data: baseConfig } = useBaseConfig();
   const { isLeagueEnabled } = useIsLeagueEnabled();
   const { mondayVipBonus, isLoading: isMondayVipBonusLoading } = useGetMondayVipBonus();
+  const { data: achievementsResponse, isLoading: isAchievementsLoading } = useUserAchievements("asc");
   const status = useBoundStore((state) => state.status);
   const user = useBoundStore((state) => state.user);
 
-  const items: Array<{ key: string; title: string; imageSrc: string; targetId: string }> = [];
+  const items: Array<{
+    key: string;
+    title: string;
+    imageSrc: string;
+    targetId?: string;
+    onClick?: () => void;
+  }> = [];
+
+  const achievementItems = useMemo(() => {
+    const achievementRows = achievementsResponse?.data;
+    if (isAchievementsLoading || !Array.isArray(achievementRows)) return [];
+
+    return achievementRows.flatMap((achievement: Record<string, any>) => {
+      const steps = Array.isArray(achievement?.achievementStep) ? achievement.achievementStep : [];
+      const hasClaimableReward = steps.some(
+        (step: Record<string, any>) => step?.is_finish === true && step?.is_claim !== true
+      );
+      if (!hasClaimableReward) return [];
+
+      const achievementId = achievement?.id ?? achievement?.achievement_id;
+      if (achievementId === undefined || achievementId === null) return [];
+
+      const isHiddenBySwitch =
+        (switchData?.bonus_switch?.achievement_verify_email === 0 && (achievement?.id === 1 || achievement?.achievement_id === 1)) ||
+        (switchData?.bonus_switch?.achievement_verify_phone === 0 && (achievement?.id === 2 || achievement?.achievement_id === 2)) ||
+        (switchData?.bonus_switch?.achievement_add_desktop_app === 0 && (achievement?.id === 3 || achievement?.achievement_id === 3)) ||
+        (switchData?.bonus_switch?.achievement_super_spreader === 0 && (achievement?.id === 4 || achievement?.achievement_id === 4)) ||
+        (switchData?.bonus_switch?.achievement_conquistador === 0 && (achievement?.id === 5 || achievement?.achievement_id === 5)) ||
+        (switchData?.bonus_switch?.achievement_game_explorer === 0 && (achievement?.id === 6 || achievement?.achievement_id === 6)) ||
+        (switchData?.bonus_switch?.achievement_slot_master === 0 && (achievement?.id === 8 || achievement?.achievement_id === 8)) ||
+        (switchData?.bonus_switch?.achievement_change_avatar === 0 && (achievement?.id === 9 || achievement?.achievement_id === 9)) ||
+        (switchData?.bonus_switch?.achievement_set_username === 0 && (achievement?.id === 10 || achievement?.achievement_id === 10)) ||
+        (switchData?.bonus_switch?.achievement_first_swap_non_buck === 0 && (achievement?.id === 11 || achievement?.achievement_id === 11)) ||
+        (switchData?.bonus_switch?.achievement_first_swap_buck === 0 && (achievement?.id === 12 || achievement?.achievement_id === 12));
+
+      if (isHiddenBySwitch) return [];
+
+      const achievementKey = String(achievement?.key ?? "");
+      const icon = ACHIEVEMENT_CONFIG[achievementKey]?.icon ?? achievement?.icon_url ?? "/images/achievement/achievement.png";
+      const displayName = achievement?.name ?? achievementKey ?? `achievement-${achievementId}`;
+      const id = String(achievementId);
+
+      return [{
+        key: `achievement-${id}`,
+        title: displayName,
+        imageSrc: icon,
+        onClick: () => {
+          void navigate({ to: "/achievement/$id", params: { id } });
+        }
+      }];
+    });
+  }, [achievementsResponse?.data, isAchievementsLoading, navigate, switchData?.bonus_switch]);
 
   const memberBonusEnabled = switchData?.bonus_switch?.monday_vip_bonus !== 0;
   const memberBonusClaimable = Number(levelUpClaimData?.data?.data?.value ?? 0) > 0;
@@ -194,18 +265,21 @@ export const ClaimableBonus = () => {
     });
   }
 
+  items.push(...achievementItems);
+
   if (items.length <= 0) return null;
 
   return (
-      <div className="flex gap-1 flex-wrap">
-        {items.map((item) => (
-          <ClaimableBonusShortcut
-            key={item.key}
-            imageSrc={item.imageSrc}
-            title={item.title}
-            targetId={item.targetId}
-          />
-        ))}
-      </div>
+    <div className="flex flex-wrap gap-1">
+      {items.map((item) => (
+        <ClaimableBonusShortcut
+          key={item.key}
+          imageSrc={item.imageSrc}
+          title={item.title}
+          onClick={item.onClick}
+          targetId={item.targetId}
+        />
+      ))}
+    </div>
   );
 };
