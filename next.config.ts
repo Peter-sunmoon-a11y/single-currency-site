@@ -48,6 +48,7 @@ function getAllowedDevOrigins() {
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: getAllowedDevOrigins(),
+  // distDir: "dist",
   // 生产构建时自动剥离所有 console.* 调用（dev 保留，不影响本地调试）
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",

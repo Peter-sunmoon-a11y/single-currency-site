@@ -1,10 +1,8 @@
-import { ChevronRight, Headphones } from "lucide-react";
-import { useTranslation } from "@/lib/i18n/react-i18next";
+import { Headphones } from "lucide-react";
 import { useAppNavigate } from "@/hooks/useAppNavigate";
 
 export const SupportButton = ({ onClose }: { onClose?: () => void }) => {
   const navigate = useAppNavigate();
-  const { t } = useTranslation();
 
   return (
     <button
@@ -17,11 +15,6 @@ export const SupportButton = ({ onClose }: { onClose?: () => void }) => {
     >
       <div className="flex items-center gap-x-2 min-w-0 overflow-hidden">
         <Headphones className="w-4 h-4 shrink-0 text-base-content" />
-        <span className="text-sm font-bold text-base-content truncate">{t("menu:support")}</span>
-      </div>
-      <div className="flex items-center gap-x-2 shrink-0">
-        <span className="text-primary text-[12px]">24/7</span>
-        <ChevronRight size={16} className="text-base-content" />
       </div>
     </button>
   );

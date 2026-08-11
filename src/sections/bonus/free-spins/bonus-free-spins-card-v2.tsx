@@ -209,7 +209,7 @@ export function BonusFreeSpinsCardV2({
       {isProgressCard ? (
         <div className="flex flex-col gap-2">
           <div className="flex items-start gap-4">
-            <FreeSpinGameIcon src={gameIcon} alt={gameTitle} w={56} className="w-14 rounded-md" />
+            <FreeSpinGameIcon src={gameIcon} alt={gameTitle} w={60} h={80} className="w-15 rounded-md" />
             <div className="flex flex-col gap-2 flex-1">
               <p className="text-sm font-bold text-base-content">
                 {gameTitle}
@@ -260,7 +260,7 @@ export function BonusFreeSpinsCardV2({
       ) : (
         <div className="flex flex-col gap-2">
           <div className="flex items-start gap-4">
-            <FreeSpinGameIcon src={gameIcon} alt={gameTitle} w={60} h={80} className="w-14 rounded-field" />
+            <FreeSpinGameIcon src={gameIcon} alt={gameTitle} w={60} h={80} className="w-15 rounded-field" />
             <div className="flex flex-col w-full text-base-content/60 gap-2 flex-1">
               <p className="text-sm font-bold text-base-content">
                 {gameTitle}

@@ -4,7 +4,6 @@ export const defaultTimeZone = "UTC";
 export const supportedLanguages = [
   "en",
   "th",
-  "zh-CN"
 ] as const;
 
 export type AppLocale = (typeof supportedLanguages)[number];

@@ -1,8 +1,14 @@
-type NavigationItem = {
+export type NavigationItem = {
   type: "item";
   icon: string;
   label: string;
   path: string;
+  id: string;
+} | {
+  type: "action";
+  icon: string;
+  label: string;
+  action: "toggle-theme";
   id: string;
 } | {
   type: "divider";
@@ -157,6 +163,13 @@ export const NAVIGATION_ITEMS = (t: (key: string) => string, isAuthenticated?: b
       label: t("common:common.referral"),
       path: "/referral",
       id: "sports-referral"
+    },
+    {
+      type: "action" as const,
+      icon: "custom:moon",
+      label: t("menu:theme"),
+      action: "toggle-theme",
+      id: "theme"
     }
   ];
 };

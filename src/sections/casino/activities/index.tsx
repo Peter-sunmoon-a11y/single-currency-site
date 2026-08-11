@@ -3,7 +3,6 @@ import { localizeHref } from "@/lib/navigation";
 import { ActivityItem, presetActivityItems } from "./config";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { CasinoActivitiesSkeleton } from "@/sections/casino/CasinoSkeletons.tsx";
 
 function getActivityItems(shortcutItems: unknown): ActivityItem[] {
   if (!Array.isArray(shortcutItems) || shortcutItems.length === 0) {
@@ -26,9 +25,7 @@ const Index = () => {
 
   const activityItems = getActivityItems(bonusConfig?.data?.bonus_config?.sidebar_bonus_shortcuts);
 
-  if (isLoading) return <CasinoActivitiesSkeleton />;
-
-  if (activityItems.length === 0) return null;
+  if (isLoading || activityItems.length === 0) return null;
 
   return (
     <div

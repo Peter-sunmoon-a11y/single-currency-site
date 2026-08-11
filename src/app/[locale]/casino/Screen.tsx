@@ -1,5 +1,5 @@
 import { LazySection } from "@/components/ui/LazySection";
-import { CasinoActivitiesSkeleton, CasinoSectionSkeleton } from "@/sections/casino/CasinoSkeletons";
+import { CasinoSectionSkeleton } from "@/sections/casino/CasinoSkeletons";
 import { PromotionalSkeleton } from "@/sections/casino/PromotionalSkeleton";
 import { RecentBigWinsSkeleton } from "@/sections/casino/RecentBigWinsSkeleton";
 import HeroBanner from "@/sections/casino/hero-banner";
@@ -7,61 +7,62 @@ import { useBoundStore } from "@/store";
 import { scheduleIdle } from "@/utils/helper";
 import dynamic from "next/dynamic";
 import { memo, useEffect, useState, type ReactNode } from "react";
+import { useTranslation } from "@/lib/i18n/react-i18next.tsx";
 
 const Footer = dynamic(() => import("@/sections/casino/Footer.tsx").then((m) => m.Footer), {
-  ssr: false,
+  ssr: false
 });
 
 const LiveBets = dynamic(() => import("@/sections/casino/live-bets").then((m) => m.LiveBets), {
   ssr: false,
-  loading: () => <CasinoSectionSkeleton />,
+  loading: () => <CasinoSectionSkeleton />
 });
 
 const Activities = dynamic(() => import("@/sections/casino/activities"), {
-  loading: () => <CasinoActivitiesSkeleton />,
+  loading: () => null
 });
 
 const Promotional = dynamic(() => import("@/sections/casino/Promotional.tsx").then((m) => m.Promotional), {
   ssr: false,
-  loading: () => <PromotionalSkeleton />,
+  loading: () => <PromotionalSkeleton />
 });
 
 const BetByCarousel = dynamic(() => import("@/sections/casino/BetByCarousel.tsx").then((m) => m.BetByCarousel), {
   ssr: false,
-  loading: () => <CasinoSectionSkeleton className="h-[158px]" />,
+  loading: () => <CasinoSectionSkeleton className="h-[158px]" />
 });
 
 const FeaturedGames = dynamic(() => import("@/sections/casino/FeaturedGames.tsx").then((m) => m.FeaturedGamesList), {
-  loading: () => <CasinoSectionSkeleton />,
+  loading: () => <CasinoSectionSkeleton />
 });
 
 const RecentBigWins = dynamic(() => import("@/sections/casino/RecentBigWins.tsx").then((m) => m.RecentBigWins), {
   ssr: false,
-  loading: () => <RecentBigWinsSkeleton />,
+  loading: () => <RecentBigWinsSkeleton />
 });
 
 const BetByLinkGuard = dynamic(() => import("@/components/sidebar/BetByLinkGuard.tsx").then((m) => m.BetByLinkGuard), {
   ssr: false,
-  loading: () => <CasinoSectionSkeleton className="h-[158px]" />,
+  loading: () => <CasinoSectionSkeleton className="h-[158px]" />
 });
 
 const AcceptCurrencies = dynamic(() => import("@/sections/casino/AcceptCurrencies.tsx").then((m) => m.AcceptCurrencies), {
-  ssr: false,
+  ssr: false
 });
 
 const CategoryGamesList = dynamic(() => import("@/sections/casino/CategoryGames.tsx").then((m) => m.CategoryGamesList), {
-  loading: () => <CasinoSectionSkeleton />,
+  loading: () => <CasinoSectionSkeleton />
 });
 
 const PromoGuard = dynamic(() => import("@/sections/casino/PromoGuard.tsx").then((m) => m.PromoGuard), {
-  ssr: false,
+  ssr: false
 });
 
 function DeferredSection({
-  children,
-  placeholder,
-  minHeight,
-}: {
+                           children,
+                           placeholder,
+                           minHeight
+                         }: {
   children: ReactNode;
   placeholder: ReactNode;
   minHeight: number | string;
@@ -74,6 +75,8 @@ function DeferredSection({
 }
 
 const RouteComponent = memo(function RouteComponent() {
+  useTranslation();
+
   const isAuthenticated = useBoundStore((state) => !!state.user);
   const [shouldMountPromoGuard, setShouldMountPromoGuard] = useState(false);
 
@@ -91,6 +94,13 @@ const RouteComponent = memo(function RouteComponent() {
   return (
     <>
       <div className="flex flex-col gap-4 p-4 w-full">
+        {/*<div className={"flex gap-2 items-center bg-base-200 p-2 rounded-lg whitespace-pre-line"}>*/}
+        {/*  <img src="/images/bonus_store/bonus-store-icon.png" alt="" className={"w-8 h-8"} />*/}
+        {/*  <p>*/}
+        {/*    <Trans i18nKey={`SIGN UP NOW \n GET FREE PLAY CREDITS`} />*/}
+        {/*  </p>*/}
+        {/*</div>*/}
+
         <HeroBanner />
 
         <Activities />

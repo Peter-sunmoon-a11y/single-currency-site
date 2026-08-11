@@ -62,61 +62,60 @@ export const SwapSend = ({ open, loading, available }: { open: boolean; loading:
 
   return (
     <div className="bg-base-200 p-2 rounded-lg gap-2 relative">
-      <div className="flex justify-between gap-4 items-end">
-        <div className="flex flex-col gap-2">
-          <span className="text-base-content/50 text-sm font-semibold">{t("finance:swap_send")}</span>
+      <div className="flex flex-col gap-2">
+        <span className="text-base-content/50 text-sm font-semibold">{t("finance:swap_send")}</span>
 
-          <div className="w-full flex input border-none outline-none h-12 pr-1">
-            {/* swap send amount control */}
-            <NumericFormat
-              wrapCls={"!px-0 flex-1 !shadow-none"}
-              isAllowed={({ value }) => Decimal(value || 0).lt(1000000000)}
-              className={clsx("!text-lg !h-10 !py-2", {
-                "text-error": insufficient,
-              })}
-              placeholder="0.00"
-              value={swapFrom.inAmount}
-              thousandSeparator={false}
-              onValueChange={(values) => {
-                setSwapFrom({ inAmount: values.value });
+        <div className="w-full flex input border-none outline-none h-12 pr-1">
+          {/* swap send amount control */}
+          <NumericFormat
+            wrapCls={"!px-0 flex-1 !shadow-none"}
+            isAllowed={({ value }) => Decimal(value || 0).lt(1000000000)}
+            className={clsx("!text-lg !h-10 !py-2", {
+              "text-error": insufficient
+            })}
+            placeholder="0.00"
+            value={swapFrom.inAmount}
+            thousandSeparator={false}
+            onValueChange={(values) => {
+              setSwapFrom({ inAmount: values.value });
+            }}
+            decimalScale={swapFrom.currency?.decimal}
+          />
+
+          <div className="w-[120px]">
+            <SelectDropdown
+              title={t("common.selectCurrency")}
+              value={swapFrom.currency?.currency}
+              loading={l1}
+              options={sortedCurrencies}
+              onChange={(v) => {
+                setSwapFrom({ currency: origin.find((o: Record<string, any>) => o.currency === v) });
               }}
-              decimalScale={swapFrom.currency?.decimal}
-            />
+              renderOption={(option: Record<string, any>) => {
+                const balance = (balances as any[]).find((b: any) => b.currency === option.value)?.balance ?? 0;
+                const decimal = option.decimal;
+                const converted1 = formatWithoutConversion(balance, option.value, {
+                  showSymbol: false, showCode: false, compact: false, minimizeDecimals: true, displayDecimal: decimal
+                });
+                const converted2 = formatWithConversion(balance, option.value, { showCode: false });
 
-            <div className="w-[120px]">
-              <SelectDropdown
-                title={t("common.selectCurrency")}
-                value={swapFrom.currency?.currency}
-                loading={l1}
-                options={sortedCurrencies}
-                onChange={(v) => {
-                  setSwapFrom({ currency: origin.find((o: Record<string, any>) => o.currency === v) });
-                }}
-                renderOption={(option: Record<string, any>) => {
-                  const balance = (balances as any[]).find((b: any) => b.currency === option.value)?.balance ?? 0;
-                  const decimal = option.decimal;
-                    const converted1 = formatWithoutConversion(balance, option.value, {
-                    showSymbol: false, showCode: false, compact: false, minimizeDecimals: true, displayDecimal: decimal
-                  });
-                  const converted2 = formatWithConversion(balance, option.value, { showCode: false });
-
-                  return (
-                    <div className="flex justify-bwtween w-full">
-                      <div className="flex items-center gap-2">
-                        {option.icon && <img loading="lazy" src={option.icon} className="w-8 h-8 rounded-full shrink-0" />}
-                        <div className="flex flex-col">
-                          <b className="font-bold text-base">{option.label}</b>
-                          <p className="text-sm text-base-content/60 font-bold">{converted1.formatted}</p>
-                        </div>
+                return (
+                  <div className="flex justify-bwtween w-full">
+                    <div className="flex items-center gap-2">
+                      {option.icon &&
+                        <img loading="lazy" src={option.icon} className="w-8 h-8 rounded-full shrink-0" />}
+                      <div className="flex flex-col">
+                        <b className="font-bold text-base">{option.label}</b>
+                        <p className="text-sm text-base-content/60 font-bold">{converted1.formatted}</p>
                       </div>
-                      <span
-                        className="ml-auto text-base text-base-content tabular-nums shrink-0 font-bold">{converted2.formatted}</span>
                     </div>
-                  );
-                }}
-                triggerClass={'!px-2'}
-              />
-            </div>
+                    <span
+                      className="ml-auto text-base text-base-content tabular-nums shrink-0 font-bold">{converted2.formatted}</span>
+                  </div>
+                );
+              }}
+              triggerClass={"!px-2"}
+            />
           </div>
         </div>
       </div>

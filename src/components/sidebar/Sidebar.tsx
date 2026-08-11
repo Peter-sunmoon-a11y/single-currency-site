@@ -12,6 +12,7 @@ import {
   BETBY_GUARDED_IDS,
   CASINO_ITEMS,
   LEAGUE_EXCLUDED_IDS,
+  type NavigationItem,
   NAVIGATION_ITEMS, RTP_EXCLUDED_IDS,
   SHOW_NEW_GAME_FLAG,
   SPORTS_NAVIGATION_ITEMS
@@ -19,8 +20,7 @@ import {
 import { SidebarItem } from "./SidebarItem";
 import { toUrlSearchParams } from "@/utils/urlSearchParams";
 import { BetByLinkGuard } from "@/components/sidebar/BetByLinkGuard.tsx";
-import { SupportButton } from "@/components/sidebar/SupportButton.tsx";
-import { LogOutIcon } from "lucide-react";
+import { Headphones, LogOutIcon } from "lucide-react";
 import clsx from "clsx";
 
 type SidebarLinkConfig = {
@@ -68,22 +68,60 @@ const isPathActive = (path: string | undefined, pathname: string, search: Record
 function SidebarNav({ className }: { className?: string }) {
   const isAuthenticated = !!useBoundStore((state) => state.user);
   const isLoading = !useBoundStore((state) => state.isInitialized);
+  const [theme, setTheme] = React.useState<"light" | "dark">(() => {
+    if (typeof document === "undefined") {
+      return "light";
+    }
+
+    return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+  });
 
   const { isLeagueEnabled } = useIsLeagueEnabled();
 
   const { t } = useTranslation(["common", "bonus"]);
 
   const { data: baseConfig } = useBaseConfig();
-  console.info(baseConfig?.data?.bonus_switch?.rtp_activity);
+
   const isRtpEnabled = baseConfig?.data?.bonus_switch?.rtp_activity !== 0;
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+
+    const syncTheme = () => {
+      setTheme(root.getAttribute("data-theme") === "dark" ? "dark" : "light");
+    };
+
+    syncTheme();
+
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <nav
-      className={className ?? "flex flex-col flex-1 overflow-y-auto overflow-x-hidden flex-nowrap w-full hide-scrollbar"}
+      className={className ?? "mt-3 flex flex-col flex-1 overflow-y-auto overflow-x-hidden flex-nowrap w-full hide-scrollbar"}
     >
       <div>
-        <div className="flex flex-col gap-1">
-          {NAVIGATION_ITEMS(t, isAuthenticated).map((item: Record<string, any>, index) => {
+        <div className="grid grid-cols-2 gap-1">
+          {NAVIGATION_ITEMS(t, isAuthenticated).map((item: NavigationItem, index) => {
+            if (item.type === "action" && item.action === "toggle-theme") {
+              return (
+                <React.Fragment key={item.id || `${item.type}-${index}`}>
+                  <SidebarItem
+                    icon={theme === "dark" ? "custom:sun" : "custom:moon"}
+                    label={item.label}
+                    trailingLabel={theme === "dark" ? "Dark" : "Light"}
+                    onClick={() => {
+                      window.__toggleTheme?.();
+                    }}
+                    isMini={false}
+                  />
+                </React.Fragment>
+              );
+            }
+            if (item.type !== "item") return null;
             if (!isRtpEnabled && RTP_EXCLUDED_IDS.some(id => item.id?.includes(id))) return null;
             if (!isLeagueEnabled && LEAGUE_EXCLUDED_IDS.some(id => item.id?.includes(id))) return null;
             const { to, search } = parseSidebarPath(item.path);
@@ -107,7 +145,7 @@ function SidebarNav({ className }: { className?: string }) {
         <div className="grid grid-cols-2 gap-1">
           {CASINO_ITEMS(t, isAuthenticated, isLoading).map((item, index) => {
             if (isLeagueEnabled && LEAGUE_EXCLUDED_IDS.some(id => item.id?.includes(id))) return null;
-            if (item.type === "divider") return null;
+            if (item.type !== "item") return null;
             const { to, search } = parseSidebarPath(item.path);
             const isPrediction = BETBY_GUARDED_IDS.has(item.id);
             const node = (
@@ -132,7 +170,7 @@ function SidebarNav({ className }: { className?: string }) {
           <h2 className="text-base font-bold text-primary uppercase my-2">{t("explore:sports")}</h2>
           <div className="grid grid-cols-2 gap-1">
             {SPORTS_NAVIGATION_ITEMS(t).map((item, index) => {
-              if (item.type === "divider") return null;
+              if (item.type !== "item") return null;
               const { to, search } = parseSidebarPath(item.path);
               return (
                 <React.Fragment key={item.id || `${item.type}-${index}`}>
@@ -155,13 +193,13 @@ function SidebarNav({ className }: { className?: string }) {
 }
 
 function RouteAwareSidebarItem({
-  path,
-  ...props
-}: React.ComponentProps<typeof SidebarItem> & { path?: string }) {
+                                 path,
+                                 ...props
+                               }: React.ComponentProps<typeof SidebarItem> & { path?: string }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentSearch = toUrlSearchParams(
-    searchParams.toString() ? `?${searchParams.toString()}` : "",
+    searchParams.toString() ? `?${searchParams.toString()}` : ""
   ) as unknown as Record<string, string>;
 
   return <SidebarItem {...props} isActive={isPathActive(path, pathname, currentSearch)} />;
@@ -178,11 +216,11 @@ function SidebarQuickActions({ onClose }: { onClose: () => void }) {
   }
 
   const actionClassName = `
-    btn btn-primary btn-sm
+    btn btn-primary btn-md
   `;
 
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] gap-1">
+    <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] gap-1">
       <button
         type="button"
         className={actionClassName}
@@ -216,7 +254,18 @@ function SidebarQuickActions({ onClose }: { onClose: () => void }) {
           });
         }}
       >
-        <LogOutIcon size={16} />
+        <LogOutIcon size={20} />
+      </button>
+
+      <button
+        type="button"
+        className={clsx(actionClassName, "btn-square")}
+        onClick={() => {
+          void navigate({ to: "/customer-service" });
+          onClose();
+        }}
+      >
+        <Headphones size={20} />
       </button>
     </div>
   );
@@ -256,17 +305,17 @@ function MobileDrawer() {
         <Drawer.Title style={{ display: "none" }} />
         <Drawer.Overlay className="fixed inset-0 bg-black/75 z-[998]" />
         <Drawer.Content
-          className="fixed left-0 w-[80%] bg-transparent z-[999] outline-none"
+          className="fixed left-0 w-[calc(100%-16px)] bg-transparent z-[999] outline-none"
           style={{
             top: "calc(var(--safe-area-inset-top) + var(--app-sidebar-top-offset))",
             bottom: "calc(var(--safe-area-inset-bottom) + var(--app-sidebar-bottom-gap))"
           }}
         >
           <div
-            className={"ml-2 h-full bg-base-200 flex flex-col overflow-hidden p-4 rounded-lg"}>
+            className={"ml-4 h-full bg-base-200 flex flex-col overflow-hidden p-4 rounded-lg"}>
             <div className="flex-1 flex flex-col gap-1 overflow-hidden">
               <SidebarQuickActions onClose={closeDrawer} />
-              <SupportButton onClose={closeDrawer} />
+              {/*<SupportButton onClose={closeDrawer} />*/}
               <SidebarNav />
             </div>
           </div>

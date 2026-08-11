@@ -9,22 +9,26 @@ import { NewBadge } from "@/components/ui/NewBadge";
 type SidebarItemProps = {
   icon?: string;
   label?: string;
+  trailingLabel?: string;
   to?: string;
   search?: Record<string, string | undefined>;
+  onClick?: () => void;
   isActive?: boolean;
   isMini?: boolean;
   isNewGame?: boolean;
 };
 
-const SidebarItemComponent = ({ icon, label, to, search, isActive, isMini, isNewGame }: SidebarItemProps) => {
+const SidebarItemComponent = ({ icon, label, trailingLabel, to, search, onClick, isActive, isMini, isNewGame }: SidebarItemProps) => {
   const locale = useLocale();
   const closeDrawer = useBoundStore((state) => state.closeSidebarDrawer);
   const href = String(buildHref({ to: to ?? "", search }, undefined, locale));
+  const isAction = !!onClick || !to;
 
   // Memoize className computation to avoid recalculation on every render
   const linkClassName = useMemo(
     () => `
     flex items-center transition-all duration-200
+    w-full
     relative text-base-content/70
     active:bg-base-200 focus-visible:bg-base-200
     active:text-base-content focus-visible:text-base-content
@@ -36,7 +40,7 @@ const SidebarItemComponent = ({ icon, label, to, search, isActive, isMini, isNew
     [isActive, isMini],
   );
 
-  const handleClick = useCallback((event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLinkClick = useCallback((event: React.MouseEvent<HTMLAnchorElement>) => {
     if (isActive) {
       event.preventDefault();
       return;
@@ -45,15 +49,38 @@ const SidebarItemComponent = ({ icon, label, to, search, isActive, isMini, isNew
     closeDrawer();
   }, [closeDrawer, href, isActive]);
 
+  const handleActionClick = useCallback(() => {
+    onClick?.();
+    closeDrawer();
+  }, [closeDrawer, onClick]);
+
   return (
     <li className={"list-none relative"}>
-      <Link href={href} className={linkClassName} onClick={handleClick}>
-        {icon && <Iconify icon={icon} width={16} height={16} className="shrink-0 text-base-content" />}
+      {isAction ? (
+        <button
+          type="button"
+          className={`${linkClassName} justify-between`}
+          aria-pressed={isAction}
+          onClick={handleActionClick}
+        >
+          <span className="flex min-w-0 items-center gap-2 overflow-hidden">
+            {icon && <Iconify icon={icon} width={16} height={16} className="shrink-0 text-base-content" />}
 
-        <div className="flex items-center text-base-content text-sm font-bold whitespace-nowrap overflow-hidden">
-          {label ?? ""}
-        </div>
-      </Link>
+            <span className="truncate text-sm font-bold text-base-content">
+              {label ?? ""}
+              <sub className={'ml-2 text-base-content/60 text-sm italic'}>{trailingLabel}</sub>
+            </span>
+          </span>
+        </button>
+      ) : (
+        <Link href={href} className={linkClassName} onClick={handleLinkClick}>
+          {icon && <Iconify icon={icon} width={16} height={16} className="shrink-0 text-base-content" />}
+
+          <div className="flex items-center text-base-content text-sm font-bold whitespace-nowrap overflow-hidden">
+            {label ?? ""}
+          </div>
+        </Link>
+      )}
       {isNewGame && <NewBadge />}
     </li>
   );

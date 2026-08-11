@@ -176,12 +176,10 @@ export const InnerSportsPlayToClaim = () => {
               <TrendingUp className={"text-success"} size={20} />
               <CompareInfoRow label={t("bonus:max_claim")} value={formattedClaimMax} className={"w-full text-right"} />
             </div>
-            {Decimal(status?.claim_min || 0).gt(0) && (
-              <div className={clsx("flex items-center gap-1")}>
-                <TrendingDown className={"text-error"} size={20} />
-                <CompareInfoRow label={t("bonus:min_claim")} value={formattedClaimMin} className={"w-full"} />
-              </div>
-            )}
+            <div className={clsx("flex items-center gap-1")}>
+              <TrendingDown className={"text-error"} size={20} />
+              <CompareInfoRow label={t("bonus:min_claim")} value={formattedClaimMin} className={"w-full text-right"} />
+            </div>
           </div>
         </div>
 
@@ -220,7 +218,8 @@ export const InnerSportsPlayToClaim = () => {
 
         <CompareInfoRow label={t("bonus:progress")} value={
           <div>
-            <span className={clsx("text-base", { "text-success": progress2 >= 1 })}>{`${Math.round(progress2 * 100)}%`}</span>
+            <span
+              className={clsx("text-base", { "text-success": progress2 >= 1 })}>{`${Math.round(progress2 * 100)}%`}</span>
             <sub className={"pl-2 font-normal text-xs text-base-content/60"}>
               {t("bonus:currentWager")} / {t("bonus:wagerRequired")}
             </sub>

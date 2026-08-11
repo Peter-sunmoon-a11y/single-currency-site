@@ -45,54 +45,52 @@ export const SwapReceive = ({ swapToAmount, exchangeRate }: {
   return (
     <div className="flex flex-col gap-4">
       <div className="bg-base-200 p-2 rounded-lg gap-2">
-        <div className="flex justify-between gap-4">
-          <div className="flex flex-col gap-2">
-            <span className="text-base-content/50 text-sm font-semibold">{t("finance:swap_receive")}</span>
+        <div className="flex flex-col gap-2">
+          <span className="text-base-content/50 text-sm font-semibold">{t("finance:swap_receive")}</span>
 
-            <div className="flex input border-none outline-none h-12 pr-1 w-full">
-              <NumericFormat
-                readOnly
-                wrapCls={"!px-0 flex-1 !shadow-none"}
-                className="!text-lg !h-10 !py-2"
-                placeholder="0.00"
-                value={swapToAmount}
-                thousandSeparator={false}
-                decimalScale={swapTo.currency?.decimal}
-              />
-              <div className="w-[120px]">
-                <SelectDropdown
-                  title={t("common.selectCurrency")}
-                  value={swapTo.currency?.currency}
-                  options={sortedCurrencies}
-                  loading={l1}
-                  onChange={(v) => {
-                    setSwapTo({ currency: origin.find((o: Record<string, any>) => o.currency === v) });
-                  }}
-                  renderOption={(option: Record<string, any>) => {
-                    const balance = (balances as any[]).find((b: any) => b.currency === option.value)?.balance ?? 0;
-                    const decimal = option.decimal;
-                    const converted1 = formatWithoutConversion(balance, option.value, {
-                      showSymbol: false, showCode: false, compact: false, minimizeDecimals: true, displayDecimal: decimal
-                    });
-                    const converted2 = formatWithConversion(balance, option.value, { showCode: false });
+          <div className="flex input border-none outline-none h-12 pr-1 w-full">
+            <NumericFormat
+              readOnly
+              wrapCls={"!px-0 flex-1 !shadow-none"}
+              className="!text-lg !h-10 !py-2"
+              placeholder="0.00"
+              value={swapToAmount}
+              thousandSeparator={false}
+              decimalScale={swapTo.currency?.decimal}
+            />
+            <div className="w-[120px]">
+              <SelectDropdown
+                title={t("common.selectCurrency")}
+                value={swapTo.currency?.currency}
+                options={sortedCurrencies}
+                loading={l1}
+                onChange={(v) => {
+                  setSwapTo({ currency: origin.find((o: Record<string, any>) => o.currency === v) });
+                }}
+                renderOption={(option: Record<string, any>) => {
+                  const balance = (balances as any[]).find((b: any) => b.currency === option.value)?.balance ?? 0;
+                  const decimal = option.decimal;
+                  const converted1 = formatWithoutConversion(balance, option.value, {
+                    showSymbol: false, showCode: false, compact: false, minimizeDecimals: true, displayDecimal: decimal
+                  });
+                  const converted2 = formatWithConversion(balance, option.value, { showCode: false });
 
-                    return (
-                      <div className="flex justify-bwtween w-full">
-                        <div className="flex items-center gap-2">
-                          {option.icon && <img loading="lazy" src={option.icon} className="w-8 h-8 rounded-full shrink-0" />}
-                          <div className="flex flex-col">
-                            <b className="font-bold text-base">{option.label}</b>
-                            <p className="text-sm text-base-content/60 font-bold">{converted1.formatted}</p>
-                          </div>
+                  return (
+                    <div className="flex justify-bwtween w-full">
+                      <div className="flex items-center gap-2">
+                        {option.icon && <img loading="lazy" src={option.icon} className="w-8 h-8 rounded-full shrink-0" />}
+                        <div className="flex flex-col">
+                          <b className="font-bold text-base">{option.label}</b>
+                          <p className="text-sm text-base-content/60 font-bold">{converted1.formatted}</p>
                         </div>
-                        <span
-                          className="ml-auto text-base text-base-content tabular-nums shrink-0 font-bold">{converted2.formatted}</span>
                       </div>
-                    );
-                  }}
-                  triggerClass={'!px-2'}
-                />
-              </div>
+                      <span
+                        className="ml-auto text-base text-base-content tabular-nums shrink-0 font-bold">{converted2.formatted}</span>
+                    </div>
+                  );
+                }}
+                triggerClass={'!px-2'}
+              />
             </div>
           </div>
         </div>

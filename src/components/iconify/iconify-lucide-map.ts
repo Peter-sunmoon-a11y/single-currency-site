@@ -62,6 +62,7 @@ import {
   Menu,
   MessageCircle,
   MoreHorizontal,
+  Moon,
   Pen,
   Percent,
   Pizza,
@@ -93,6 +94,7 @@ import {
   Volume2,
   Wallet,
   WalletCards,
+  Sun,
   X,
 } from "lucide-react";
 import type { ComponentType } from "react";
@@ -225,6 +227,8 @@ export const LUCIDE_ICON_MAP: Record<string, ComponentType<LucideProps>> = {
   "custom:telegram-2": Send,
   "custom:telegram": Send,
   "custom:tick-square": CheckSquare,
+  "custom:moon": Moon,
+  "custom:sun": Sun,
   "custom:tournament": Trophy,
   "custom:transactions": ArrowLeftRight,
   "custom:tx": ArrowUpDown,

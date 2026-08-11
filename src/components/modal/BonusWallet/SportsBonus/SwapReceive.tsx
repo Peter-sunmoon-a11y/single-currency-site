@@ -63,7 +63,7 @@ export const SwapReceive = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="bg-base-200 p-2 flex items-center justify-between rounded-lg gap-2">
+      <div className="bg-base-200 p-2 rounded-lg gap-2">
         <div className="truncate flex flex-col gap-2">
           <span className="text-base-content/50 text-sm font-semibold">{t("bonus:youGet")}</span>
 
@@ -97,7 +97,6 @@ export const SwapReceive = ({
       </div>
 
       <InnerBonusItem
-        src={"/images/bonus_sports/sport.png"}
         rate={bonus_rate}
         className="flex-row items-center px-2 py-2 bg-primary/10 text-xs font-bold rounded-md" />
 

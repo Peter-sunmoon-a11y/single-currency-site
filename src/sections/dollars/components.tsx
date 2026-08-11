@@ -249,12 +249,10 @@ export const InnerPlayToClaim = (
             <TrendingUp className={"text-success"} size={20} />
             <CompareInfoRow label={t("bonus:max_claim")} value={formattedClaimMax} className={"w-full text-right"} />
           </div>
-          {Decimal(status?.claim_min || 0).gt(0) && (
-            <div className={clsx("flex items-center gap-1")}>
-              <TrendingDown className={"text-error"} size={20} />
-              <CompareInfoRow label={t("bonus:min_claim")} value={formattedClaimMin} className={"w-full"} />
-            </div>
-          )}
+          <div className={clsx("flex items-center gap-1")}>
+            <TrendingDown className={"text-error"} size={20} />
+            <CompareInfoRow label={t("bonus:min_claim")} value={formattedClaimMin} className={"w-full text-right"} />
+          </div>
         </div>
       </div>
 
@@ -802,15 +800,13 @@ const InnerTimeCheck = (props: PropsWithChildren<{ time: number }>) => {
   </div>;
 };
 
-export const InnerBonusItem = ({ src = "/images/bonus_store/bonus.png", rate, className }: {
-  src?: string,
+export const InnerBonusItem = ({ rate, className }: {
   rate: string,
   className?: string
 }) => {
   const { t } = useTranslation("bonusStore");
   return <div className={clsx("flex items-center gap-2", className)}>
-    <img src={src} alt="" className={"h-6 w-6 shrink-0"} />
-    <span className="text-sm text-primary font-normal">{t('bonusStore:extraBonusGet',{value:rate})}</span>
+    <span className="text-sm text-primary font-normal">{t("bonusStore:extraBonusGet", { value: rate })}</span>
   </div>;
 };
 

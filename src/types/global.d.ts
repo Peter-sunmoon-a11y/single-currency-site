@@ -4,6 +4,8 @@ import type { BTRendererClass } from "./betby";
 declare global {
   interface Window {
     BTRenderer: BTRendererClass;
+    __setTheme?: (theme: "light" | "dark") => void;
+    __toggleTheme?: () => void;
     Telegram?: {
       WebApp?: {
         initData?: string;

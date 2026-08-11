@@ -16,6 +16,47 @@ const athiti = Athiti({
   preload: false,
 });
 
+const themeInitScript = `
+(() => {
+  const STORAGE_KEY = "theme";
+  const root = document.documentElement;
+
+  const applyTheme = (theme) => {
+    root.setAttribute("data-theme", theme);
+    root.style.colorScheme = theme;
+  };
+
+  const readTheme = () => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved === "light" || saved === "dark") return saved;
+    } catch (error) {
+      // Ignore storage failures and fall back to the default theme.
+    }
+
+    return "light";
+  };
+
+  const theme = readTheme();
+  applyTheme(theme);
+
+  window.__setTheme = (nextTheme) => {
+    const resolvedTheme = nextTheme === "dark" ? "dark" : "light";
+    try {
+      localStorage.setItem(STORAGE_KEY, resolvedTheme);
+    } catch (error) {
+      // Ignore storage failures and keep the runtime theme change.
+    }
+    applyTheme(resolvedTheme);
+  };
+
+  window.__toggleTheme = () => {
+    const currentTheme = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    window.__setTheme(currentTheme === "dark" ? "light" : "dark");
+  };
+})();
+`;
+
 const siteName = siteConfig.name;
 
 type SeoMessages = {
@@ -80,7 +121,10 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
-  themeColor: uiConfig.pwaShellColor,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4efe3" },
+    { media: "(prefers-color-scheme: dark)", color: uiConfig.pwaShellColor },
+  ],
 };
 
 export default async function RootLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
@@ -93,8 +137,9 @@ export default async function RootLayout({ children, params }: { children: React
   const messages = await getMessages(locale);
 
   return (
-    <html lang={locale} data-theme="dark" className={`app-shell ${athiti.variable} ${athiti.className}`}>
+    <html lang={locale} suppressHydrationWarning className={`app-shell ${athiti.variable} ${athiti.className}`}>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         {/* 图片 CDN 预连接：消除 DNS + TCP + TLS 握手耗时；img 标签不带 crossOrigin，不能用 anonymous */}
         <link rel="preconnect" href="https://cdn-l.imgix.net" />
         <link rel="dns-prefetch" href="https://cdn-l.imgix.net" />

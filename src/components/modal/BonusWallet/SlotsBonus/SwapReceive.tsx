@@ -53,8 +53,8 @@ export const SwapReceive = ({ open, data, minimum }: { open: boolean, data: Reco
   }, [open]);
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="bg-base-200 p-2 flex items-center justify-between rounded-lg gap-2">
+    <div className="flex flex-col">
+      <div className="bg-base-200 p-2 rounded-lg gap-2">
         <div className="truncate flex flex-col gap-2">
           <span className="text-base-content/50 text-sm font-semibold">{t("bonus:youGet")}</span>
 
@@ -87,21 +87,9 @@ export const SwapReceive = ({ open, data, minimum }: { open: boolean, data: Reco
         </div>
       </div>
 
-      {/* 选择的彩金档次 */}
-      <InnerBonusItem
-        src={"/images/bonus_store/bonus.png"}
-        rate={bonus_rate}
-        className="flex-row items-center px-2 py-2 bg-primary/10 text-xs font-bold rounded-md" />
-
-      <div className="bg-base-200 px-2 rounded-lg divide-y divide-dashed divide-base-content/20">
+      <div className="my-4 bg-base-200 px-2 rounded-lg divide-y divide-dashed divide-base-content/20">
         <InnerDataLabel
-          label={t("bonusStore:youPay")}
-          currency={bonusSwapFrom.currency?.currency}
-          amount={bonusSwapFrom.inAmount}
-          decimal={bonusSwapFrom.currency?.decimal} />
-
-        <InnerDataLabel
-          label={t("bonus:extraBonus")}
+          label={<InnerBonusItem rate={bonus_rate} />}
           currency={bonusSwapTo.currency?.currency}
           amount={extra_bonus.toString()}
           decimal={bonusSwapTo.currency?.decimal} />
@@ -135,14 +123,14 @@ export const InnerCurrency = ({ rate }: { rate: string }) => {
 };
 
 export const InnerDataLabel = ({ label, amount, currency, decimal }: {
-  label: string,
+  label: React.ReactNode,
   amount: string,
   currency: string,
   decimal: number
 }) => {
   const displayCurrency = useBoundStore((s) => s.displayCurrency);
 
-  return <div className="flex justify-between py-1">
+  return <div className="flex items-center justify-between py-1">
     <span className="text-base-content/50 text-sm font-semibold">{label}</span>
     <div className="text-right">
       <div className="text-base-content text-sm font-bold flex items-center gap-1 justify-end">
