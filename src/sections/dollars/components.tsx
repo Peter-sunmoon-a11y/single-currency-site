@@ -4,7 +4,6 @@ import { Trans, useTranslation } from "@/lib/i18n/react-i18next";
 import {
   ArrowBigDownDash,
   ChevronRight,
-  Gamepad2,
   Lock,
   TrendingDown,
   TrendingUp
@@ -263,12 +262,8 @@ export const InnerPlayToClaim = (
           )}
           style={{ clipPath: "polygon(0 0, calc(100% - 16px) 0, 100% 100%, 0 100%)" }}
         >
-          <div className="flex items-center gap-1">
+          <div className={clsx("flex items-center gap-1",{ "text-success !animate-none": progress2 >= 1 })}>
             <TextBaseContent text={t("bonus:currentWager")} />
-            {BonusInProgress.has(status?.status) && (
-              <Gamepad2
-                className={clsx("h-5 w-5 text-primary animate-gift-shake", { "text-success !animate-none": progress2 >= 1 })} />
-            )}
           </div>
           <div className={clsx(
             "truncate text-base font-extrabold transition-colors text-base-content"
@@ -606,7 +601,7 @@ export const InnerProgress = ({ style, ...props }: ComponentProps<"progress">) =
 
 const CompareInfoRow = ({ label, value, className }: { label: ReactNode; value: ReactNode; className?: string }) => {
   return (
-    <div className={clsx("flex flex-col justify-between gap-3 rounded-lg bg-base-200 p-2", className)}>
+    <div className={clsx("flex flex-col justify-center gap-3 rounded-lg bg-base-200 p-2", className)}>
       <TextBaseContent text={label} />
       <div className="text-right text-base font-bold text-base-content">{value}</div>
     </div>

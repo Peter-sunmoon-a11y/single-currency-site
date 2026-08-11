@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Trans, useTranslation } from "@/lib/i18n/react-i18next";
-import { ArrowBigDownDash, ChevronRight, Lock, TrendingDown, TrendingUp, Trophy } from "lucide-react";
+import { ArrowBigDownDash, ChevronRight, Lock, TrendingDown, TrendingUp } from "lucide-react";
 import { Decimal } from "decimal.js";
 import { toast } from "sonner";
 import { useCallback, useMemo, useState, ReactNode } from "react";
@@ -190,11 +190,8 @@ export const InnerSportsPlayToClaim = () => {
             )}
             style={{ clipPath: "polygon(0 0, calc(100% - 16px) 0, 100% 100%, 0 100%)" }}
           >
-            <div className="flex items-center gap-1">
+            <div className={clsx("flex items-center gap-1",{ "text-success !animate-none": progress2 >= 1 })}>
               <TextBaseContent text={t("bonus:currentWager")} />
-              {BonusInProgress.has(status?.status) && (
-                <Trophy className="h-4 w-4 text-primary animate-gift-shake" />
-              )}
             </div>
             <div className="truncate text-base font-extrabold transition-colors text-base-content">
               {formattedWager}
@@ -437,7 +434,7 @@ type TView = `view_${number}`;
 
 const CompareInfoRow = ({ label, value, className }: { label: ReactNode; value: ReactNode; className?: string }) => {
   return (
-    <div className={clsx("flex flex-col justify-between gap-3 rounded-lg bg-base-200 p-2", className)}>
+    <div className={clsx("flex flex-col justify-center gap-3 rounded-lg bg-base-200 p-2", className)}>
       <TextBaseContent text={label} />
       <div className="text-right text-base font-bold text-base-content">{value}</div>
     </div>

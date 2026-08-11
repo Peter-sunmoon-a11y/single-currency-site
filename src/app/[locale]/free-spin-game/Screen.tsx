@@ -119,7 +119,7 @@ function RouteComponent() {
               if (hasNextPage && !isFetchingNextPage) void fetchNextPage();
             }}
             overscan={900}
-            listClassName="grid grid-cols-3 gap-1"
+            listClassName="grid grid-cols-4 gap-1"
             itemClassName="w-full"
             itemContent={(_, item) => {
               const isSelected = selectedGame?.id === item.id;

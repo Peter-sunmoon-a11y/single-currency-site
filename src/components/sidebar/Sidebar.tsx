@@ -104,7 +104,7 @@ function SidebarNav({ className }: { className?: string }) {
       className={className ?? "mt-3 flex flex-col flex-1 overflow-y-auto overflow-x-hidden flex-nowrap w-full hide-scrollbar"}
     >
       <div>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-1 gap-1">
           {NAVIGATION_ITEMS(t, isAuthenticated).map((item: NavigationItem, index) => {
             if (item.type === "action" && item.action === "toggle-theme") {
               return (
@@ -142,7 +142,7 @@ function SidebarNav({ className }: { className?: string }) {
       </div>
       <div>
         <h2 className="text-base font-bold text-primary uppercase my-2">{t("menu:explore")}</h2>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-1 gap-1">
           {CASINO_ITEMS(t, isAuthenticated, isLoading).map((item, index) => {
             if (isLeagueEnabled && LEAGUE_EXCLUDED_IDS.some(id => item.id?.includes(id))) return null;
             if (item.type !== "item") return null;
@@ -168,7 +168,7 @@ function SidebarNav({ className }: { className?: string }) {
       <BetByLinkGuard>
         <div>
           <h2 className="text-base font-bold text-primary uppercase my-2">{t("explore:sports")}</h2>
-          <div className="grid grid-cols-2 gap-1">
+          <div className="grid grid-cols-1 gap-1">
             {SPORTS_NAVIGATION_ITEMS(t).map((item, index) => {
               if (item.type !== "item") return null;
               const { to, search } = parseSidebarPath(item.path);
@@ -220,7 +220,7 @@ function SidebarQuickActions({ onClose }: { onClose: () => void }) {
   `;
 
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] gap-1">
+    <div className="flex gap-1">
       <button
         type="button"
         className={actionClassName}
@@ -229,17 +229,7 @@ function SidebarQuickActions({ onClose }: { onClose: () => void }) {
           void navigate({ to: "/finance/deposit" });
         }}
       >
-        <span className="truncate">{t("common.deposit")}</span>
-      </button>
-      <button
-        type="button"
-        className={actionClassName}
-        onClick={() => {
-          onClose();
-          void navigate({ to: "/finance/withdraw" });
-        }}
-      >
-        <span className="truncate">{t("common.withdraw")}</span>
+        <span className="truncate uppercase">{t("common.deposit")}</span>
       </button>
       <button
         type="button"
@@ -305,7 +295,7 @@ function MobileDrawer() {
         <Drawer.Title style={{ display: "none" }} />
         <Drawer.Overlay className="fixed inset-0 bg-black/75 z-[998]" />
         <Drawer.Content
-          className="fixed left-0 w-[calc(100%-16px)] bg-transparent z-[999] outline-none"
+          className="fixed left-0 min-w-[75%] bg-transparent z-[999] outline-none"
           style={{
             top: "calc(var(--safe-area-inset-top) + var(--app-sidebar-top-offset))",
             bottom: "calc(var(--safe-area-inset-bottom) + var(--app-sidebar-bottom-gap))"
